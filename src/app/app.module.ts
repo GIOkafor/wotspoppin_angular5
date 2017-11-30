@@ -31,7 +31,6 @@ import { VenuesService } from './services/venues-service.service';
 
 //environment access
 import { environment } from './../environments/environment';
-import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   {
@@ -96,8 +95,7 @@ const routes: Routes = [
     VenueComponent,
     VenueDetailsComponent,
     VenueInformationComponent,
-    ErrorComponent,
-    HeaderComponent
+    ErrorComponent
   ],
   imports: [
     BrowserModule,

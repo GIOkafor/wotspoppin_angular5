@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database'; 
 import { Observable } from 'rxjs/Observable';
 
@@ -12,7 +13,9 @@ export class SearchComponent implements OnInit {
   venues: Observable<any[]>;
   view: any;
 
-  constructor(private db: AngularFireDatabase) { }
+  constructor(
+  	private db: AngularFireDatabase,
+  	private router: Router) { }
 
   ngOnInit() {
   	this.venues = this.getVenues();
@@ -23,9 +26,11 @@ export class SearchComponent implements OnInit {
   	return this.db.list('/Venues').valueChanges();
   }
 
-  getVenueImage(image){
-  	console.log(image);
-  	return image.toString();
+  getVenue(venue){
+  	//console.log("Getting venue: ", venue);
+
+  	//id here is the venue key property saved upon creation via cloud function
+  	this.router.navigate(['venue', venue.id]);
   }
 
   changeView(format){

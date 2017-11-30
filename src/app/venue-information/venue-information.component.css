@@ -1,0 +1,7 @@
+.venue-component{
+	text-align: center;
+}
+
+.venue-component .venue-image{
+	height: 300px;
+}

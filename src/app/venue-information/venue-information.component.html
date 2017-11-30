@@ -22,11 +22,11 @@
 				<th>Date</th>
 			</tr>
 
-			<!-- Repeat this row below --> 
-			<tr *ngFor="let event of events | async" (click)="getEventDetails(event);">
-				<td>{{event.name}}</td>
-				<td>{{event.date}}</td>
-			</tr>
+				<!-- Repeat this row below --> 
+				<tr *ngFor="let event of events$ | async" (click)="getEventDetails(event);">
+					<td>{{event.name}}</td>
+					<td>{{event.date}}</td>
+				</tr>
 
 			<div class="events-loading">
 				<!--

@@ -1,6 +1,7 @@
 import { Component, Input, OnInit, Inject, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
+import { AngularFireDatabase } from 'angularfire2/database'; 
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 import { environment } from '../../environments/environment';
@@ -22,28 +23,37 @@ export class VenueInformationComponent implements OnInit {
     menu: ""
   };
 
-  events: any;//event list for this particular venue
+  events$: any;//event list for this particular venue
   showDetails = false;//hide popup until button is clicked
   spotlightEvent: any;
   guestList: any = '';
 
   constructor(
-  	private route: ActivatedRoute,
+  	private db: AngularFireDatabase,
+    private route: ActivatedRoute,
   	private router: Router,
     private location: Location) { }
 
   ngOnInit() {
+    this.route.paramMap
+      .switchMap((params: ParamMap) => 
+        this.db.object('Venues/'+params.get('id')).valueChanges())
+        .subscribe(
+          (venue: any) => {
+            this.venue = venue;
+          });
+
+       //wait 3 seconds to get venue information from firebase before getting events
+       let timer = Observable.timer(3000);
+       timer.subscribe(t=>{
+         this.getEvents();
+       });
   }
 
   getEvents(){
-    /*
-	    this.events = this.db.list('Events', {
-	      query: {
-	        orderByChild: 'createdBy',
-	        equalTo: this.venue.name
-	      }
-	    });
-	*/
+    console.log("Getting events for venue: ", this.venue.name);
+
+    this.events$ = this.db.list('/Events', ref => ref.orderByChild('createdBy').equalTo(this.venue.name)).valueChanges();
   }
 
 //function for populating module content
