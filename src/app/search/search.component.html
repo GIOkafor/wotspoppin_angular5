@@ -1,16 +1,24 @@
 <div>
-	<ul class="nav nav-tabs">
-	  <li role="presentation" class="active"><a href="#">LIST</a></li>
-	  <li role="presentation"><a href="#">MAP</a></li>
-	</ul>
+	<nav class="nav nav-pills nav-justified">
+		<a class="nav-item nav-link" (click)="changeView('list')" [ngClass]="{'active': view === 'list'}">LIST</a>
+		<a class="nav-item nav-link" (click)="changeView('map')" [ngClass]="{'active': view === 'map'}">MAP</a>
+	</nav>
 
-	<div class="list-group search-results-list">
-		<div class="list-group-item" *ngFor="let venue of venues | async">
-			<app-venue-details [venue]="venue" (click)="getVenue(venue)"></app-venue-details>
+	<!-- Show results in list form based on selection above -->
+		<div class="list-group search-results-list" *ngIf="view === 'list'">
+			<div class="list-group-item" *ngFor="let venue of venues | async">
+				<app-venue-details [venue]="venue" (click)="getVenue(venue)"></app-venue-details>
+			</div>
+
+			<!--
+				<a class="searchIcon" md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
+			-->
 		</div>
+	<!-- List form results display end -->
 
-		<!--
-			<a class="searchIcon" md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
-		-->
-	</div>
+	<!-- Map form results start -->
+		<div class="map_results" *ngIf="view === 'map'">
+			<!-- Map -->
+		</div>
+	<!-- Map form results start -->
 </div>	

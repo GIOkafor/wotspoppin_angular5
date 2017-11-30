@@ -1,3 +1,12 @@
-<a>
-  {{venue.name}} @ {{venue.address}}
-</a>
+<div class="venue_details_container">
+
+	<img class="venue_image" [src]="venue.imageUrl">
+
+	<div class="details">
+		<span class="name">{{venue.name}}</span>
+
+		<div class="distance_and_address">
+			<span class="distance">10 km away</span> - <span class="address">{{venue.address}}</span>
+		</div>
+	</div>
+</div>

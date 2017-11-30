@@ -3,6 +3,11 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
+//firebase modules
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireAuthModule } from 'angularfire2/auth';
+
 import { AppComponent } from './app.component';
 import { AuthComponentComponent } from './auth-component/auth-component.component';
 import { CreateEventComponent } from './create-event/create-event.component';
@@ -23,6 +28,10 @@ import { AuthService } from './services/auth.service';
 import { BuddiesService } from './services/buddies.service';
 import { PaymentService } from './services/payment.service';
 import { VenuesService } from './services/venues-service.service';
+
+//environment access
+import { environment } from './../environments/environment';
+import { HeaderComponent } from './header/header.component';
 
 const routes: Routes = [
   {
@@ -87,12 +96,16 @@ const routes: Routes = [
     VenueComponent,
     VenueDetailsComponent,
     VenueInformationComponent,
-    ErrorComponent
+    ErrorComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFireDatabaseModule,
+    AngularFireAuthModule,
     RouterModule.forRoot(routes)
   ],
   providers: [

@@ -1,18 +1,20 @@
-<h1>WotsPoppin</h1>
+<div class="container">	
+	<h1>WotsPoppin</h1>
 
-<div class="authComponent">
+	<div class="authComponent">
 
-	<div class="signIn">
-		<button class="googleAuth" (click)="googleLogin();">Sign In with Google</button>
-		<button class="fbAuth" (click)="fbLogin();">Sign In with Facebook</button>
+		<div class="signIn">
+			<button class="googleAuth" (click)="googleLogin();">Sign In with Google</button>
+			<button class="fbAuth" (click)="fbLogin();">Sign In with Facebook</button>
+		</div>
+
+		<div class="signUp">
+			<button class="googleAuth" (click)="googleSignUp();">Sign Up with Google</button>
+			<button class="fbAuth" (click)="fbSignUp();">Sign Up with Facebook</button>
+		</div>
+
+		<button class="signup">Sign up</button>
+
+		<button (click)="logOut();">Logout</button>
 	</div>
-
-	<div class="signUp">
-		<button class="googleAuth" (click)="googleSignUp();">Sign Up with Google</button>
-		<button class="fbAuth" (click)="fbSignUp();">Sign Up with Facebook</button>
-	</div>
-
-	<button class="signup">Sign up</button>
-
-	<button (click)="logOut();">Logout</button>
 </div>
