@@ -1,0 +1,25 @@
+<div class="userProfile">
+	<div class="imageDiv">
+		<img class="user-image" [src]="(user|async)?.photoURL">
+	</div>
+
+	<form>
+		<div class="form-group">
+			<label for="name">Username: </label>
+			<input type="text" name="name" [ngModel]="(user | async)?.displayName">
+		</div>
+
+		<div class="form-group">
+			<label for="email">Email: </label>
+			<input type="text" name="email" [ngModel]="(user | async)?.email">
+		</div>
+	</form>
+
+	<button routerLink='/my-venues'>MyVenues</button>
+	
+	<button routerLink='/upcoming-events'>Upcoming Events</button>
+	
+	<button (click)="handlePayment()">Payment Settings</button>
+
+	<button class="logoutButton" (click)="logOut();">Logout</button>
+</div>

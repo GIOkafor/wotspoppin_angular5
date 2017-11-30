@@ -1,0 +1,19 @@
+<div class="upcoming-events">
+	<h4>Your Upcoming Events</h4>
+
+	<table class="table table-striped">
+		<tr>
+			<th>Event Name</th>
+			<th>Date</th>
+		</tr>
+
+
+		<!-- Repeat this row below --> 
+	
+		<tr *ngFor="let event of userEvents | async" (click)="getEventDetails(event);">
+			<td>{{event.name}}</td>
+			<td>{{event.date}}</td>
+		</tr>
+
+	</table>
+</div>

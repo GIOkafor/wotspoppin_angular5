@@ -1,0 +1,12 @@
+.userProfile{	
+	text-align: center;
+}
+
+img{
+	max-width: 50%;
+	border-radius: 50%;
+}
+
+.imageDiv{
+	margin-top: 10px;
+}

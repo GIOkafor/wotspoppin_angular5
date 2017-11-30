@@ -1,0 +1,16 @@
+<div>
+	<ul class="nav nav-tabs">
+	  <li role="presentation" class="active"><a href="#">LIST</a></li>
+	  <li role="presentation"><a href="#">MAP</a></li>
+	</ul>
+
+	<div class="list-group search-results-list">
+		<div class="list-group-item" *ngFor="let venue of venues | async">
+			<app-venue-details [venue]="venue" (click)="getVenue(venue)"></app-venue-details>
+		</div>
+
+		<!--
+			<a class="searchIcon" md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
+		-->
+	</div>
+</div>	

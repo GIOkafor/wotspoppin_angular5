@@ -1,0 +1,55 @@
+<div class="create-event-component">
+	<h1>Create New Event</h1>
+
+	<form 
+		[formGroup]="eventForm" 
+		(ngSubmit)="onSubmit(eventForm.value)">
+		<div class="form-group">
+			<label for="name">Name</label>
+			<input name="name" type="text" id="name" class="form-control" [formControl]="eventForm.controls['name']">
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['name'].valid && eventForm.controls['name'].touched"
+				class="bg-danger error">Event name is invalid</div>
+			<div *ngIf="eventForm.controls['name'].hasError('required') && eventForm.controls['name'].touched">Event name is required</div>
+		</div>
+
+		<div class="form-group">
+			<label for="date">Date</label>
+			<input name="date" type="date" id="date" class="form-control" [formControl]="eventForm.controls['date']" required>
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['date'].valid && eventForm.controls['date'].touched"
+				class="bg-danger error">Please enter valid date</div>
+			<div *ngIf="eventForm.controls['date'].hasError('required') && eventForm.controls['date'].touched">Event date is required</div>
+		</div>
+
+		<div class="form-group">
+			<label for="description">Description</label>
+			<input name="description" type="text" id="description" class="form-control" [formControl]="eventForm.controls['description']" required>
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['description'].valid && eventForm.controls['description'].touched"
+				class="bg-danger error">Description is invalid</div>
+			<div *ngIf="eventForm.controls['description'].hasError('required') && eventForm.controls['description'].touched">Please enter short description of event</div>
+		</div>
+
+		<!-- TODO : change this to file upload -->
+		<div class="form-group">
+			<label for="promoImage">Link to flyer image</label>
+			<input name="promoImage" type="text" id="promoImage" class="form-control" [formControl]="eventForm.controls['promoImage']" required>
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['promoImage'].valid && eventForm.controls['promoImage'].touched"
+				class="bg-danger error">PromoImage URL is invalid</div>
+			<div *ngIf="eventForm.controls['promoImage'].hasError('required') && eventForm.controls['promoImage'].touched">An image is required</div>
+		</div>
+
+		<!-- Form validation error message -->
+		<div *ngIf="!eventForm.valid && eventForm.touched" class="bg-danger">
+			<p>Form is invalid, please fill in all required fields</p>
+		</div>
+
+		<button [disabled]="!eventForm.valid" type="submit" class="btn btn-success">Submit</button>
+	</form>
+</div>
