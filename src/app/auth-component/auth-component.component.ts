@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import * as firebase from 'firebase/app';
 
 @Component({
   selector: 'app-auth-component',
@@ -7,9 +11,69 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AuthComponentComponent implements OnInit {
 
-  constructor() { }
+  newUser: boolean = false;
+
+  constructor(
+  	public afAuth: AngularFireAuth,
+  	public db: AngularFireDatabase) { }
 
   ngOnInit() {
+  	firebase.auth().onAuthStateChanged(user => {
+  		//console.log("Auth state has changed, user: ", user);
+
+  		if(user){
+	  		//build user object
+				var currentUser = {
+					'uid': user.uid,
+					'email': user.email
+				}
+
+			localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  		}
+  	})
   }
+
+  showSignUp(){
+  	this.newUser = true;
+  }
+
+  showLogin(){
+  	this.newUser = false;
+  }
+
+  //facebook auth methods start
+  fbSignUp(){
+  	this.afAuth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
+  }
+
+  fbLogin(){
+  	this.afAuth.auth.signInWithRedirect(new firebase.auth.FacebookAuthProvider());
+  }
+  //facebook auth methods end
+
+  //google auth method starts
+  googleSignUp(){
+  	this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+  }
+
+  googleLogin(){
+  	this.afAuth.auth.signInWithRedirect(new firebase.auth.GoogleAuthProvider());
+  }
+  //google auth method ends
+
+  logout() {
+    this.afAuth.auth.signOut();
+    localStorage.removeItem('currentUser');
+  }
+
+  /*	
+	  //check if user exists in db
+	  checkIfUserExists(){
+	  	var currentUser = JSON.parse(localStorage.getItem('currentUser'));
+	  	console.log(currentUser.uid);
+
+	  	return this.db.list('Users/' + currentUser.uid '/userInfo').valueChanges();
+	  }
+  */
 
 }

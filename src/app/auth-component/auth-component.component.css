@@ -1,0 +1,32 @@
+.authContainer{
+	background-image: url("/assets/skyline_night.jpg");
+	height: 100vh;
+	color: #fff;
+}
+
+.title{
+	text-align: center;
+	font-size: 4em;
+}
+
+.btn{
+	color: #fff;
+}
+
+.signIn, .signUp{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.btn{
+	margin-bottom: 10px;
+}
+
+.googleAuth{
+	background-color: #c5513a;
+}
+
+.fbAuth{
+	background-color: #396cbe;
+}

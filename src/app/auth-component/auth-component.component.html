@@ -1,20 +1,28 @@
-<div class="container">	
-	<h1>WotsPoppin</h1>
+<div class="authContainer">
+	<div class="container">	
+		<h1 class="title">WotsPoppin</h1>
 
-	<div class="authComponent">
+		<div class="authComponent">
 
-		<div class="signIn">
-			<button class="googleAuth" (click)="googleLogin();">Sign In with Google</button>
-			<button class="fbAuth" (click)="fbLogin();">Sign In with Facebook</button>
+			<div class="signIn" *ngIf="!newUser">
+				<h3>SIGN IN</h3>
+				<button class="googleAuth btn" (click)="googleLogin();">Sign In with Google</button>
+				<button class="fbAuth btn" (click)="fbLogin();">Sign In with Facebook</button>
+
+				<span class="noAccount" (click)="showSignUp();">Don't have an account?</span>
+			</div>
+
+			<div class="signUp" *ngIf="newUser">
+				<button class="googleAuth btn" (click)="googleSignUp();">Sign Up with Google</button>
+				<button class="fbAuth btn" (click)="fbSignUp();">Sign Up with Facebook</button>
+
+				<span class="hasAccount" (click)="showLogin();">Already have an account? Sign In Instead</span>
+			</div>
+
 		</div>
 
-		<div class="signUp">
-			<button class="googleAuth" (click)="googleSignUp();">Sign Up with Google</button>
-			<button class="fbAuth" (click)="fbSignUp();">Sign Up with Facebook</button>
-		</div>
-
-		<button class="signup">Sign up</button>
-
-		<button (click)="logOut();">Logout</button>
+		<!--	
+			<button style="margin-left: 40%;" class="btn" (click)="logout();">Logout</button>
+		-->
 	</div>
 </div>
