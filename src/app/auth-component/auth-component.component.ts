@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -15,7 +16,8 @@ export class AuthComponentComponent implements OnInit {
 
   constructor(
   	public afAuth: AngularFireAuth,
-  	public db: AngularFireDatabase) { }
+  	public db: AngularFireDatabase,
+    public router: Router) { }
 
   ngOnInit() {
   	firebase.auth().onAuthStateChanged(user => {
@@ -29,6 +31,8 @@ export class AuthComponentComponent implements OnInit {
 				}
 
 			localStorage.setItem('currentUser', JSON.stringify(currentUser));
+
+      this.router.navigate(['venues']);
   		}
   	})
   }

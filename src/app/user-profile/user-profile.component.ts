@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @Component({
   selector: 'app-user-profile',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+  	public afAuth: AngularFireAuth,
+  	public router: Router) { }
 
   ngOnInit() {
+  }
+
+  logOut() {
+    this.afAuth.auth.signOut();
+    localStorage.removeItem('currentUser');
+    this.router.navigate(['authenticate']);
   }
 
 }
