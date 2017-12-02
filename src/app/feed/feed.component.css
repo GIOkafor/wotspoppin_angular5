@@ -1,0 +1,45 @@
+.navbar{
+	justify-content: space-around;
+	background-color: black;
+    color: #e18047;
+    border-bottom: 1px solid #ccc;
+}
+
+.feed_container{
+	height: 100vh;
+	background-color: black;
+	color: #e18047;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+
+.uploader_image{
+	height: 50px;
+    width: 50px;
+	margin-left: 25px;
+    margin-right: 25px;
+}
+
+.media_image{
+	width: 400px;
+}
+
+.media_footer{
+	padding: 10px;
+}
+
+.media_footer i{
+	padding: 10px 20px;
+}
+
+.reactions{
+	color: #fff;
+}
+
+.reactions .comment_text{
+	font-weight: lighter;
+    color: #ccc;
+}

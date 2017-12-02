@@ -1,0 +1,74 @@
+<div class="feed_container">
+	<div class="feed_header navbar sticky-top" role="navigation">
+		
+		<div class="image-upload">
+		    <label for="file-input">
+		        <i class="fa fa-2x fa-camera" aria-hidden="true" type="file"></i>
+		    </label>
+
+		    <input id="file-input" type="file" (change)="detectFiles($event)"/>
+		</div>
+
+		<i class="fa fa-2x fa-video-camera" aria-hidden="true" (click)="uploadVideo();"></i>
+	</div>
+
+	<div class="feed_body">
+		
+		<!-- feed items container -->
+		<div class="feed_items">
+			
+			<!-- Individual feed item repeated -->
+			<div class="feed_item">
+				<!-- feed item header section start -->
+				<div class="feed_item_header">
+					<img class="uploader_image" src="assets/female-19.jpg">
+
+					<span class="uploadedBy">Rina Hamrnond</span>
+
+					<span class="time">5m</span>
+				</div>
+				<!-- feed item header section end -->
+
+				<!-- feed media start -->
+				<div class="media_container">
+					<img class="media_image" src="http://ktvk.images.worldnow.com/images/9548323_G.jpg">
+
+					<!-- media footer - where all user actions stay - starts -->
+					<div class="media_footer">
+						<i class="fa fa-lg fa-heart-o" (click)="likeMedia();"></i>
+
+						<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia();"></i>
+					</div>
+					<!-- media footer end -->
+
+					<!-- media reactions - likes and comments -->
+					<div class="container reactions">
+						<div class="likes">
+							<i class="fa fa-lg fa-heart"></i> 315 likes
+						</div>
+
+						<div class="comments">
+							
+							<!-- Repeat section below for each comment -->
+							<div class="comment">
+								<span class="commenter_name">creeper96</span>
+								<span class="comment_text">Nice photo</span>
+							</div>
+							<!-- end comment repeat -->
+						</div>
+					</div>
+					<!-- /media reactions - likes and comments -->
+
+				</div>
+				<!-- feed media end -->
+
+			</div>
+			<!-- Individual feed item ends -->
+
+		</div>
+		<!-- feed items container closes -->
+
+	</div>
+</div>
+
+<app-footer></app-footer>

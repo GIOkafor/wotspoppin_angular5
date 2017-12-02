@@ -21,6 +21,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { VenueComponent } from './venue/venue.component';
 import { VenueDetailsComponent } from './venue-details/venue-details.component';
 import { VenueInformationComponent } from './venue-information/venue-information.component';
+import { FeedComponent } from './feed/feed.component';
 import { ErrorComponent } from './auth-component/error/error.component';
 
 //services
@@ -28,6 +29,7 @@ import { AuthService } from './services/auth.service';
 import { BuddiesService } from './services/buddies.service';
 import { PaymentService } from './services/payment.service';
 import { VenuesService } from './services/venues-service.service';
+import { UploadService } from './services/upload.service';
 
 //environment access
 import { environment } from './../environments/environment';
@@ -37,6 +39,10 @@ const routes: Routes = [
     path: '',
     redirectTo: 'venues',
     pathMatch: 'full'
+  },
+  {
+    path: 'feed',
+    component: FeedComponent
   },
   {
     path: 'authenticate',
@@ -95,7 +101,8 @@ const routes: Routes = [
     VenueComponent,
     VenueDetailsComponent,
     VenueInformationComponent,
-    ErrorComponent
+    ErrorComponent,
+    FeedComponent
   ],
   imports: [
     BrowserModule,
@@ -110,7 +117,8 @@ const routes: Routes = [
     AuthService,
     BuddiesService,
     PaymentService,
-    VenuesService
+    VenuesService,
+    UploadService
   ],
   bootstrap: [AppComponent]
 })
