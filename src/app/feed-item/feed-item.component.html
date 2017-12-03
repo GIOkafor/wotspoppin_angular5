@@ -35,7 +35,7 @@
 					<i class="fa fa-lg fa-heart" *ngIf="media.likes.count > 0"></i> {{media.likes.count}} likes
 				</div>
 
-				<div class="comments" *ngFor="let comment of media.comments">
+				<div class="comments" *ngFor="let comment of media.comments | objToArray">
 					
 					<!-- Repeat section below for each comment -->
 

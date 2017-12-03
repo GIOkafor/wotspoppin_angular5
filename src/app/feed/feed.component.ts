@@ -4,6 +4,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Upload } from '../classes/upload';
 import { UploadService } from '../services/upload.service';
 import { Observable } from 'rxjs/Observable';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-feed',
@@ -19,7 +20,8 @@ export class FeedComponent implements OnInit {
   constructor(
     private router: Router,
     private upSvc: UploadService,
-    private db: AngularFireDatabase) { 
+    private db: AngularFireDatabase,
+    private authSvc: AuthService) { 
   	
   }
 
@@ -51,8 +53,36 @@ export class FeedComponent implements OnInit {
   	console.log("Uploading video");
   }
 
-  likeMedia(key){
-  	console.log("Liking media with key: ", key);
+  likeMedia(media){
+    console.log("Liking media: ", media.key);
+
+    var currentUserUid = this.authSvc.getCurrentUser().uid;
+    var users = media.val.likes.users;
+    console.log(users);
+
+    
+
+    //check if user has liked image already
+    for(var user in users) {
+      //console.log("User is: ", user);
+
+      if(users[user].uid === currentUserUid){
+        console.log("User already liked photo");
+        return    
+      }else{
+        console.log("Liking photo");
+      }
+
+    })
+
+    //update count in view
+    media.val.likes.count++;
+    //update count in db
+    this.db.object('uploads/' + media.key + '/likes').update({count: media.val.likes.count});
+
+    //add user who liked to list of users that liked photo
+    this.db.list('uploads/' + media.key + '/likes/users').push({uid: currentUserUid});
+    
   }
 
   //opens up view with media and text box so user can leave comment

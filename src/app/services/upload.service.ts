@@ -70,4 +70,20 @@ export class UploadService {
     let storageRef = this.af.storage().ref();
     storageRef.child(`${this.basePath}/${name}`).delete()
   }
+
+  //posts comment on user image
+  public postComment(key, comment){
+    var currentUser = this.authSvc.getCurrentUser();
+
+    //build comment object
+    var comm = {
+      displayName: currentUser.displayName,
+      userUid: currentUser.uid,
+      commentText: comment
+    }
+
+    //console.log("Comment object is: ", comm);
+
+    this.db.list('uploads/'+ key + '/comments').push(comm);
+  }
 }

@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Pipe } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
+import { UploadService } from '../services/upload.service';
 
 @Component({
   selector: 'app-feed-item',
@@ -20,7 +21,8 @@ export class FeedItemComponent implements OnInit {
   	private location: Location,
   	private route: ActivatedRoute,
   	private db: AngularFireDatabase,
-  	private authSvc: AuthService) { 
+  	private authSvc: AuthService,
+  	private uploadSvc: UploadService) { 
   		//store media key for db manipulation functions
   		this.route.paramMap.subscribe((params:paramMap) => this.mediaKey = params.get('id'));
   }
@@ -47,7 +49,7 @@ export class FeedItemComponent implements OnInit {
   			//console.log("User already liked photo");
   			return		
   		}else{
-  			console.log("Liking photo");
+  			//console.log("Liking photo");
   		}
 
   	})
@@ -62,7 +64,8 @@ export class FeedItemComponent implements OnInit {
   }
 
   postComment(comment){
-  	console.log("Comment is : ", comment);
+  	//console.log("Comment is : ", comment);
+  	this.uploadSvc.postComment(this.mediaKey, comment);
   }
 
   goBack(){

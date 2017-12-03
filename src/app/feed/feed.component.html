@@ -36,7 +36,7 @@
 
 					<!-- media footer - where all user actions stay - starts -->
 					<div class="media_footer">
-						<i class="fa fa-lg fa-heart-o" (click)="likeMedia(item.key);"></i>
+						<i class="fa fa-lg fa-heart-o" (click)="likeMedia(item);"></i>
 
 						<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia(item.key);"></i>
 					</div>
@@ -44,16 +44,16 @@
 
 					<!-- media reactions - likes and comments -->
 					<div class="container reactions">
-						<div class="likes">
-							<i class="fa fa-lg fa-heart"></i> 315 likes
+						<div class="likes" *ngIf="item.val.likes">
+							<i class="fa fa-lg fa-heart"></i> {{item.val.likes.count}} likes
 						</div>
 
-						<div class="comments">
+						<div class="comments" *ngFor="let comment of item.val.comments | objToArray">
 							
 							<!-- Repeat section below for each comment -->
 							<div class="comment">
-								<span class="commenter_name">creeper96</span>
-								<span class="comment_text">Nice photo</span>
+								<span class="commenter_name">{{comment.displayName}}</span>
+								<span class="comment_text">{{comment.commentText}}</span>
 							</div>
 							<!-- end comment repeat -->
 						</div>

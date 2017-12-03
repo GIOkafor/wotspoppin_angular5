@@ -32,6 +32,9 @@ import { PaymentService } from './services/payment.service';
 import { VenuesService } from './services/venues-service.service';
 import { UploadService } from './services/upload.service';
 
+//pipes
+import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
+
 //environment access
 import { environment } from './../environments/environment';
 
@@ -108,7 +111,8 @@ const routes: Routes = [
     VenueInformationComponent,
     ErrorComponent,
     FeedComponent,
-    FeedItemComponent
+    FeedItemComponent,
+    ObjToArrayPipe
   ],
   imports: [
     BrowserModule,
