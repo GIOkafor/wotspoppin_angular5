@@ -73,7 +73,7 @@ export class FeedComponent implements OnInit {
         console.log("Liking photo");
       }
 
-    })
+    }
 
     //update count in view
     media.val.likes.count++;

@@ -52,7 +52,7 @@ export class FeedItemComponent implements OnInit {
   			//console.log("Liking photo");
   		}
 
-  	})
+  	}
 
   	//update count in view
   	this.media.likes.count++;

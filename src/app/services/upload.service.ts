@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Upload } from '../classes/upload';
-import { AngularFireDatabase } from 'angularfire2/database'; 
+import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'; 
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseApp } from 'angularfire2';
