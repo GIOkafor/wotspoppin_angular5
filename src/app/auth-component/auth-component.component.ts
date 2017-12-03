@@ -27,7 +27,8 @@ export class AuthComponentComponent implements OnInit {
 	  		//build user object
 				var currentUser = {
 					'uid': user.uid,
-					'email': user.email
+					'email': user.email,
+          'displayName': user.displayName
 				}
 
 			localStorage.setItem('currentUser', JSON.stringify(currentUser));

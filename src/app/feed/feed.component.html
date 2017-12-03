@@ -15,7 +15,7 @@
 	<div class="feed_body">
 		
 		<!-- feed items container -->
-		<div class="feed_items">
+		<div class="feed_items" *ngFor="let item of feedItems | async">
 			
 			<!-- Individual feed item repeated -->
 			<div class="feed_item">
@@ -23,21 +23,22 @@
 				<div class="feed_item_header">
 					<img class="uploader_image" src="assets/female-19.jpg">
 
-					<span class="uploadedBy">Rina Hamrnond</span>
+					<span class="uploadedBy">{{item.val.displayName}}</span>
 
+					<!-- make this time set by cloud function -->
 					<span class="time">5m</span>
 				</div>
 				<!-- feed item header section end -->
 
 				<!-- feed media start -->
 				<div class="media_container">
-					<img class="media_image" src="http://ktvk.images.worldnow.com/images/9548323_G.jpg">
+					<img class="media_image" [src]="item.val.url">
 
 					<!-- media footer - where all user actions stay - starts -->
 					<div class="media_footer">
-						<i class="fa fa-lg fa-heart-o" (click)="likeMedia();"></i>
+						<i class="fa fa-lg fa-heart-o" (click)="likeMedia(item.key);"></i>
 
-						<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia();"></i>
+						<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia(item.key);"></i>
 					</div>
 					<!-- media footer end -->
 

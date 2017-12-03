@@ -22,6 +22,7 @@ import { VenueComponent } from './venue/venue.component';
 import { VenueDetailsComponent } from './venue-details/venue-details.component';
 import { VenueInformationComponent } from './venue-information/venue-information.component';
 import { FeedComponent } from './feed/feed.component';
+import { FeedItemComponent } from './feed-item/feed-item.component';
 import { ErrorComponent } from './auth-component/error/error.component';
 
 //services
@@ -43,6 +44,10 @@ const routes: Routes = [
   {
     path: 'feed',
     component: FeedComponent
+  },
+  {
+    path: 'feed-item/:id',
+    component: FeedItemComponent
   },
   {
     path: 'authenticate',
@@ -102,7 +107,8 @@ const routes: Routes = [
     VenueDetailsComponent,
     VenueInformationComponent,
     ErrorComponent,
-    FeedComponent
+    FeedComponent,
+    FeedItemComponent
   ],
   imports: [
     BrowserModule,

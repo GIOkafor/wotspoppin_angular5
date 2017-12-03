@@ -1,36 +1,32 @@
-.navbar{
-	justify-content: space-around;
+.feed_item_container{
 	background-color: black;
-    color: #e18047;
-    border-bottom: 1px solid #ccc;
+	height: 100vh;
+	padding-bottom: 70px;
 }
 
-.feed_container{
-	background-color: black;
-	color: #e18047;
-	padding-bottom: 60px;
+.back_btn{
+	background-color: #d98451;
+	border-radius: 0px;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    width: 50px;
+    margin-top: 5px;
+    margin-left: 5px;
 }
 
-.feed_items{
-	padding-top: 10px;
-}
 .feed_item{
 	margin-bottom: 40px;
 }
 
 .feed_item_header{
 	margin-bottom: 10px;
-}
-
-.image-upload > input
-{
-    display: none;
+	color: #e18047;
 }
 
 .uploader_image{
 	height: 50px;
     width: 50px;
-	margin-left: 25px;
+	margin-left: 8px;
     margin-right: 25px;
 }
 
@@ -52,6 +48,7 @@
 
 .media_footer i{
 	padding: 10px 20px;
+	color: #e18047;
 }
 
 .reactions{
