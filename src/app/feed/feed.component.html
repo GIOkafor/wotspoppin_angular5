@@ -21,12 +21,14 @@
 			<div class="feed_item">
 				<!-- feed item header section start -->
 				<div class="feed_item_header">
-					<img class="uploader_image" src="assets/female-19.jpg">
+					<div>	
+						<img class="uploader_image" [src]="item.val.userUid | userImageUrl | async">
 
-					<span class="uploadedBy">{{item.val.displayName}}</span>
+						<span class="uploadedBy">{{item.val.displayName}}</span>
+					</div>
 
 					<!-- make this time set by cloud function -->
-					<span class="time">5m</span>
+					<span class="time">{{item.val.createdAt | timeAgoC | async}}</span>
 				</div>
 				<!-- feed item header section end -->
 
@@ -48,10 +50,10 @@
 							<i class="fa fa-lg fa-heart"></i> {{item.val.likes.count}} likes
 						</div>
 
-						<div class="comments" *ngFor="let comment of item.val.comments | objToArray">
+						<div class="comments" *ngFor="let comment of item.val.comments | objToArray; let first = first;">
 							
-							<!-- Repeat section below for each comment -->
-							<div class="comment">
+							<!-- Show only first comment will, be changed to caption in the future -->
+							<div class="comment" *ngIf="first">
 								<span class="commenter_name">{{comment.displayName}}</span>
 								<span class="comment_text">{{comment.commentText}}</span>
 							</div>

@@ -24,7 +24,7 @@ export class FeedItemComponent implements OnInit {
   	private authSvc: AuthService,
   	private uploadSvc: UploadService) { 
   		//store media key for db manipulation functions
-  		this.route.paramMap.subscribe((params:paramMap) => this.mediaKey = params.get('id'));
+  		this.route.paramMap.subscribe((params:ParamMap) => this.mediaKey = params.get('id'));
   }
 
   ngOnInit() {

@@ -8,6 +8,10 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+//3rd party modules
+import { TimeAgoPipe } from 'time-ago-pipe';
+
+//app components
 import { AppComponent } from './app.component';
 import { AuthComponentComponent } from './auth-component/auth-component.component';
 import { CreateEventComponent } from './create-event/create-event.component';
@@ -24,6 +28,8 @@ import { VenueInformationComponent } from './venue-information/venue-information
 import { FeedComponent } from './feed/feed.component';
 import { FeedItemComponent } from './feed-item/feed-item.component';
 import { ErrorComponent } from './auth-component/error/error.component';
+import { MyPhotosComponent } from './user-profile/my-photos/my-photos.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 //services
 import { AuthService } from './services/auth.service';
@@ -34,6 +40,8 @@ import { UploadService } from './services/upload.service';
 
 //pipes
 import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
+import { UserImageUrlPipe } from './pipes/user-image-url.pipe';
+import { TimeAgoCPipe } from './pipes/time-ago-c.pipe';
 
 //environment access
 import { environment } from './../environments/environment';
@@ -112,7 +120,12 @@ const routes: Routes = [
     ErrorComponent,
     FeedComponent,
     FeedItemComponent,
-    ObjToArrayPipe
+    ObjToArrayPipe,
+    UserImageUrlPipe,
+    TimeAgoPipe,
+    TimeAgoCPipe,
+    MyPhotosComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,

@@ -20,6 +20,15 @@
 
 .feed_item_header{
 	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+}
+
+.time{
+	padding-bottom: 5px;
+    margin-right: 10px;
+    color: grey;
 }
 
 .image-upload > input

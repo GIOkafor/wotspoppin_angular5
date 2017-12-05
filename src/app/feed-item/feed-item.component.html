@@ -6,12 +6,14 @@
 	<div class="feed_item" *ngIf="media">
 		<!-- feed item header section start -->
 		<div class="feed_item_header">
-			<img class="uploader_image" src="assets/female-19.jpg">
+			<div>	
+				<img class="uploader_image" [src]="media.userUid | userImageUrl | async">
 
-			<span class="uploadedBy">{{media.displayName}}</span>
+				<span class="uploadedBy">{{media.displayName}}</span>
+			</div>
 
 			<!-- make this time set by cloud function -->
-			<span class="time">5m</span>
+			<span class="time">{{media.createdAt | timeAgoC | async}}</span>
 		</div>
 		<!-- feed item header section end -->
 
@@ -54,12 +56,12 @@
 
 	</div>
 
-	<div class="input-group new_comment_container">
+	<div class="input-group new_comment_container fixed-bottom">
 
-      <input type="text" class="form-control" placeholder="Enter new comment" aria-label="Enter new comment" #newComment>
+      <input type="text" class="form-control new_comment" placeholder="Enter new comment" aria-label="Enter new comment" #newComment>
 
       <span class="input-group-btn">
-        <button class="btn btn-secondary" type="button" (click)="postComment(newComment.value);">
+        <button class="btn btn-secondary new_comment_btn" type="button" (click)="postComment(newComment.value);">
         	<i class="fa fa-paper-plane" aria-hidden="true"></i>
         </button>
       </span>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Upload } from '../classes/upload';
-import { AngularFireDatabase, FirebaseListObservable } from 'angularfire2/database'; 
+import { AngularFireDatabase } from 'angularfire2/database'; 
+//import { AngularFireDatabase, FirebaseListObservable } from "angularfire2/database-deprecated";
 import { AuthService } from './auth.service';
 import { Observable } from 'rxjs/Observable';
 import { FirebaseApp } from 'angularfire2';
@@ -16,7 +17,7 @@ export class UploadService {
     private authSvc: AuthService) { }
 
   private basePath:string = '/uploads';
-  uploads: FirebaseListObservable<Upload[]>;
+  uploads: any;
 
   pushUpload(upload: Upload) {
     let storageRef = this.af.storage().ref();
@@ -24,7 +25,7 @@ export class UploadService {
     uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
       (snapshot) =>  {
         // upload in progress
-        upload.progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+        upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100
       },
       (error) => {
         // upload failed

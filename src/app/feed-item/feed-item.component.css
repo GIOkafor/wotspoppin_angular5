@@ -20,7 +20,16 @@
 
 .feed_item_header{
 	margin-bottom: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
 	color: #e18047;
+}
+
+.time{
+	padding-bottom: 5px;
+    margin-right: 10px;
+    color: grey;
 }
 
 .uploader_image{
@@ -58,4 +67,8 @@
 .reactions .comment_text{
 	font-weight: lighter;
     color: #ccc;
+}
+
+.new_comment, .new_comment_btn{
+	border-radius: 0px;
 }
