@@ -1,0 +1,109 @@
+.top-nav{
+	background-color: black;
+	color: #ea7a3b;
+	display: flex;
+	justify-content: space-between;
+}
+
+.top-nav .fa{
+	padding: 10px;
+}
+
+.venue-component{
+	text-align: center;
+	background-color: black;
+    color: #fff;
+	height: 100vh;
+}
+
+.venue_image{
+	height: 300px;
+	width: 100%;
+}
+
+.venue_details_container .details{
+	margin-top: -50px;
+    color: #fff;
+    background-color: #000000a6;
+    position: relative;
+    padding-left: 20px;
+}
+
+.event_date{
+	padding-top: 6px;
+}
+
+.event_details_container{
+	height: 100vh;
+    background-color: black;
+    color: #fff;
+}
+
+.guest_list_header{
+	width: 100%;
+    padding: 10px;
+    text-align: center;
+    background-color: #e18047;
+}
+
+.guest_list_info{
+	text-align: center;
+}
+
+.people_attending{
+	padding-top: 20px;
+}
+
+.demographics{
+	display: flex;
+    width: 100%;
+    justify-content: space-around;
+    padding: 10px 20px;
+}
+
+.demographics .males, .demographics .females{
+	display: flex;
+    padding: 10px;
+}
+
+.icon_container{
+	padding-right: 5px;
+}
+
+.demographics .fa{
+	color: #e18047;
+}
+
+.demo_count{
+	padding: 15px;
+    border: 1px solid white;
+    border-radius: 50%;
+}
+
+.cta{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+.event_reservation{
+	padding: 10px;
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+}
+.action{
+	padding: 10px;
+    width: 30%;
+    text-align: center;
+    border: 1px solid;
+    border-radius: 20px;
+    cursor: pointer;
+}
+.action.active{
+	color: #e18047;
+}
+.invite_friends{
+	width: 95%;
+	color: #fff;
+    background-color: #e18047;
+}

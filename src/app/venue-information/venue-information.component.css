@@ -1,7 +1,34 @@
-.venue-component{
-	text-align: center;
+.top-nav{
+	background-color: black;
+	color: #ea7a3b;
+	display: flex;
+	justify-content: space-between;
 }
 
-.venue-component .venue-image{
+.top-nav .fa{
+	padding: 10px;
+}
+
+.venue-component{
+	text-align: center;
+	background-color: black;
+    color: #fff;
+	height: 100vh;
+}
+
+.venue_image{
 	height: 300px;
+	width: 100%;
+}
+
+.venue_details_container .details{
+	margin-top: -50px;
+    color: #fff;
+    background-color: #000000a6;
+    position: relative;
+    padding-left: 20px;
+}
+
+.events h4{
+	margin-top: 8px;
 }

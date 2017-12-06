@@ -1,0 +1,21 @@
+<div class="top-nav">
+	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
+
+	<h5>Invite Friends</h5>
+
+	<i class="fa fa-lg fa-search" aria-hidden="true"></i>
+</div>
+
+<div class="invite_friends_container">
+	<div class="friends_list">
+		<!--{{buddies | async | json}}-->
+		<!-- repeat for each friend -->
+		<div class="friend" *ngFor="let buddy of buddies | async">
+			<img class="friend_image" [src]="buddy.payload.val() | userImageUrl | async" />
+			<span class="friend_name">{{buddy.payload.val() | userDisplayName | async}}</span>
+			<button class="btn" (click)="inviteUser(buddy.payload.val())">Invite</button>
+		</div>
+	</div>
+</div>
+
+<app-footer></app-footer>

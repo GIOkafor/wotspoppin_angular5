@@ -53,14 +53,14 @@ export class VenueInformationComponent implements OnInit {
   getEvents(){
     console.log("Getting events for venue: ", this.venue.name);
 
-    this.events$ = this.db.list('/Events', ref => ref.orderByChild('createdBy').equalTo(this.venue.name)).valueChanges();
+    this.events$ = this.db.list('/Events', ref => ref.orderByChild('createdBy').equalTo(this.venue.name)).snapshotChanges();
   }
 
 //function for populating module content
   getEventDetails(event: any){
-    console.log("Getting event details for event key: "+event.$key);
-    this.spotlightEvent = event;
-    this.showDetails = true;
+    console.log("Getting event details for event key: "+event.key);
+
+    this.router.navigate(['event-details', event.key]);
   }
 
   hideDetails(){

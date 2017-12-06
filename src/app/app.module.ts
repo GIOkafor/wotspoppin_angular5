@@ -31,6 +31,7 @@ import { FeedItemComponent } from './feed-item/feed-item.component';
 import { ErrorComponent } from './auth-component/error/error.component';
 import { MyPhotosComponent } from './user-profile/my-photos/my-photos.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { InviteFriendsComponent } from './invite-friends/invite-friends.component';
 
 //services
 import { AuthService } from './services/auth.service';
@@ -44,6 +45,8 @@ import { UserMediaService } from './services/user-media.service';
 import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
 import { UserImageUrlPipe } from './pipes/user-image-url.pipe';
 import { TimeAgoCPipe } from './pipes/time-ago-c.pipe';
+import { VenueInfoPipe } from './pipes/venue-info.pipe';
+import { UserDisplayNamePipe } from './pipes/user-display-name.pipe';
 
 //environment access
 import { environment } from './../environments/environment';
@@ -109,6 +112,10 @@ const routes: Routes = [
     component: EventDetailsComponent
   },
   {
+    path: 'invite-friends',
+    component: InviteFriendsComponent
+  },
+  {
     path: '**',
     component: SearchComponent
   }
@@ -137,7 +144,10 @@ const routes: Routes = [
     TimeAgoPipe,
     TimeAgoCPipe,
     MyPhotosComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    VenueInfoPipe,
+    InviteFriendsComponent,
+    UserDisplayNamePipe
   ],
   imports: [
     BrowserModule,
