@@ -1,5 +1,14 @@
+.user_profile_header{
+	color: #e18047;
+    background-color: black;
+    border-bottom: 1px solid #8e8e8e;
+}
+.fa-ellipsis-v::after{
+    content: none;
+}
 .userProfile{	
 	text-align: center;
+	background-color: black;
 }
 
 img{
@@ -8,5 +17,56 @@ img{
 }
 
 .imageDiv{
-	margin-top: 10px;
+	padding-top: 80px;
+    padding-bottom: 25px;
+    /* For now use placeholder image, later switch to user defined cover image */
+    background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/4f/Toronto.Night.PNG);
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+}
+
+.userinfo_text_container{
+	background-color: rgba(0, 0, 0, .8);
+    padding: 10px;
+    margin-top: 20px;
+}
+
+span.username{
+	font-size: 20px;
+}
+
+.posts_and_friends{
+	font-size: 14px;
+}
+
+.posts_and_friends .posts_count{
+	margin-right: 40px;
+}
+
+.user_profile_subnav{
+	background-color: #e18047;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px;
+}
+
+.user_profile_subnav .nav-item{
+	width: 33%;
+    padding: 10px 0px;
+}
+
+.user_profile_subnav .active{
+	background-color: #c65c20;
+}
+
+.dynamic_section{
+	background-color: black;
+	height: 100vh;
+    color: #fff;
 }

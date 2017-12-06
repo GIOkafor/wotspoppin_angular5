@@ -9,6 +9,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //3rd party modules
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimeAgoPipe } from 'time-ago-pipe';
 
 //app components
@@ -37,6 +38,7 @@ import { BuddiesService } from './services/buddies.service';
 import { PaymentService } from './services/payment.service';
 import { VenuesService } from './services/venues-service.service';
 import { UploadService } from './services/upload.service';
+import { UserMediaService } from './services/user-media.service';
 
 //pipes
 import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
@@ -66,7 +68,13 @@ const routes: Routes = [
   },
   {
     path: 'profile',
-    component: UserProfileComponent
+    component: UserProfileComponent,
+    children: [
+      {path: 'my-photos', component: MyPhotosComponent},
+      {path: 'notifications', component: NotificationsComponent},
+      {path: 'upcoming-events', component: UpcomingEventsComponent},
+      { path: '', redirectTo: '/profile/my-photos', pathMatch: 'full'}
+    ]
   },
   {
     path: 'venues',
@@ -95,6 +103,10 @@ const routes: Routes = [
   {
     path: 'upcoming-events',
     component: UpcomingEventsComponent
+  },
+  {
+    path: 'event-details/:id',
+    component: EventDetailsComponent
   },
   {
     path: '**',
@@ -134,14 +146,16 @@ const routes: Routes = [
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireDatabaseModule,
     AngularFireAuthModule,
-    RouterModule.forRoot(routes)
+    RouterModule.forRoot(routes),
+    NgbModule.forRoot()
   ],
   providers: [
     AuthService,
     BuddiesService,
     PaymentService,
     VenuesService,
-    UploadService
+    UploadService,
+    UserMediaService
   ],
   bootstrap: [AppComponent]
 })

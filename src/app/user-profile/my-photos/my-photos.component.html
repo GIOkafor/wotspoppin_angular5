@@ -1,3 +1,8 @@
-<p>
-  my-photos works!
-</p>
+<div class="container">
+	<!-- repeat photos that belong to particular user -->
+	<div class="row photos">
+		<span class="col-6" *ngFor="let media of myMedia | async">
+			<img [src]="media.payload.val().url">
+		</span>
+	</div>
+</div>

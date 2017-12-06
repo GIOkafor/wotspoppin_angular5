@@ -1,32 +1,66 @@
 <nav class="navbar fixed-top user_profile_header">
-	<i class="fa fa-envelope-o" aria-hidden="true"></i>
-	<i class="fa fa-ellipsis-v" aria-hidden="true"></i>
+	<i class="fa fa-lg fa-envelope-o" aria-hidden="true"></i>
+	
+	<div class="dropdown" ngbDropdown>	
+		<!--
+			<i class="fa fa-lg fa-ellipsis-v btn" type="button" id="dropDownMenuButton" aria-hidden="true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle></i>
+		-->
+
+		<a class="nav-link dropdown-toggle" id="dropDownMenuButton" ngbDropdownToggle>Settings</a>
+
+		<div class="dropdown-menu" aria-labelledy="dropDownMenuButton" ngbDropdownMenu>
+			<a class="dropdown-item" (click)="logOut();">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+		</div>
+	</div>
 </nav>
 
 <div class="userProfile">
 	<div class="imageDiv">
-		<img class="user-image" [src]="(user|async)?.photoURL">
+		<img class="user-image" [src]="currentUser.uid | userImageUrl | async">
+
+		<div class="userinfo_text_container">
+			<span class="username">{{currentUser.displayName}}</span>
+
+			<div class="posts_and_friends">
+				<span class="posts_count">Posts: {{postsCount}}</span>
+				<span>Friends: 350</span>
+			</div>
+		</div>
 	</div>
 
-	<form>
-		<div class="form-group">
-			<label for="name">Username: </label>
-			<input type="text" name="name" [ngModel]="(user | async)?.displayName">
-		</div>
+	<!-- Old code 	
+		<button routerLink='/my-venues'>MyVenues</button>
+		
+		<button routerLink='/upcoming-events'>Upcoming Events</button>
+		
+		<button (click)="handlePayment()">Payment Settings</button>
 
-		<div class="form-group">
-			<label for="email">Email: </label>
-			<input type="text" name="email" [ngModel]="(user | async)?.email">
-		</div>
-	</form>
+		<button class="logoutButton btn" (click)="logOut();">Logout</button>
+	-->
 
-	<button routerLink='/my-venues'>MyVenues</button>
-	
-	<button routerLink='/upcoming-events'>Upcoming Events</button>
-	
-	<button (click)="handlePayment()">Payment Settings</button>
+	<!-- sub nav for transitioning between user profile views -->
+	<nav class="navbar user_profile_subnav">
 
-	<button class="logoutButton btn" (click)="logOut();">Logout</button>
+		<span class="nav-item" routerLink='/profile/my-photos' routerLinkActive="active">
+			<i class="fa fa-lg fa-camera" aria-hidden="true"></i>
+		</span>
+
+		<span class="nav-item" routerLink='/profile/notifications' routerLinkActive="active">
+			<i class="fa fa-lg fa-bell" aria-hidden="true"></i>
+		</span>
+
+		<span class="nav-item" routerLink='/profile/upcoming-events' routerLinkActive="active">
+			<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>
+		</span>
+
+	</nav>
+
 </div>
+
+<!-- Dynamic section of user profile -->
+<div class="dynamic_section">	
+	<router-outlet></router-outlet>
+</div>
+<!-- Dynamic section of user profile ends -->
 
 <app-footer></app-footer>

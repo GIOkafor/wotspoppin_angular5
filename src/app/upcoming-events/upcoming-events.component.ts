@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { AuthService } from '../services/auth.service';
+
 
 @Component({
   selector: 'app-upcoming-events',
@@ -7,9 +11,22 @@ import { Component, OnInit } from '@angular/core';
 })
 export class UpcomingEventsComponent implements OnInit {
 
-  constructor() { }
+  userEvents: any;
+
+  constructor(
+  	private router: Router,
+  	private authSvc: AuthService,
+  	private db: AngularFireDatabase) { 
+  		this.userEvents = db.list('Users/'+ authSvc.getCurrentUser().uid + '/upcoming-events').snapshotChanges();
+  }
 
   ngOnInit() {
+  }
+
+  getEventDetails(key){
+  	//console.log(key);
+
+  	this.router.navigate(['event-details', key]);
   }
 
 }
