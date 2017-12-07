@@ -36,7 +36,7 @@
 				<!-- Repeat this row below --> 
 				<tr *ngFor="let event of events$ | async" (click)="getEventDetails(event);">
 					<td>{{event.payload.val().name}}</td>
-					<td>{{event.payload.val().date}}</td>
+					<td>{{event.payload.val().date | date:'medium'}}</td>
 				</tr>
 
 			<div class="events-loading">

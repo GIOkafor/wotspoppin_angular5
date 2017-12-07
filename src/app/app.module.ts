@@ -50,6 +50,8 @@ import { UserDisplayNamePipe } from './pipes/user-display-name.pipe';
 
 //environment access
 import { environment } from './../environments/environment';
+import { InviteFilterPipe } from './pipes/invite-filter.pipe';
+import { EventInfoFilterPipe } from './pipes/event-info-filter.pipe';
 
 const routes: Routes = [
   {
@@ -109,11 +111,13 @@ const routes: Routes = [
   },
   {
     path: 'event-details/:id',
-    component: EventDetailsComponent
-  },
-  {
-    path: 'invite-friends',
-    component: InviteFriendsComponent
+    component: EventDetailsComponent,
+    children: [
+      {
+        path: 'invite-friends',
+        component: InviteFriendsComponent
+      }
+    ]
   },
   {
     path: '**',
@@ -147,7 +151,9 @@ const routes: Routes = [
     NotificationsComponent,
     VenueInfoPipe,
     InviteFriendsComponent,
-    UserDisplayNamePipe
+    UserDisplayNamePipe,
+    InviteFilterPipe,
+    EventInfoFilterPipe
   ],
   imports: [
     BrowserModule,
@@ -167,6 +173,9 @@ const routes: Routes = [
     UploadService,
     UserMediaService
   ],
+  entryComponents: [
+    InviteFriendsComponent
+    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

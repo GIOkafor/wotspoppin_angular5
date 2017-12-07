@@ -1,3 +1,20 @@
-<p>
-  notifications works!
-</p>
+<div class="container notifications_container">
+	
+	<div class="invites_container">
+
+		<h5>Events you were invited to: </h5>
+
+		<div *ngFor="let invite of invites | async">
+
+			<div class="invite_info" [routerLink]="['/event-details', invite.payload.val().event]">
+				<span>{{invite.payload.val().event | eventInfoFilter:'name' | async}}</span>
+
+				<span>{{invite.payload.val().event | eventInfoFilter:'date' | async | date:'medium'}}</span>
+			</div>
+		</div>
+
+		<div *ngIf="!invites">
+			<p>You have no new notifications</p>
+		</div>
+	</div>
+</div>

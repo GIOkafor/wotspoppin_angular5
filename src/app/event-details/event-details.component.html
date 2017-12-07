@@ -4,22 +4,22 @@
 			<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
 
 			<!-- Change date below to EPOCH time -->
-			<span class="event_date">{{event.date}}</span>
+			<span class="event_date">{{event.payload.val().date | date:'medium'}}</span>
 
 			<i class="fa fa-lg fa-bars" aria-hidden="true"></i>
 		</div>
 
 		<div class="venue_details_container">
 
-			<img class="venue_image" [src]="event.promoImage">
+			<img class="venue_image" [src]="event.payload.val().promoImage">
 
 			<div class="details">
-				<span class="name">{{event.createdBy}}</span>
+				<span class="name">{{event.payload.val().createdBy}}</span>
 
 				<div class="distance_and_address">
 					<span class="distance">10 km away</span>
 
-					- <span class="address" *ngFor="let venue of (event.createdBy | venueInfo | async)">{{venue.address}}</span>
+					- <span class="address" *ngFor="let venue of (event.payload.val().createdBy | venueInfo | async)">{{venue.address}}</span>
 
 				</div>
 			</div>

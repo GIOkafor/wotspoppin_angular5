@@ -3,6 +3,8 @@ import { ActivatedRoute, ParamMap, Route, Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { InviteFriendsComponent } from '../invite-friends/invite-friends.component';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -21,12 +23,13 @@ export class EventDetailsComponent implements OnInit {
   	private route: ActivatedRoute,
   	private location: Location,
   	private authSvc: AuthService,
-  	private router: Router) { }
+  	private router: Router,
+    private modalSvc: NgbModal) { }
 
   ngOnInit() {
   	this.route.paramMap
 	  	.switchMap((params: ParamMap) => 
-	        this.db.object('Events/'+params.get('id')).valueChanges())
+	        this.db.object('Events/'+params.get('id')).snapshotChanges())
 	        .subscribe(
 	          (event: any) => {
 	            this.event = event;
@@ -41,6 +44,10 @@ export class EventDetailsComponent implements OnInit {
   //checks guest list to see if user is attending event
   checkIfAttending(){
   	//console.log(this.event.guestlist);
+
+    //check if guestlist exists first, new events don't have guestlist object yet because no one has rsvpd
+    if(!this.event.guestlist)
+      return;
 
   	for(var user in this.event.guestlist){
   		if (this.event.guestlist[user] === this.authSvc.getCurrentUser().uid)
@@ -59,8 +66,10 @@ export class EventDetailsComponent implements OnInit {
   	this.maybe = true;
   }
 
+  //change to modal toggle
   inviteFriends(){
-  	this.router.navigate(['invite-friends']);
+  	const modalRef = this.modalSvc.open(InviteFriendsComponent);
+    modalRef.componentInstance.event = this.event;
   }
 
 }
