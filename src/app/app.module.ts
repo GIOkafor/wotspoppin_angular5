@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 //firebase modules
 import { AngularFireModule } from 'angularfire2';
@@ -11,6 +12,7 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 //3rd party modules
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimeAgoPipe } from 'time-ago-pipe';
+import { NguiMapModule} from '@ngui/map';
 
 //app components
 import { AppComponent } from './app.component';
@@ -47,11 +49,11 @@ import { UserImageUrlPipe } from './pipes/user-image-url.pipe';
 import { TimeAgoCPipe } from './pipes/time-ago-c.pipe';
 import { VenueInfoPipe } from './pipes/venue-info.pipe';
 import { UserDisplayNamePipe } from './pipes/user-display-name.pipe';
+import { InviteFilterPipe } from './pipes/invite-filter.pipe';
+import { EventInfoFilterPipe } from './pipes/event-info-filter.pipe';
 
 //environment access
 import { environment } from './../environments/environment';
-import { InviteFilterPipe } from './pipes/invite-filter.pipe';
-import { EventInfoFilterPipe } from './pipes/event-info-filter.pipe';
 
 const routes: Routes = [
   {
@@ -163,7 +165,9 @@ const routes: Routes = [
     AngularFireDatabaseModule,
     AngularFireAuthModule,
     RouterModule.forRoot(routes),
-    NgbModule.forRoot()
+    NgbModule.forRoot(),
+    NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyARTN-va2Lc0dgJKUkwk1-c9hRBwxk47Uc'}),
+    HttpClientModule
   ],
   providers: [
     AuthService,

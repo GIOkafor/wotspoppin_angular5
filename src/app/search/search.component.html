@@ -14,7 +14,7 @@
 	<!-- Show results in list form based on selection above -->
 		<div class="list-group search-results-list" *ngIf="view === 'list'">
 			<div class="list-group-item" *ngFor="let venue of venues | async">
-				<app-venue-details [venue]="venue" (click)="getVenue(venue)"></app-venue-details>
+				<app-venue-details [venue]="venue.payload.val()" (click)="getVenue(venue)"></app-venue-details>
 			</div>
 
 			<!--
@@ -26,8 +26,12 @@
 	<!-- Map form results start -->
 		<div class="map_results" *ngIf="view === 'map'">
 			<!-- Map -->
+			<ngui-map>
+				<!-- each venue has lat long position, set during creation -->
+				<marker *ngFor="let venue of venues | async" [position]="venue.payload.val().position"></marker>
+			</ngui-map>
 		</div>
-	<!-- Map form results start -->
+	<!-- Map form results end -->
 </div>
 
 <app-footer></app-footer>

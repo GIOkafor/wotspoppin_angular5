@@ -15,7 +15,7 @@ export class VenueInfoPipe implements PipeTransform {
 
   transform(value: any, args?: any): any {
 	
-    return this.db.list('Venues/', ref => ref.orderByChild('name').equalTo(value)).valueChanges();
+    return this.db.list('Venues/', ref => ref.orderByKey().equalTo(value)).valueChanges();
   }
 
 }

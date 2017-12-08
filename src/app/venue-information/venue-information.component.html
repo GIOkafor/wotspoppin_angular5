@@ -1,4 +1,4 @@
-<div class="top-nav">
+<div class="top-nav sticky-top">
 	<!--
 		<button (click)="goBack();">Go Back</button>
 	-->
@@ -10,15 +10,15 @@
 
 <div class="venue-component">
 
-	<div class="venue_details_container">
+	<div class="venue_details_container" *ngIf="venue.payload">
 
-		<img class="venue_image" [src]="venue.imageUrl">
+		<img class="venue_image" [src]="venue.payload.val().imageUrl">
 
 		<div class="details">
-			<span class="name">{{venue.name}}</span>
+			<span class="name">{{venue.payload.val().name}}</span>
 
 			<div class="distance_and_address">
-				<span class="distance">10 km away</span> - <span class="address">{{venue.address}}</span>
+				<span class="distance">10 km away</span> - <span class="address">{{venue.payload.val().address}}</span>
 			</div>
 		</div>
 	</div>

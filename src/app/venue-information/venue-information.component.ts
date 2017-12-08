@@ -37,7 +37,7 @@ export class VenueInformationComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap
       .switchMap((params: ParamMap) => 
-        this.db.object('Venues/'+params.get('id')).valueChanges())
+        this.db.object('Venues/'+params.get('id')).snapshotChanges())
         .subscribe(
           (venue: any) => {
             this.venue = venue;
@@ -51,9 +51,9 @@ export class VenueInformationComponent implements OnInit {
   }
 
   getEvents(){
-    console.log("Getting events for venue: ", this.venue.name);
+    console.log("Getting events for venue: ", this.venue.key);
 
-    this.events$ = this.db.list('/Events', ref => ref.orderByChild('createdBy').equalTo(this.venue.name)).snapshotChanges();
+    this.events$ = this.db.list('/Events', ref => ref.orderByChild("createdBy").equalTo(this.venue.key)).snapshotChanges();
   }
 
 //function for populating module content
