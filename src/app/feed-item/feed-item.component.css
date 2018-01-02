@@ -46,7 +46,7 @@
 }
 
 .media_image{
-	width: 400px;
+	width: 350px;
 	height: 350px;
 }
 
@@ -71,4 +71,8 @@
 
 .new_comment, .new_comment_btn{
 	border-radius: 0px;
+}
+
+.new_comment_container{
+	z-index: 1;
 }

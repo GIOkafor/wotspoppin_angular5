@@ -6,6 +6,7 @@ import { AuthService } from '../services/auth.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { InviteFriendsComponent } from '../invite-friends/invite-friends.component';
 import 'rxjs/add/operator/switchMap';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-event-details',
@@ -24,7 +25,8 @@ export class EventDetailsComponent implements OnInit {
   	private location: Location,
   	private authSvc: AuthService,
   	private router: Router,
-    private modalSvc: NgbModal) { }
+    private modalSvc: NgbModal,
+    private snackBar: MatSnackBar) { }
 
   ngOnInit() {
   	this.route.paramMap
@@ -56,20 +58,32 @@ export class EventDetailsComponent implements OnInit {
   }
 
   attendEvent(){
-  	console.log("Adding you to guest list");
-  	this.maybe = false;
-  	this.attending = true;
+  	
+    //check if user is authenticated first
+    if(this.authSvc.checkUserAuth()){ 
+      console.log("Adding you to guest list");
+
+      //process payment and
+      //add user to guestlist
+
+      this.maybe = false;
+      this.attending = true;
+    }
   }
 
   mayBe(){
-  	console.log("Adding you to maybe list");
-  	this.maybe = true;
+    if(this.authSvc.checkUserAuth()){	
+      console.log("Adding you to maybe list");
+    	this.maybe = true;
+    }
   }
 
   //change to modal toggle
   inviteFriends(){
-  	const modalRef = this.modalSvc.open(InviteFriendsComponent);
-    modalRef.componentInstance.event = this.event;
+  	if(this.authSvc.checkUserAuth()){
+      const modalRef = this.modalSvc.open(InviteFriendsComponent);
+      modalRef.componentInstance.event = this.event;
+    }
   }
 
 }

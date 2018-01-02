@@ -29,6 +29,12 @@
     padding-left: 20px;
 }
 
+.events-loading{
+	display: flex;
+	widows: 100%;
+	justify-content: center;
+}
+
 .events h4{
 	margin-top: 8px;
 }

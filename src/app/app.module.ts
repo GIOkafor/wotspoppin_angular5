@@ -13,6 +13,11 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { NguiMapModule} from '@ngui/map';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
+//angular material modules
+import { MatProgressSpinnerModule } from '@angular/material';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 //app components
 import { AppComponent } from './app.component';
@@ -167,7 +172,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgbModule.forRoot(),
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyARTN-va2Lc0dgJKUkwk1-c9hRBwxk47Uc'}),
-    HttpClientModule
+    HttpClientModule,
+    BrowserAnimationsModule,
+    MatProgressSpinnerModule,
+    MatSnackBarModule
   ],
   providers: [
     AuthService,

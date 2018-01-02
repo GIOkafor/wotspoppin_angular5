@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
 import { UploadService } from '../services/upload.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-feed-item',
@@ -22,7 +23,8 @@ export class FeedItemComponent implements OnInit {
   	private route: ActivatedRoute,
   	private db: AngularFireDatabase,
   	private authSvc: AuthService,
-  	private uploadSvc: UploadService) { 
+  	private uploadSvc: UploadService,
+    private snackBar: MatSnackBar) { 
   		//store media key for db manipulation functions
   		this.route.paramMap.subscribe((params:ParamMap) => this.mediaKey = params.get('id'));
   }
@@ -35,37 +37,40 @@ export class FeedItemComponent implements OnInit {
   }
 
   likeMedia(media){
-  	//console.log("Liking media: ", this.mediaKey);
+    //check if user is signed in first
+    if(this.authSvc.checkUserAuth()){
+    	var currentUserUid = this.authSvc.getCurrentUser().uid;
+    	var users = this.media.likes.users;
+    	//console.log(users);
 
-  	var currentUserUid = this.authSvc.getCurrentUser().uid;
-  	var users = this.media.likes.users;
-  	//console.log(users);
+    	//check if user has liked image already
+    	for(var user in users) {
+    		//console.log("User is: ", user);
 
-  	//check if user has liked image already
-  	for(var user in users) {
-  		//console.log("User is: ", user);
+    		if(users[user].uid === currentUserUid){
+    			//console.log("User already liked photo");
+    			return		
+    		}else{
+    			//console.log("Liking photo");
+    		}
 
-  		if(users[user].uid === currentUserUid){
-  			//console.log("User already liked photo");
-  			return		
-  		}else{
-  			//console.log("Liking photo");
-  		}
+    	}
 
-  	}
+    	//update count in view
+    	this.media.likes.count++;
+    	//update count in db
+    	this.db.object('uploads/' + this.mediaKey + '/likes').update({count: this.media.likes.count});
 
-  	//update count in view
-  	this.media.likes.count++;
-  	//update count in db
-  	this.db.object('uploads/' + this.mediaKey + '/likes').update({count: this.media.likes.count});
-
-  	//add user who liked to list of users that liked photo
-  	this.db.list('uploads/' + this.mediaKey + '/likes/users').push({uid: currentUserUid});
+    	//add user who liked to list of users that liked photo
+    	this.db.list('uploads/' + this.mediaKey + '/likes/users').push({uid: currentUserUid});
+    }
   }
 
   postComment(comment){
-  	//console.log("Comment is : ", comment);
-  	this.uploadSvc.postComment(this.mediaKey, comment);
+    //check if user is signed in first
+    if(this.authSvc.checkUserAuth()){
+  	  this.uploadSvc.postComment(this.mediaKey, comment);
+    }
   }
 
   goBack(){

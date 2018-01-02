@@ -40,9 +40,11 @@
 				</tr>
 
 			<div class="events-loading">
-				<!--
-					<md-spinner *ngIf="!events"></md-spinner>
-				-->
+
+				<mat-spinner
+					[color]="yellow"
+					*ngIf="!events$"></mat-spinner>
+
 			</div>
 		</table>
 
