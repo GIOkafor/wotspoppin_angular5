@@ -45,14 +45,16 @@ export class EventDetailsComponent implements OnInit {
 
   //checks guest list to see if user is attending event
   checkIfAttending(){
-  	//console.log(this.event.guestlist);
+  	console.log(this.event.payload.val().guestlist);
 
     //check if guestlist exists first, new events don't have guestlist object yet because no one has rsvpd
-    if(!this.event.guestlist)
+    if(!this.event.payload.val().guestlist){
+      console.log("No guest list for event");
       return;
+    }
 
-  	for(var user in this.event.guestlist){
-  		if (this.event.guestlist[user] === this.authSvc.getCurrentUser().uid)
+  	for(var user in this.event.payload.val().guestlist){
+  		if (this.event.payload.val().guestlist[user] === this.authSvc.getCurrentUser().uid)
   			this.attending = true;
   	}
   }
@@ -64,7 +66,18 @@ export class EventDetailsComponent implements OnInit {
       console.log("Adding you to guest list");
 
       //process payment and
-      //add user to guestlist
+
+      //add user to guestlist in db
+      this.db.list('Events/' + this.event.payload.key + '/guestlist').push(this.authSvc.getCurrentUser().uid);
+
+      //remove useless bits of info before adding event details to user portion of db
+      let ev = {
+        name: this.event.payload.val().name,
+        date: this.event.payload.val().date
+      };
+
+      //add event to user upcoming events
+      this.db.object('Users/' + this.authSvc.getCurrentUser().uid + '/upcoming-events/' + this.event.payload.key).update(ev);
 
       this.maybe = false;
       this.attending = true;

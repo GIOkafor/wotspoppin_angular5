@@ -65,7 +65,7 @@
 
 			<!-- Show this instead if user is on the fence, this lets them click to attend -->
 			<div class="event_reservation" *ngIf="!attending">
-				<span class="action" (click)="attendEvent()">Attending</span>
+				<span class="action" (click)="attendEvent()">Attend</span>
 				<span class="action" [ngClass]="{'active':maybe}" (click)="mayBe()">Maybe</span>
 			</div>
 
