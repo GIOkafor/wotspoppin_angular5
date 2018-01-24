@@ -1,0 +1,37 @@
+<div class="messagesContainer">
+	
+	<!-- Header nav start -->
+	<div class="message_top_nav">
+		<i class="fa fa-2x fa-chevron-left" (click)="goBack()"></i>
+
+		<h5>Messages</h5>
+
+		<i class="fa fa-2x fa-search" aria-hidden="true"></i>
+	</div>
+	<!-- Header nav end -->
+
+	<!-- Messages body start -->
+	<div class="messages_list">
+		
+		<!-- Repeat for each message --> 
+		<!-- Message start -->
+		<div class="message">
+			<img class="sender_image" src="assets/female-19.jpg" alt="sender image" />
+
+			<div class="message_info">
+				<div class="message_header">
+					<div class="sender_name">Johnny Bones</div>
+					<div class="time_sent">9:28pm</div>
+				</div>
+
+				<div class="message_body">Some arbitrary text thats acting as a placeholder</div>
+			</div>
+		</div>
+		<!-- Message end -->
+
+		<i class="fa fa-comment-o fa-3x" aria-hidden="true" (click)="newMessage()"></i>
+	</div>
+	<!-- Messages body start -->
+</div>
+
+<app-footer></app-footer>

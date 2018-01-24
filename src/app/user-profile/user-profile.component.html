@@ -1,5 +1,5 @@
 <nav class="navbar fixed-top user_profile_header">
-	<i class="fa fa-lg fa-envelope-o" aria-hidden="true"></i>
+	<i class="fa fa-lg fa-envelope-o" aria-hidden="true" routerLink='/messages'></i>
 	
 	<div class="dropdown" ngbDropdown>	
 		<!--
@@ -27,16 +27,6 @@
 			</div>
 		</div>
 	</div>
-
-	<!-- Old code 	
-		<button routerLink='/my-venues'>MyVenues</button>
-		
-		<button routerLink='/upcoming-events'>Upcoming Events</button>
-		
-		<button (click)="handlePayment()">Payment Settings</button>
-
-		<button class="logoutButton btn" (click)="logOut();">Logout</button>
-	-->
 
 	<!-- sub nav for transitioning between user profile views -->
 	<nav class="navbar user_profile_subnav">

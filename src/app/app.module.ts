@@ -14,10 +14,12 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { TimeAgoPipe } from 'time-ago-pipe';
 import { NguiMapModule} from '@ngui/map';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgxStripeModule } from 'ngx-stripe';
 
 //angular material modules
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatButtonModule } from '@angular/material/button';
 
 //app components
 import { AppComponent } from './app.component';
@@ -39,6 +41,9 @@ import { ErrorComponent } from './auth-component/error/error.component';
 import { MyPhotosComponent } from './user-profile/my-photos/my-photos.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { InviteFriendsComponent } from './invite-friends/invite-friends.component';
+import { MessagesComponent } from './messages/messages.component';
+import { MessageDetailsComponent } from './messages/message-details/message-details.component';
+import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
 import { AuthService } from './services/auth.service';
@@ -89,6 +94,12 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'messages', component: MessagesComponent
+  },
+  {
+    path: 'messages/:id', component: MessageDetailsComponent
+  },
+  {
     path: 'venues',
     component: SearchComponent
   },
@@ -127,6 +138,10 @@ const routes: Routes = [
     ]
   },
   {
+    path: 'stripe-test',
+    component: StripeTestComponent
+  },
+  {
     path: '**',
     component: SearchComponent
   }
@@ -160,7 +175,10 @@ const routes: Routes = [
     InviteFriendsComponent,
     UserDisplayNamePipe,
     InviteFilterPipe,
-    EventInfoFilterPipe
+    EventInfoFilterPipe,
+    StripeTestComponent,
+    MessagesComponent,
+    MessageDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -172,6 +190,7 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     NgbModule.forRoot(),
     NguiMapModule.forRoot({apiUrl: 'https://maps.google.com/maps/api/js?key=AIzaSyARTN-va2Lc0dgJKUkwk1-c9hRBwxk47Uc'}),
+    NgxStripeModule.forRoot('pk_test_49r5jeY7QLUH52AyvJG2KX3t'),
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
