@@ -31,9 +31,28 @@ export class AuthComponentComponent implements OnInit {
           'displayName': user.displayName
 				}
 
-			localStorage.setItem('currentUser', JSON.stringify(currentUser));
+  			localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
-      this.router.navigate(['venues']);
+        //bind database reference to variable for easy access and manipulation
+        const userRef = this.db.object('Users/' + user.uid + '/userInfo');
+        
+        //get contents of user in database
+        userRef.snapshotChanges().subscribe(res => {
+
+          //if this is a brand new user, or user without profile information, code below gets triggered
+          if(res.payload.val() == null){
+
+            //set userInfo in db to current user before navigating
+            const promise = userRef.update({ displayName: user.displayName, imageUrl: user.photoURL });
+
+          }else{
+            console.log("User data exists in db");
+
+            //navigate to venue
+            this.router.navigate(['venues']);
+          }
+
+        });
   		}
   	})
   }
