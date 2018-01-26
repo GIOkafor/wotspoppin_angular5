@@ -1,3 +1,53 @@
-<p>
-  message-details works!
-</p>
+<div class="message_details_container">
+	
+	<!-- Nav header start -->
+	<div class="nav_header sticky-top">
+		
+		<i class="fa fa-chevron-left fa-2x" (click)="goBack();"></i>
+
+		<h5>Username</h5>
+
+		<i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>
+
+	</div>
+	<!-- Nav header end -->
+
+	<!-- Message thread start -->
+	<div class="messages">
+		
+		<!-- Repeat this for each message -->
+		<div class="message">
+			
+			<div class="image_and_text">
+
+				<!-- hide this image for my messages -->
+				<img class="sender_image" src="assets/female-19.jpg" alt="sender image" />
+
+				<!-- toggle class below based on sender -->
+				<!-- message text -->
+				<div class="message_text sent_by_other">
+					On my way
+				</div>
+				<!-- message text ends -->
+			</div>
+
+			<!-- Time sent start -->
+			<div class="time_sent">
+				{{1516906284| date:'shortTime'}}
+			</div>
+			<!-- Time sent end -->
+
+		</div>
+		<!-- End repeat -->
+	</div>
+	<!-- Message thread end -->
+
+	<!-- Message controls start -->
+	<div class="message_controls">
+		<input class="enter_message" type="text" name="message" placeholder="Type a message...">
+		<i class="fa fa-paper-plane send_icon" aria-hidden="true"></i>
+	</div>
+	<!-- Message controls end -->
+</div>
+
+<app-footer></app-footer>

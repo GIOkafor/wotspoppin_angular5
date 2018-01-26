@@ -11,6 +11,8 @@ import {NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
   templateUrl: './invite-friends.component.html',
   styleUrls: ['./invite-friends.component.css']
 })
+
+//this component is used for both friend invitations and messaging user
 export class InviteFriendsComponent implements OnInit {
 
   buddies: any;
@@ -18,6 +20,7 @@ export class InviteFriendsComponent implements OnInit {
 
   constructor(
   	private location: Location,
+    private router: Router,
   	private buddiesSvc: BuddiesService,
   	private db: AngularFireDatabase,
   	private authSvc: AuthService,
@@ -52,6 +55,17 @@ export class InviteFriendsComponent implements OnInit {
   //trigger cloud function to retract user invite
   cancelInviteUser(uid){
     console.log("Cancelling event invite to user: ", uid);
+  }
+
+  //select user to me messaged
+  selectUser(user){
+    console.log("Selected user: ", user);
+
+    //close modal
+    this.activeModal.close();
+
+    //navigate to messages/new message view 
+    this.router.navigate(['/messages', user]);
   }
 
 }

@@ -31,7 +31,7 @@
 	width: 65px;
     height: 65px;
 }
-.send_invite{
+.send_invite, .select_friend{
 	color: #fff;
     background-color: #e18047;
 }

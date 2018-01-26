@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-message-details',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MessageDetailsComponent implements OnInit {
 
-  constructor() { }
+  constructor(
+  	private location: Location) { }
 
   ngOnInit() {
+  }
+
+  goBack(){
+  	this.location.back();
   }
 
 }

@@ -1,7 +1,9 @@
-<div class="top-nav">
+<div class="top-nav sticky-top">
 	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="activeModal.dismiss('Cross click');"></i>
 
-	<h5>Invite Friends</h5>
+	<h5 *ngIf="event !== 'message'">Invite Friends</h5>
+
+	<h5 *ngIf="event == 'message'">Select Friends</h5>
 
 	<i class="fa fa-lg fa-search" aria-hidden="true"></i>
 </div>
@@ -15,12 +17,16 @@
 
 			<span class="friend_name">{{buddy.payload.val() | userDisplayName | async}}</span>
 
-			<button *ngIf="(buddy.payload.val() | inviteFilter:event.key | async)?.length <= 0" class="btn send_invite" (click)="inviteUser(buddy.payload.val())">Invite</button>
+			<!-- Event invites buttons -->
+			<div *ngIf="event !== 'message'">	
+				<button *ngIf="(buddy.payload.val() | inviteFilter:event.key | async)?.length <= 0" class="btn send_invite" (click)="inviteUser(buddy.payload.val())">Invite</button>
 
-			<button *ngIf="(buddy.payload.val() | inviteFilter:event.key | async)?.length > 0" class="btn invite_sent" (click)="cancelInviteUser(buddy.payload.val())">Invite</button>
+				<button *ngIf="(buddy.payload.val() | inviteFilter:event.key | async)?.length > 0" class="btn invite_sent" (click)="cancelInviteUser(buddy.payload.val())">Invite</button>
+			</div>
+
+			<!-- Select user to be messaged -->
+			<button class="btn select_friend" *ngIf="event == 'message'" (click)="selectUser(buddy.payload.val());">Select</button>
 
 		</div>
 	</div>
 </div>
-
-<app-footer></app-footer>

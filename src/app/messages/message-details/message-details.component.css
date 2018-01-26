@@ -1,0 +1,69 @@
+.message_details_container{
+	background-color: black;
+	color: #fff;
+	height: 100vh;
+}
+
+.nav_header{
+	display: flex;
+    padding: 5px;
+    justify-content: space-between;
+    align-items: center;
+    color: #ea7a3b;
+}
+
+.messages{
+	padding: 10px;
+}
+
+.message{
+	display: flex;
+    align-items: center;
+    padding: 5px;
+    justify-content: space-between;
+}
+
+.image_and_text{
+	display: flex;
+}
+
+.time_sent{
+	color: #ccc;
+    font-size: 12px;
+}
+
+.message_text{
+	padding: 5px;
+    border-radius: 20px;
+}
+
+.sent_by_other{
+	background-color: #f0efef;
+    color: #000;
+}
+
+.sent_by_me{
+
+}
+
+.sender_image{
+	height: 35px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.message_controls{
+	position: absolute;
+    bottom: 65px;
+    width: 100%;
+    padding: 0 5px;
+}
+
+.message_controls input{
+	width: 92%;
+}
+
+.send_icon{
+	color: #ea7a3b;
+	margin-left: 4px;
+}
