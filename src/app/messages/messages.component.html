@@ -29,9 +29,13 @@
 		</div>
 		<!-- Message end -->
 
+		<!-- Test code start -->
+		{{messages | async | json}}
+		<!-- Test code end -->
+
 		<i class="fa fa-comment fa-3x new_comment" aria-hidden="true" (click)="newMessage()"></i>
 	</div>
-	<!-- Messages body start -->
+	<!-- Messages body end -->
 </div>
 
 <app-footer></app-footer>

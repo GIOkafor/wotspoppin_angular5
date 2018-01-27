@@ -5,7 +5,7 @@
 		
 		<i class="fa fa-chevron-left fa-2x" (click)="goBack();"></i>
 
-		<h5>Username</h5>
+		<h5>{{threadId | userDisplayName | async}}</h5>
 
 		<i class="fa fa-info-circle fa-2x" aria-hidden="true"></i>
 
@@ -16,24 +16,33 @@
 	<div class="messages">
 		
 		<!-- Repeat this for each message -->
-		<div class="message">
+		<div class="message" *ngFor="let message of messages | async" [ngClass]="{
+			'sent_by_me': message.senderId == userUID,
+			'sent_by_other': message.senderId !== userUID
+		}">
 			
-			<div class="image_and_text">
+			<div class="image_and_text" [ngClass]="{
+				'my_image_and_text': message.senderId == userUID,
+				'others_image_and_text': message.senderId !== userUID
+			}">
 
 				<!-- hide this image for my messages -->
-				<img class="sender_image" src="assets/female-19.jpg" alt="sender image" />
+				<img class="sender_image" [src]="message.senderId | userImageUrl | async" alt="sender image" />
 
 				<!-- toggle class below based on sender -->
 				<!-- message text -->
-				<div class="message_text sent_by_other">
-					On my way
+				<div class="message_text" [ngClass]="{
+					'my_message': message.senderId == userUID,
+					'others_message': message.senderId !== userUID
+				}">
+					{{message.text}}
 				</div>
 				<!-- message text ends -->
 			</div>
 
 			<!-- Time sent start -->
 			<div class="time_sent">
-				{{1516906284| date:'shortTime'}}
+				{{message.timeSent| date:'shortTime'}}
 			</div>
 			<!-- Time sent end -->
 
@@ -44,8 +53,8 @@
 
 	<!-- Message controls start -->
 	<div class="message_controls">
-		<input class="enter_message" type="text" name="message" placeholder="Type a message...">
-		<i class="fa fa-paper-plane send_icon" aria-hidden="true"></i>
+		<input class="enter_message" type="text" name="message" placeholder="Type a message..." [(ngModel)]="message">
+		<i class="fa fa-paper-plane send_icon" aria-hidden="true" (click)="sendMessage(message); message = ''"></i>
 	</div>
 	<!-- Message controls end -->
 </div>

@@ -52,6 +52,7 @@ import { PaymentService } from './services/payment.service';
 import { VenuesService } from './services/venues-service.service';
 import { UploadService } from './services/upload.service';
 import { UserMediaService } from './services/user-media.service';
+import { MessagingService } from './services/messaging.service';
 
 //pipes
 import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
@@ -202,7 +203,8 @@ const routes: Routes = [
     PaymentService,
     VenuesService,
     UploadService,
-    UserMediaService
+    UserMediaService,
+    MessagingService
   ],
   entryComponents: [
     InviteFriendsComponent

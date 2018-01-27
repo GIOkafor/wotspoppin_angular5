@@ -25,6 +25,17 @@
 
 .image_and_text{
 	display: flex;
+	width: 75%;
+	align-items: center;
+}
+
+.my_image_and_text{
+	flex-direction: row-reverse;
+}
+
+.my_image_and_text .sender_image{
+	margin-left: 10px;
+	margin-right: 0px;
 }
 
 .time_sent{
@@ -38,12 +49,21 @@
 }
 
 .sent_by_other{
+	
+}
+
+.others_message{
 	background-color: #f0efef;
     color: #000;
 }
 
 .sent_by_me{
+	flex-direction: row-reverse;
+}
 
+.my_message{
+	background-color: #ea7a3b;
+    color: #fff;
 }
 
 .sender_image{
