@@ -15,23 +15,30 @@
 		
 		<!-- Repeat for each message --> 
 		<!-- Message start -->
-		<div class="message">
-			<img class="sender_image" src="assets/female-19.jpg" alt="sender image" />
+		<div class="message" *ngFor="let message of messages | async">
+			<!-- participant image is based on thread key -->
+			<img class="sender_image" [src]="message.key | userImageUrl | async" alt="sender image" />
 
-			<div class="message_info">
-				<div class="message_header">
-					<div class="sender_name">Johnny Bones</div>
-					<div class="time_sent">9:28pm</div>
+			<!-- Repeat this section and only show the last message in thread -->
+			<div [ngClass]="{'message_info_container': last}" *ngFor="let msg of message.val | objToArray; let last = last;" [routerLink]="['/messages', message.key]">
+				<div class="message_info" *ngIf="last">
+					
+					<div class="message_header">
+						<div class="sender_name">{{message.key | userDisplayName | async}}</div>
+						<div class="time_sent">{{msg.timeSent | date:'shortTime'}}</div>
+					</div>
+
+					<div class="message_body">
+						
+						<!-- prepend 'you' to message if you are the one that sent it -->
+						<div>
+							<span *ngIf="userUID == msg.senderId">You: </span>{{msg.text}}
+						</div>
+					</div>
 				</div>
-
-				<div class="message_body">Some arbitrary text thats acting as a placeholder</div>
 			</div>
 		</div>
 		<!-- Message end -->
-
-		<!-- Test code start -->
-		{{messages | async | json}}
-		<!-- Test code end -->
 
 		<i class="fa fa-comment fa-3x new_comment" aria-hidden="true" (click)="newMessage()"></i>
 	</div>

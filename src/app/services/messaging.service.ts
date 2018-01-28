@@ -11,7 +11,10 @@ export class MessagingService {
 
   //gets all messages belonging to user who's uid is supplied
   getMessages(uid: string){
-  	return this.db.list('Users/' + uid + '/dms').snapshotChanges();
+  	return this.db.list('Users/' + uid + '/dms').snapshotChanges()
+  		.map(messages => {
+  			return messages.map(msgs => ({ key: msgs.payload.key, val: msgs.payload.val() }));
+  		})
   }
 
   //gets messages related to thread specified
