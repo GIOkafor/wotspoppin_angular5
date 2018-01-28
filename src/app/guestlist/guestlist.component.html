@@ -1,0 +1,25 @@
+<div class="guestlist_component">
+	<h4 class="header">
+		<i _ngcontent-c1="" aria-hidden="true" class="fa fa-chevron-left" (click)="activeModal.dismiss('Cross click');"></i>
+		People Attending Event
+	</h4>
+
+	<!-- List of all people attending event -->
+	<div class="guestlist">
+
+		<!-- Repeat for each guest -->
+		<div class="guest" *ngFor="let guest of guestlist | async">
+			
+			<img [src]="guest.payload.val() | userImageUrl | async" *ngIf="guest.payload.val() !== currentUser">
+
+			<span *ngIf="guest.payload.val() !== currentUser">{{guest.payload.val() | userDisplayName | async}}</span>
+
+			<!-- toggle this icon if user is a friend already -->
+			<i class="fa fa-user-plus" aria-hidden="true" (click)="addFriend(guest.payload.val());" [ngClass]="{'friend': isBuddy(guest.payload.val())}" *ngIf="guest.payload.val() !== currentUser"></i>
+		</div>
+
+		<!-- debug code -->
+		<!-- {{buddies | async | json}} -->
+		<!-- debug code -->
+	</div>
+</div>

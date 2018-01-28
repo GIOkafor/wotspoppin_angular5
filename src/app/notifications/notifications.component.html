@@ -13,8 +13,26 @@
 			</div>
 		</div>
 
-		<div *ngIf="!invites">
-			<p>You have no new notifications</p>
+		<!-- Not showing up for some reason
+			<div *ngIf="!invites">
+				<p>You have no new notifications</p>
+			</div>
+		-->
+
+		<div class="friend_requests">
+			<h5>Pending Friend Requests: </h5>
+
+			<!-- repeat for each friend request -->
+			<div class="request" *ngFor="let request of requests | async">
+				
+				<img class="sender_image" [src]="request.payload.val().from | userImageUrl | async">
+
+				<span class="sender_name">{{request.payload.val().from | userDisplayName | async}}</span>
+
+				<i class="fa fa-check fa-2x" aria-hidden="true" (click)="accept(request);"></i>
+
+				<i class="fa fa-times fa-2x" aria-hidden="true" (click)="reject(request.payload.val().from);"></i>
+			</div>
 		</div>
 	</div>
 </div>

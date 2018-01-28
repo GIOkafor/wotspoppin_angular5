@@ -1,0 +1,26 @@
+.guestlist_component{
+	height: 90vh;
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+}
+
+.fa-chevron-left{
+	margin-right: 20px;
+}
+
+.guest{
+	display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 10px;
+}
+
+.guest img{
+	width: 65px;
+    height: 65px;
+}
+
+.friend{
+	color: red;
+}

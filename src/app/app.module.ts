@@ -43,6 +43,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { InviteFriendsComponent } from './invite-friends/invite-friends.component';
 import { MessagesComponent } from './messages/messages.component';
 import { MessageDetailsComponent } from './messages/message-details/message-details.component';
+import { GuestlistComponent } from './guestlist/guestlist.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -130,13 +131,7 @@ const routes: Routes = [
   },
   {
     path: 'event-details/:id',
-    component: EventDetailsComponent,
-    children: [
-      {
-        path: 'invite-friends',
-        component: InviteFriendsComponent
-      }
-    ]
+    component: EventDetailsComponent
   },
   {
     path: 'stripe-test',
@@ -179,7 +174,8 @@ const routes: Routes = [
     EventInfoFilterPipe,
     StripeTestComponent,
     MessagesComponent,
-    MessageDetailsComponent
+    MessageDetailsComponent,
+    GuestlistComponent
   ],
   imports: [
     BrowserModule,
@@ -207,7 +203,8 @@ const routes: Routes = [
     MessagingService
   ],
   entryComponents: [
-    InviteFriendsComponent
+    InviteFriendsComponent,
+    GuestlistComponent
     ],
   bootstrap: [AppComponent]
 })

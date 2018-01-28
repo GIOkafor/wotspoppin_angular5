@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { InviteFriendsComponent } from '../invite-friends/invite-friends.component';
+import { GuestlistComponent } from '../guestlist/guestlist.component';
 import 'rxjs/add/operator/switchMap';
 import { MatSnackBar } from '@angular/material';
 
@@ -97,6 +98,13 @@ export class EventDetailsComponent implements OnInit {
       const modalRef = this.modalSvc.open(InviteFriendsComponent);
       modalRef.componentInstance.event = this.event;
     }
+  }
+
+  showGuestList(){
+    console.log("Showing guest list");
+
+    const guestListRef = this.modalSvc.open(GuestlistComponent);
+    guestListRef.componentInstance.event =  this.event;
   }
 
 }

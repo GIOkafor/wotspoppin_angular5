@@ -14,9 +14,10 @@
 			<img class="venue_image" [src]="event.payload.val().promoImage">
 
 			<div class="details">
-				<span class="name">{{event.payload.val().createdBy}}</span>
+				<span class="name">{{event.payload.val().name}}</span>
 
 				<div class="distance_and_address">
+					<!-- Get venue name and display below -->
 					<span class="distance">10 km away</span>
 
 					- <span class="address" *ngFor="let venue of (event.payload.val().createdBy | venueInfo | async)">{{venue.address}}</span>
@@ -27,7 +28,7 @@
 
 		<!-- Guest list section start -->
 		<div class="guest_list">
-			<div class="guest_list_header">
+			<div class="guest_list_header" (click)="showGuestList();">
 				Guest List
 			</div>
 
