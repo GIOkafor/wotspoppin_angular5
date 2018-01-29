@@ -42,7 +42,7 @@ export class InviteFriendsComponent implements OnInit {
     //console.log({user: uid, event: this.event.key});
 
     this.db.list('Users/' + this.authSvc.getCurrentUser().uid + '/sentInvites/' + this.event.key)
-      .push({user: uid, event: this.event.key})
+      .push({user: uid, event: this.event.key, from: this.authSvc.getCurrentUser().uid})
       .then(_=> {
         //switch to popup confirming success
         console.log("push successfull");

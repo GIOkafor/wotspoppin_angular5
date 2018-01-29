@@ -6,10 +6,17 @@
 
 		<div *ngFor="let invite of invites | async">
 
-			<div class="invite_info" [routerLink]="['/event-details', invite.payload.val().event]">
-				<span>{{invite.payload.val().event | eventInfoFilter:'name' | async}}</span>
+			<div class="invite_info">
+				
+				<div class="invite_text" [routerLink]="['/event-details', invite.payload.val().event]">
+					<span>{{invite.payload.val().event | eventInfoFilter:'name' | async}}</span>
 
-				<span>{{invite.payload.val().event | eventInfoFilter:'date' | async | date:'medium'}}</span>
+					<span>@ {{invite.payload.val().event | eventInfoFilter:'date' | async | date:'shortDate'}}</span>
+				</div>	
+
+				<div class="cta">
+					<i class="fa fa-times fa-2x" aria-hidden="true" (click)="dismissEventNotification(invite);"></i>
+				</div>
 			</div>
 		</div>
 
@@ -31,7 +38,7 @@
 
 				<i class="fa fa-check fa-2x" aria-hidden="true" (click)="accept(request);"></i>
 
-				<i class="fa fa-times fa-2x" aria-hidden="true" (click)="reject(request.payload.val().from);"></i>
+				<i class="fa fa-times fa-2x" aria-hidden="true" (click)="reject(request);"></i>
 			</div>
 		</div>
 	</div>

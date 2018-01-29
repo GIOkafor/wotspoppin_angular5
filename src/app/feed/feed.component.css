@@ -71,3 +71,17 @@
 	font-weight: lighter;
     color: #ccc;
 }
+
+@media only screen and (max-width: 340px) {
+	.uploader_image{
+		margin-right: 10px !important;
+	}
+
+	.media_image{
+		width: 100%;
+	}
+
+	.uploadedBy, .time{
+		font-size: 14px !important;
+	}
+}

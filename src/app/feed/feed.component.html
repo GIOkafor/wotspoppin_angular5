@@ -38,7 +38,9 @@
 
 					<!-- media footer - where all user actions stay - starts -->
 					<div class="media_footer">
-						<i class="fa fa-lg fa-heart-o" (click)="likeMedia(item);"></i>
+						<i class="fa fa-lg fa-heart-o" (click)="likeMedia(item);" *ngIf="!ifLiked(item);"></i>
+
+						<i class="fa fa-lg fa-heart" *ngIf="ifLiked(item);" (click)="unlike(item);"></i>
 
 						<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia(item.key);"></i>
 					</div>

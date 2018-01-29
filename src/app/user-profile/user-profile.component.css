@@ -67,6 +67,6 @@ span.username{
 
 .dynamic_section{
 	background-color: black;
-	height: 100vh;
-    color: #fff;
+	height: 100%;
+    padding-bottom: 64px;
 }

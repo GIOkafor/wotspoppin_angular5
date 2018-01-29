@@ -56,36 +56,86 @@ export class FeedComponent implements OnInit {
   	console.log("Uploading video");
   }
 
+  //checks to see if media has been already been liked
+  ifLiked(item){
+
+    if(this.authSvc.checkUserAuth()){
+      var currentUserUid = this.authSvc.getCurrentUser().uid;
+
+      var users = item.val.likes.users;
+        //console.log(users);
+      
+      //check if user has liked image already
+      for(var user in users) {
+        //console.log("User is: ", user);
+
+        if(users[user].uid === currentUserUid){
+          return true;   
+        }
+      }
+
+      return false;
+    }else{
+      return false; //if user is not authenticated, return false as you need account to interact with media
+    }
+  }
+
+  //BUGGGY AF!
+  //NEVER CALL THIS DIRECTLY only call inside likeMedia(media)
+  unlike(media){
+    var currentUserUid = this.authSvc.getCurrentUser().uid;
+    var users = media.val.likes.users;
+
+    //update count in view
+    media.val.likes.count --;
+    //console.log(media.val.likes.users);
+
+    for(var user in users){
+      //console.log('uploads/' + media.key + '/likes/users/' + user);
+
+      if(users[user].uid == currentUserUid){
+        console.log("Removing user: ", currentUserUid);
+        //remove user from list of users that liked photo
+        this.db.list('uploads/' + media.key + '/likes/users/', ref => ref.orderByChild('uid').equalTo(currentUserUid))
+          .snapshotChanges()
+            .subscribe(res => this.db.list('uploads/' + media.key + '/likes/users/').remove(res[0].key));
+      }
+    }
+
+    //update count in db with new values
+    this.db.object('uploads/' + media.key + '/likes').update({count: media.val.likes.count});
+  }
+
   likeMedia(media){
     //check if user is signed in first
     if(this.authSvc.checkUserAuth()){
     
-      console.log("Liking media: ", media.key);
+      //console.log("Liking media: ", media.key);
 
       var currentUserUid = this.authSvc.getCurrentUser().uid;
       var users = media.val.likes.users;
-      console.log(users);
+      //console.log(users);
     
       //check if user has liked image already
       for(var user in users) {
         //console.log("User is: ", user);
 
         if(users[user].uid === currentUserUid){
-          console.log("User already liked photo");
-          return    
-        }else{
-          console.log("Liking photo");
+          return;    
         }
-
       }
 
       //update count in view
       media.val.likes.count++;
       //update count in db
-      this.db.object('uploads/' + media.key + '/likes').update({count: media.val.likes.count});
+      const promise = this.db.object('uploads/' + media.key + '/likes').update({count: media.val.likes.count});
 
-      //add user who liked to list of users that liked photo
-      this.db.list('uploads/' + media.key + '/likes/users').push({uid: currentUserUid});
+      promise
+        .then(_=> {
+          console.log("Adding user to list of people that liked photo");
+          //add user who liked to list of users that liked photo
+          this.db.list('uploads/' + media.key + '/likes/users').push({uid: currentUserUid});
+        })
     }
   }
 

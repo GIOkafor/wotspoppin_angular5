@@ -30,3 +30,9 @@
 .fbAuth{
 	background-color: #396cbe;
 }
+
+@media only screen and (max-width: 340px){
+	.title{
+		font-size: 3em;
+	}
+}

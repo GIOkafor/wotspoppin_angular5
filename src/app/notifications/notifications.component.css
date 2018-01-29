@@ -1,3 +1,8 @@
+.notifications_container{
+	color: #fff;
+	padding-bottom: 60px;
+}
+
 .invite_info{
 	padding: 10px;
     border-bottom: 1px solid;
@@ -17,4 +22,8 @@
 
 .sender_name{
 	font-size: 20px;
+}
+
+.friend_requests{
+	margin-top: 20px;
 }

@@ -35,6 +35,11 @@
 	justify-content: center;
 }
 
+.events{
+	background-color: black;
+    padding-bottom: 50px;
+}
+
 .events h4{
 	margin-top: 8px;
 }

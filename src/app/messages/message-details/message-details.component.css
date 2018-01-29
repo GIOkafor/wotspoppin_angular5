@@ -1,7 +1,7 @@
 .message_details_container{
 	background-color: black;
 	color: #fff;
-	height: 100vh;
+	height: 100%;
 }
 
 .nav_header{
@@ -10,10 +10,13 @@
     justify-content: space-between;
     align-items: center;
     color: #ea7a3b;
+    background-color: black;
+    box-shadow: 0px 1px 2px 0px;
 }
 
 .messages{
 	padding: 10px;
+	margin-bottom: 140px;
 }
 
 .message{
@@ -44,8 +47,8 @@
 }
 
 .message_text{
-	padding: 5px;
-    border-radius: 20px;
+	padding: 10px;
+    border-radius: 10px;
 }
 
 .sent_by_other{
@@ -73,10 +76,10 @@
 }
 
 .message_controls{
-	position: absolute;
-    bottom: 65px;
     width: 100%;
     padding: 0 5px;
+    position: fixed;
+    bottom: 70px;
 }
 
 .message_controls input{

@@ -11,9 +11,10 @@
 }
 
 .invite_friends_container{
-	height: 100vh;
+	height: 100%;
 	background-color: black;
 	color: #fff;
+	box-shadow: 1px 1px 10px 0px;
 }
 
 .friends_list{
