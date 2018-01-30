@@ -44,6 +44,7 @@ import { InviteFriendsComponent } from './invite-friends/invite-friends.componen
 import { MessagesComponent } from './messages/messages.component';
 import { MessageDetailsComponent } from './messages/message-details/message-details.component';
 import { GuestlistComponent } from './guestlist/guestlist.component';
+import { OtherProfileComponent } from './other-profile/other-profile.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -94,6 +95,14 @@ const routes: Routes = [
       {path: 'upcoming-events', component: UpcomingEventsComponent},
       { path: '', redirectTo: '/profile/my-photos', pathMatch: 'full'}
     ]
+  },
+  {
+    path: 'user-profile/:id',
+    component: OtherProfileComponent
+  },
+  {
+    path: 'edit-profile/:id',
+    component: OtherProfileComponent
   },
   {
     path: 'messages', component: MessagesComponent
@@ -175,7 +184,8 @@ const routes: Routes = [
     StripeTestComponent,
     MessagesComponent,
     MessageDetailsComponent,
-    GuestlistComponent
+    GuestlistComponent,
+    OtherProfileComponent
   ],
   imports: [
     BrowserModule,

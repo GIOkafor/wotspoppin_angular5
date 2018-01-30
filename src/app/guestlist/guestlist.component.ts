@@ -91,4 +91,9 @@ export class GuestlistComponent implements OnInit {
     }
   }
 
+  //close modal
+  closeModal(){
+    this.activeModal.close();
+  }
+
 }

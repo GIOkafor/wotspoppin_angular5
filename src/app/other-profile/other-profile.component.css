@@ -1,14 +1,22 @@
-.user_profile_header{
+.top_nav{
 	color: #e18047;
     background-color: black;
     border-bottom: 1px solid #8e8e8e;
+    padding: 5px;
 }
-.fa-ellipsis-v::after{
-    content: none;
+
+.save{
+    float: right;
 }
-.userProfile{	
+
+.fa{
+    color: #e18047;
+}
+
+.other_profile_container{	
 	text-align: center;
 	background-color: black;
+    padding-bottom: 55px;
 }
 
 img{
@@ -16,12 +24,8 @@ img{
 	border-radius: 50%;
 }
 
-.dropdown-menu{
-    margin-right: 20px;
-}
-
 .imageDiv{
-	padding-top: 80px;
+	padding-top: 50px;
     padding-bottom: 25px;
     /* For now use placeholder image, later switch to user defined cover image */
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/4f/Toronto.Night.PNG);
@@ -50,27 +54,22 @@ span.username{
 	margin-right: 40px;
 }
 
-.user_profile_subnav{
-	background-color: #e18047;
-    color: #fff;
+.user_info form{
+    margin: 30px 0px;
+}
+
+.user_info .form-group{
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    justify-content: space-around;
     width: 100%;
-    padding: 0px;
+    padding: 0px 10%;
 }
 
-.user_profile_subnav .nav-item{
-	width: 33%;
-    padding: 10px 0px;
+.user_info input{
+    background-color: black;
+    border: none;
+    border-bottom: 1px solid #e18047;
+    color: #fff;
 }
 
-.user_profile_subnav .active{
-	background-color: #c65c20;
-}
-
-.dynamic_section{
-	background-color: black;
-	height: 100%;
-    padding-bottom: 64px;
-}
+.submit_btn{ color: #fff; }

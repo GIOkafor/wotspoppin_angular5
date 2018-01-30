@@ -3,8 +3,7 @@
 		<div class="top-nav sticky-top">
 			<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
 
-			<!-- Change date below to EPOCH time -->
-			<span class="event_date">{{event.payload.val().date | date:'medium'}}</span>
+			<span class="event_date">{{event.payload.val().date | date:'longDate'}}</span>
 
 			<i class="fa fa-lg fa-bars" aria-hidden="true"></i>
 		</div>

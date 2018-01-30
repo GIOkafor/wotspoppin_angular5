@@ -23,7 +23,9 @@
 
 			<!-- media footer - where all user actions stay - starts -->
 			<div class="media_footer">
-				<i class="fa fa-lg fa-heart-o" (click)="likeMedia();"></i>
+				<i class="fa fa-lg fa-heart-o" (click)="likeMedia();" *ngIf="!ifLiked(media);"></i>
+
+				<i class="fa fa-lg fa-heart" *ngIf="ifLiked(media);" (click)="unlike(media);"></i>
 
 				<!-- This hidden, no need because user can comment using textbox below
 					<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia(media.key);"></i>

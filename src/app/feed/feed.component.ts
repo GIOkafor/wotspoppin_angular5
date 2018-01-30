@@ -132,7 +132,7 @@ export class FeedComponent implements OnInit {
 
       promise
         .then(_=> {
-          console.log("Adding user to list of people that liked photo");
+          console.log("Adding user: " + currentUserUid + " to list of people that liked photo");
           //add user who liked to list of users that liked photo
           this.db.list('uploads/' + media.key + '/likes/users').push({uid: currentUserUid});
         })

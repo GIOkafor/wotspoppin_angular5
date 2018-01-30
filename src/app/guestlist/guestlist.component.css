@@ -21,6 +21,10 @@
     padding-bottom: 10px;
 }
 
+.guestname{
+    margin-left: 10px;
+}
+
 .guest img{
 	width: 65px;
     height: 65px;

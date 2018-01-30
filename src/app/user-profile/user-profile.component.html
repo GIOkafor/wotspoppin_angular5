@@ -10,6 +10,7 @@
 
 		<div class="dropdown-menu" aria-labelledy="dropDownMenuButton" ngbDropdownMenu>
 			<a class="dropdown-item" (click)="logOut();">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+			<a class="dropdown-item" [routerLink]="['/user-profile', currentUser.uid]"> Edit Profile <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
 		</div>
 	</div>
 </nav>
