@@ -72,4 +72,7 @@ span.username{
     color: #fff;
 }
 
-.submit_btn{ color: #fff; }
+.submit_btn{ 
+    background-color: #e18047;
+    color: black; 
+}

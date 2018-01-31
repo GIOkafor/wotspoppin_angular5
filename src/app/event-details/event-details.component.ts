@@ -19,6 +19,7 @@ export class EventDetailsComponent implements OnInit {
   event: any;
   attending: boolean = false;
   maybe: boolean;
+  guestsCount: number = 0;
 
   constructor(
   	private db: AngularFireDatabase,
@@ -45,8 +46,9 @@ export class EventDetailsComponent implements OnInit {
   }
 
   //checks guest list to see if user is attending event
+  //also calculates number of people that have rsvp'd
   checkIfAttending(){
-  	console.log(this.event.payload.val().guestlist);
+  	//console.log(this.event.payload.val().guestlist);
 
     //check if guestlist exists first, new events don't have guestlist object yet because no one has rsvpd
     if(!this.event.payload.val().guestlist){
@@ -55,7 +57,8 @@ export class EventDetailsComponent implements OnInit {
     }
 
   	for(var user in this.event.payload.val().guestlist){
-  		if (this.event.payload.val().guestlist[user] === this.authSvc.getCurrentUser().uid)
+  		this.guestsCount++;
+      if (this.event.payload.val().guestlist[user] === this.authSvc.getCurrentUser().uid)
   			this.attending = true;
   	}
   }
