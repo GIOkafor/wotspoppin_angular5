@@ -44,7 +44,7 @@ export class StripeTestComponent implements OnInit {
     });
   }
 
-  buy() {
+  buy(ev) {
     const name = this.stripeTest.get('name').value;
     this.stripeService
       .createToken(this.card.getCard(), { name })

@@ -11,7 +11,6 @@ import { AngularFireAuthModule } from 'angularfire2/auth';
 
 //3rd party modules
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
-import { TimeAgoPipe } from 'time-ago-pipe';
 import { NguiMapModule} from '@ngui/map';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStripeModule } from 'ngx-stripe';
@@ -172,7 +171,6 @@ const routes: Routes = [
     FeedItemComponent,
     ObjToArrayPipe,
     UserImageUrlPipe,
-    TimeAgoPipe,
     TimeAgoCPipe,
     MyPhotosComponent,
     NotificationsComponent,

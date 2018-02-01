@@ -19,7 +19,7 @@ export class GuestlistComponent implements OnInit {
 
   constructor(
   	private db: AngularFireDatabase,
-  	private activeModal: NgbActiveModal,
+  	public activeModal: NgbActiveModal,
   	private authSvc: AuthService) { 
   		this.currentUser = authSvc.getCurrentUser().uid;
       this.buddies = this.db.list('Users/' + this.currentUser + '/buddies').valueChanges()

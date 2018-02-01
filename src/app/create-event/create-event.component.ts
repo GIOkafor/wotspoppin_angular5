@@ -31,4 +31,8 @@ export class CreateEventComponent implements OnInit {
   ngOnInit() {
   }
 
+  onSubmit(event){
+    console.log("Creating event");
+  }
+
 }

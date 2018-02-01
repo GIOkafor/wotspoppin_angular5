@@ -16,6 +16,7 @@ export class MessageDetailsComponent implements OnInit {
 	userUID: string;
 	threadId: string;
 	messages: any;
+  message: any = '';
 
   constructor(
   	private location: Location,
