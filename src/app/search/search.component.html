@@ -1,7 +1,7 @@
 <div>
 	<!-- Search header -->
 	<div class="search_header navbar sticky-top" role="navigation">
-		<span><i class="fa fa-search" aria-hidden="true"></i></span>
+		<span [routerLink]="['/search-users']"><i class="fa fa-search" aria-hidden="true"></i></span>
 		<span>location</span>
 		<span><i class="fa fa-bars" aria-hidden="true"></i></span>
 	</div>
@@ -20,6 +20,10 @@
 			<!--
 				<a class="searchIcon" md-fab (click)="openDialog()"><md-icon>add</md-icon></a>
 			-->
+
+			<div class="new_event_container">
+				<i class="fa fa-plus-circle fa-4x" [routerLink]="['/create-event']"></i>
+			</div>
 		</div>
 	<!-- List form results display end -->
 

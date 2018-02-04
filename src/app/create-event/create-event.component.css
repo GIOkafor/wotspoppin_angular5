@@ -1,0 +1,18 @@
+.top-nav{
+	background-color: black;
+	color: #ea7a3b;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.create-event-component{
+	padding: 20px;
+	margin-top: 30px;
+	padding-bottom: 120px;
+	background-color: black;
+    color: #fff;
+    height: 100%;
+}
+
+.event_type_container .form-check-input{
+	margin-left: 0 !important;
+}

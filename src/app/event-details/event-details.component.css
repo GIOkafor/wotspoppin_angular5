@@ -9,6 +9,12 @@
 	padding: 10px;
 }
 
+.icon_date{
+	width: 65%;
+    justify-content: space-between;
+    display: flex;
+}
+
 .venue-component{
 	text-align: center;
 	background-color: black;
@@ -105,4 +111,10 @@
 	width: 95%;
 	color: #fff;
     background-color: #e18047;
+}
+
+.not_found{
+	padding: 10px;
+    height: 100vh;
+    text-align: center;
 }

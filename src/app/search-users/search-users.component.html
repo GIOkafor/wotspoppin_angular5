@@ -1,0 +1,21 @@
+<div class="top-nav sticky-top">
+	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
+</div>
+
+<div class="user_search_container">
+	
+	<form #f="ngForm" class="search_input" (ngSubmit)="search(f.value); f.reset();">
+		<input type="text" placeholder="Search" name="input" ngModel>
+		
+		<button class="btn" type="submit">
+			<i class="fa fa-search"></i>
+		</button>
+	</form>
+	<div class="search_results" *ngFor="let result of results" [routerLink]="['/user-profile', result.key]">
+		<img class="user_img" [src]="result.key | userImageUrl | async">
+
+		<span class="display_name">{{result.payload.val().userInfo.displayName}}</span>
+	</div>
+</div>
+
+<app-footer></app-footer>

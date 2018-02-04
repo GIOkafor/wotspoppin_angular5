@@ -32,3 +32,11 @@
 .map_results{
 	height: 100vh;
 }
+
+.new_event_container .fa{
+	position: fixed;
+    right: 15px;
+    bottom: 70px;
+    color: #e18047;
+    cursor: pointer;
+}

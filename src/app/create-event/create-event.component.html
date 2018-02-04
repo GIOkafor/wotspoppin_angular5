@@ -1,9 +1,13 @@
+<div class="top-nav fixed-top">
+	<i class="fa fa-chevron-left fa-lg" (click)="goBack()"></i>
+</div>
+
 <div class="create-event-component">
 	<h1>Create New Event</h1>
 
 	<form 
 		[formGroup]="eventForm" 
-		(ngSubmit)="onSubmit(eventForm.value)">
+		(ngSubmit)="newEvent(eventForm.value)">
 		<div class="form-group">
 			<label for="name">Name</label>
 			<input name="name" type="text" id="name" class="form-control" [formControl]="eventForm.controls['name']">
@@ -45,6 +49,37 @@
 			<div *ngIf="eventForm.controls['promoImage'].hasError('required') && eventForm.controls['promoImage'].touched">An image is required</div>
 		</div>
 
+		<div class="form-group">
+			<label>Event Location</label>
+
+			<input type="text" name="address" id="address" class="form-control" [formControl]="eventForm.controls['address']" required>
+		</div>
+
+		<div class="form-group event_type_container">
+			<label>Event Type</label>
+
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" name="eventType" id="preParty" value="preParty" [formControl]="eventForm.controls['eventType']">
+			  <label class="form-check-label" for="preParty">
+			    Pre Party
+			  </label>
+			</div>
+
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" name="eventType" id="houseParty" value="houseParty" [formControl]="eventForm.controls['eventType']">
+			  <label class="form-check-label" for="houseParty">
+			    House Party
+			  </label>
+			</div>
+
+			<div class="form-check">
+			  <input class="form-check-input" type="radio" name="eventType" id="afterParty" value="afterParty" [formControl]="eventForm.controls['eventType']">
+			  <label class="form-check-label" for="afterParty">
+			    After Party
+			  </label>
+			</div>
+		</div>
+
 		<!-- Form validation error message -->
 		<div *ngIf="!eventForm.valid && eventForm.touched" class="bg-danger">
 			<p>Form is invalid, please fill in all required fields</p>
@@ -53,3 +88,5 @@
 		<button [disabled]="!eventForm.valid" type="submit" class="btn btn-success">Submit</button>
 	</form>
 </div>
+
+<app-footer></app-footer>

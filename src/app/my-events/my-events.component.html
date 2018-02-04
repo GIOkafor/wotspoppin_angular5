@@ -1,0 +1,13 @@
+<div class="my_events_container">
+	
+	<!-- My events --> 
+	<div class="my_events_list" *ngIf="myEvents">
+		<!-- {{myEvents | json}} -->
+
+		<!-- Repeat for each event in list -->
+		<div class="event" *ngFor="let event of myEvents" [routerLink]="['/event-details', event.key]">
+			<span class="name">{{event.payload.val().name}}</span>
+			<span class="date">{{event.payload.val().date | date:'mediumDate'}}</span>
+		</div>
+	</div>
+</div>

@@ -19,6 +19,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { MatProgressSpinnerModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
+import { MatDialogModule } from '@angular/material/dialog';
 
 //app components
 import { AppComponent } from './app.component';
@@ -44,6 +45,10 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageDetailsComponent } from './messages/message-details/message-details.component';
 import { GuestlistComponent } from './guestlist/guestlist.component';
 import { OtherProfileComponent } from './other-profile/other-profile.component';
+import { MyEventsComponent } from './my-events/my-events.component';
+import { ActionConfirmDialog } from './event-details/event-details.component';
+import { DeleteUpcomingNotifDialog } from './upcoming-events/upcoming-events.component';
+import { SearchUsersComponent } from './search-users/search-users.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -92,6 +97,7 @@ const routes: Routes = [
       {path: 'my-photos', component: MyPhotosComponent},
       {path: 'notifications', component: NotificationsComponent},
       {path: 'upcoming-events', component: UpcomingEventsComponent},
+      {path: 'my-events', component: MyEventsComponent},
       { path: '', redirectTo: '/profile/my-photos', pathMatch: 'full'}
     ]
   },
@@ -102,6 +108,10 @@ const routes: Routes = [
   {
     path: 'edit-profile/:id',
     component: OtherProfileComponent
+  },
+  {
+    path: 'search-users',
+    component: SearchUsersComponent
   },
   {
     path: 'messages', component: MessagesComponent
@@ -183,7 +193,11 @@ const routes: Routes = [
     MessagesComponent,
     MessageDetailsComponent,
     GuestlistComponent,
-    OtherProfileComponent
+    OtherProfileComponent,
+    MyEventsComponent,
+    ActionConfirmDialog,
+    DeleteUpcomingNotifDialog,
+    SearchUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -199,7 +213,8 @@ const routes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatDialogModule
   ],
   providers: [
     AuthService,
@@ -212,7 +227,9 @@ const routes: Routes = [
   ],
   entryComponents: [
     InviteFriendsComponent,
-    GuestlistComponent
+    GuestlistComponent,
+    ActionConfirmDialog,
+    DeleteUpcomingNotifDialog
     ],
   bootstrap: [AppComponent]
 })
