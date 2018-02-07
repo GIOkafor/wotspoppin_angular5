@@ -41,6 +41,7 @@ export class UploadService {
         upload.likes = {};
         upload.likes.count = 0;
         upload.likes.users = '';
+        upload.type = upload.file.type;
 
         this.saveFileData(upload)
       }

@@ -151,7 +151,7 @@ export class FeedComponent implements OnInit {
   getPhotos(){
     this.feedItems = this.db.list('uploads').snapshotChanges()
       .map(items => {
-        return items.map(i => ({ key: i.payload.key, val: i.payload.val() }));
+        return (items.map(i => ({ key: i.payload.key, val: i.payload.val() }))).reverse();
       });
   }
 

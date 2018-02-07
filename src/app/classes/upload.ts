@@ -10,6 +10,7 @@ export class Upload {
   likes: any;
   comments: any;
   userUid: any;
+  type: any;
   
   constructor(file:File) {
     this.file = file;

@@ -19,7 +19,10 @@
 
 		<!-- feed media start -->
 		<div class="media_container">
-			<img class="media_image" [src]="media.url">
+			<!-- if media is image, show below -->
+			<img *ngIf="media.type !== 'video/mp4'" class="media_image" [src]="media.url">
+			<!-- if media is video, show below -->
+			<video *ngIf="media.type == 'video/mp4'" class="media_image" controls autoplay [src]="media.url"></video>
 
 			<!-- media footer - where all user actions stay - starts -->
 			<div class="media_footer">
