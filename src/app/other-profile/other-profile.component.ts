@@ -72,7 +72,16 @@ export class OtherProfileComponent implements OnInit {
 
     const promise = this.db.object('Users/' + this.currentUser.uid + '/userInfo').update(info.value);
     promise.then(_=> {
-      this.snackBar.open('Information updated successfully', '', {duration: 3000})
+      this.snackBar.open('Information updated successfully', '', {duration: 3000});
+
+      //update local storage with new user information
+      var latestUser = {
+        uid: this.currentUser.uid,
+        displayName: info.value.displayName,
+        photoURL: this.currentUser.photoURL
+      };
+
+      this.authSvc.updateLocStor(latestUser);
     });
 
   }

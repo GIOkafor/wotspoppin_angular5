@@ -45,8 +45,16 @@ export class AuthComponentComponent implements OnInit {
             //set userInfo in db to current user before navigating
             const promise = userRef.update({ displayName: user.displayName, imageUrl: user.photoURL });
 
+            //navigate user to profile view so they can fill out their key information
+            promise.then(_=> this.router.navigate(['edit-profile', user.uid]));
+
           }else{
-            console.log("User data exists in db");
+            //console.log("User data exists in db");
+
+            //set local storage var to what's in db
+            currentUser.displayName = res.payload.val().displayName;
+            currentUser.email = res.payload.val().email;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
             //navigate to venue
             this.router.navigate(['venues']);
