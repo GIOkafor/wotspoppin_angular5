@@ -14,9 +14,10 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NguiMapModule} from '@ngui/map';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStripeModule } from 'ngx-stripe';
+import { PopoverModule } from 'ng2-pop-over';
 
 //angular material modules
-import { MatProgressSpinnerModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatAutocompleteModule, MatInputModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -49,6 +50,7 @@ import { MyEventsComponent } from './my-events/my-events.component';
 import { ActionConfirmDialog } from './event-details/event-details.component';
 import { DeleteUpcomingNotifDialog } from './upcoming-events/upcoming-events.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
+import { MapLegendComponent } from './search/map-legend/map-legend.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -197,7 +199,8 @@ const routes: Routes = [
     MyEventsComponent,
     ActionConfirmDialog,
     DeleteUpcomingNotifDialog,
-    SearchUsersComponent
+    SearchUsersComponent,
+    MapLegendComponent
   ],
   imports: [
     BrowserModule,
@@ -213,8 +216,11 @@ const routes: Routes = [
     HttpClientModule,
     BrowserAnimationsModule,
     MatProgressSpinnerModule,
+    MatAutocompleteModule,
+    MatInputModule,
     MatSnackBarModule,
-    MatDialogModule
+    MatDialogModule,
+    PopoverModule
   ],
   providers: [
     AuthService,

@@ -2,7 +2,11 @@
 	<!-- repeat photos that belong to particular user -->
 	<div class="row photos">
 		<span class="col-6" *ngFor="let media of myMedia | async">
-			<img [src]="media.payload.val().url">
+
+			<!-- if media is image, show below -->
+			<img *ngIf="media.payload.val().type !== 'video/mp4'" class="media_image" [src]="media.payload.val().url">
+			<!-- if media is video, show below -->
+			<video *ngIf="media.payload.val().type == 'video/mp4'" class="media_image" controls [src]="media.payload.val().url"></video>
 		</span>
 	</div>
 </div>

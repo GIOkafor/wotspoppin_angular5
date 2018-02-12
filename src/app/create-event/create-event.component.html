@@ -80,6 +80,11 @@
 			</div>
 		</div>
 
+		<div class="form-group">
+			<label>Ticket Price</label>
+			<input class="form-control" type="number" name="ticketPrice" id="ticketPrice" [formControl]="eventForm.controls['ticketPrice']" required>
+		</div>
+
 		<!-- Form validation error message -->
 		<div *ngIf="!eventForm.valid && eventForm.touched" class="bg-danger">
 			<p>Form is invalid, please fill in all required fields</p>

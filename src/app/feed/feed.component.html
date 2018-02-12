@@ -35,9 +35,9 @@
 				<!-- feed media start -->
 				<div class="media_container">
 					<!-- if media is image, show below -->
-					<img *ngIf="item.val.type !== 'video/mp4'" class="media_image" [src]="item.val.url">
+					<img *ngIf="item.val.type !== 'video/mp4'" class="media_image" [src]="item.val.url" (dblclick)="likeMedia(item)">
 					<!-- if media is video, show below -->
-					<video *ngIf="item.val.type == 'video/mp4'" class="media_image" controls [src]="item.val.url"></video>
+					<video *ngIf="item.val.type == 'video/mp4'" class="media_image" controls [src]="item.val.url" (dblclick)="likeMedia(item)"></video>
 
 					<!-- media footer - where all user actions stay - starts -->
 					<div class="media_footer">

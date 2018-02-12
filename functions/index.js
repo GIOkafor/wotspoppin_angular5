@@ -2,13 +2,22 @@ const functions = require('firebase-functions');
 const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
-// // Create and Deploy Your First Cloud Functions
-// // https://firebase.google.com/docs/functions/write-firebase-functions
-//
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
+//Map geolocation stuff
+var NodeGeocoder = require('node-geocoder');
 
+var options = {
+  provider: 'google',
+
+  // Optional depending on the providers
+  httpAdapter: 'https', 
+  apiKey: 'AIzaSyBYjcOcW2Y_CYHp0j_wlsE8LW6DWAoEMUk', 
+  formatter: null        
+};
+
+var geocoder = NodeGeocoder(options);
+
+/////////////////FUNCTIONS START///////////////////
+///////////////////////////////////////////////////////////////////////////////////////////
 
 //adds time uploaded value to media uploaded
 exports.timeUploaded = functions.database.ref('/uploads/{key}')
@@ -61,4 +70,42 @@ exports.messageSentTime = functions.database.ref('Users/{uid}/dms/{threadId}/{ms
 			return admin.database().ref('Users/'+ event.data.key + '/dms/' + msg.senderId)
 				.push(msg)
 		*/
+	});
+
+//adds location in lat long when event adress is added upon event creation position{lat,lng}
+exports.addLocation = functions.database.ref('Events/{id}')
+	.onWrite(event => {
+		const evt = event.data.val();
+
+		//console.log("Event is: ", evt);
+
+		//if message has a postion, exit
+		if(evt.postion)
+			return;
+
+		//if it doesn't, continue here
+		geocoder.geocode(evt.address)
+			.then(function(res) {
+			    //console.log(res);
+
+			    //create object
+			    var position = {
+			    	lat: '',
+			    	lng: ''
+			    };
+
+			    //assign values to variables
+			    position.lat = res[0].latitude;
+			    position.lng = res[0].longitude;
+
+			    //debug code
+			    //console.log("Position object is: ", position);
+
+			    //store new value in database
+			    return event.data.ref.child('position').set(position);
+			})
+			.catch(function(err) {
+				console.log(err);
+				return;
+			});
 	});

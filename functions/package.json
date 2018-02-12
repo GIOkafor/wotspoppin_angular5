@@ -9,8 +9,12 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "@ngui/map": "^0.20.2",
+    "@types/googlemaps": "^3.30.5",
     "firebase-admin": "~5.4.2",
-    "firebase-functions": "^0.7.1"
+    "firebase-functions": "^0.7.1",
+    "ng2-pop-over": "^0.9.37",
+    "node-geocoder": "^3.22.0"
   },
   "private": true
 }

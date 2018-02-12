@@ -20,9 +20,9 @@
 		<!-- feed media start -->
 		<div class="media_container">
 			<!-- if media is image, show below -->
-			<img *ngIf="media.type !== 'video/mp4'" class="media_image" [src]="media.url">
+			<img *ngIf="media.type !== 'video/mp4'" class="media_image" [src]="media.url" (dblclick)="likeMedia(item)">
 			<!-- if media is video, show below -->
-			<video *ngIf="media.type == 'video/mp4'" class="media_image" controls autoplay [src]="media.url"></video>
+			<video *ngIf="media.type == 'video/mp4'" class="media_image" controls autoplay [src]="media.url" (dblclick)="likeMedia(item)"></video>
 
 			<!-- media footer - where all user actions stay - starts -->
 			<div class="media_footer">

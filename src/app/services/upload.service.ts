@@ -17,6 +17,7 @@ export class UploadService {
     private authSvc: AuthService) { }
 
   private basePath:string = '/uploads';
+  private profilePath:string = '/profilePics';
   uploads: any;
 
   pushUpload(upload: Upload) {
@@ -47,10 +48,45 @@ export class UploadService {
       }
     );
   }
+
+  //push profile pic for venues and maybe users
+  profileUpload(upload: any, fn) {
+    let storageRef = this.af.storage().ref();
+    let uploadTask = storageRef.child(`${this.profilePath}/${upload.file.name}`).put(upload.file);
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) =>  {
+        // upload in progress
+        upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100
+      },
+      (error) => {
+        // upload failed
+        console.log(error)
+      },
+      () => {
+        // upload success
+        upload.url = uploadTask.snapshot.downloadURL
+        upload.name = upload.file.name
+        upload.userUid = this.authSvc.getCurrentUser().uid;
+        upload.displayName = this.authSvc.getCurrentUser().displayName;
+
+        this.saveProfileData(upload);
+        
+        //console.log(upload.url);
+        //callback function for handling response
+        fn(upload.url);
+      }
+    );
+  }
   
   // Writes the file details to the realtime db
+  //return image upload url
   private saveFileData(upload: Upload) {
-    this.db.list(`${this.basePath}/`).push(upload);
+    const promise = this.db.list(`${this.basePath}/`).push(upload);
+  }
+
+  //upload profile pic primarily for venues
+  public saveProfileData(upload: any) {
+    const promise = this.db.list(`${this.profilePath}/`).push(upload);
   }
 
   deleteUpload(upload: Upload) {

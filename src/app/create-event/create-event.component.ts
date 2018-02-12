@@ -42,7 +42,8 @@ export class CreateEventComponent implements OnInit {
   		'description': ['Event description', Validators.required],
       'promoImage': ['', Validators.required],
       'eventType': ['', Validators.required],
-  		'address': ['', Validators.required]
+  		'address': ['', Validators.required],
+      'ticketPrice': ['', Validators.required]
   	});
   }
 

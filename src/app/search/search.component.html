@@ -3,7 +3,59 @@
 	<div class="search_header navbar sticky-top" role="navigation">
 		<span [routerLink]="['/search-users']"><i class="fa fa-search" aria-hidden="true"></i></span>
 		<span>location</span>
-		<span><i class="fa fa-bars" aria-hidden="true"></i></span>
+		
+		<span>
+			<i class="fa fa-bars" placement="left" aria-hidden="true" (click)='helpPO.toggle($event)'>
+		    </i>
+
+		    <!-- Popover content -->
+		    <!-- Consider moving this into a component -->
+		    <pop-over #helpPO
+		    	[y-offset]="10"
+		    	[anchor-to]="true"
+		    	[my]="'top right'"
+		    	[at]="'bottom left'">
+
+			   <div class="popover_container" style="
+			   		background-color: black;
+					color: #fff;
+				">
+			       <ul class="legend_list" style="
+			       		list-style: none;
+    					padding-left: 0px;
+    					margin-bottom: 0px;
+			       ">
+			       		<li class="legend" (click)="filterRes('clubs')" style="
+			       			border-bottom: 1px solid #e18047;
+    						padding: 2.5px 10px;
+			       		">
+			       			<img src="assets/map_icons/red_MarkerO.png"> <span style="margin-left: 10px;">Clubs</span>
+			       		</li>
+
+			       		<li class="legend" (click)="filterRes('bars')" style="
+			       			border-bottom: 1px solid #e18047;
+    						padding: 2.5px 10px;
+			       		">
+			       			<img src="assets/map_icons/darkgreen_MarkerO.png"> <span style="margin-left: 10px;">Pubs/Bars</span>
+			       		</li>
+
+			       		<li class="legend" (click)="filterRes('houseParties')" style="
+			       			border-bottom: 1px solid #e18047;
+    						padding: 2.5px 10px;
+			       		">
+			       			<img src="assets/map_icons/blue_MarkerO.png"> <span style="margin-left: 10px;">House Parties</span>
+			       		</li>
+
+			       		<li class="legend" (click)="filterRes('events')" style="
+			       			border-bottom: 1px solid #e18047;
+    						padding: 2.5px 10px;
+			       		">
+			       			<img src="assets/map_icons/yellow_MarkerO.png"> <span style="margin-left: 10px;">Events</span>
+			       		</li>
+			       </ul>
+			   </div>
+			</pop-over>
+	    </span>
 	</div>
 
 	<nav class="nav nav-pills nav-justified">
@@ -30,9 +82,37 @@
 	<!-- Map form results start -->
 		<div class="map_results" *ngIf="view === 'map'">
 			<!-- Map -->
-			<ngui-map>
+			<ngui-map default-style="false" class="map">
 				<!-- each venue has lat long position, set during creation -->
-				<marker *ngFor="let venue of venues | async" [position]="venue.payload.val().position"></marker>
+				<marker class="venues_marker" [ngClass]="{'hidden_marker': hideMarker !== 'clubs'}" *ngFor="let venue of venues | async" (click)="clicked($event, venue)" [position]="venue.payload.val().position"></marker>
+
+		      	<marker class="events_marker" [ngClass]="{'hidden_marker': hideMarker !== 'events'}" *ngFor="let event of events | async" (click)="clicked($event, event)" 
+		      		[position]="event.payload.val().position"
+		      		[icon]="{
+		      			url: 'https://firebasestorage.googleapis.com/v0/b/noteapp-436f9.appspot.com/o/google_maps_yellow_pin.png?alt=media&token=67fd1f65-0b78-4598-b06e-ee8a3501fbf1',
+		      			anchor: [16,16],
+						size: [32,32],
+						scaledSize: [32,32]
+		      		}"
+		      	>
+		      	</marker>
+
+		      	<!-- Info window popup -->
+		      	<info-window id="iw">
+					<div class="display_window" *ngIf="marker.display">
+					  <span>{{marker.address}}</span>
+					  <span [routerLink]="['/venue/', marker.key]">{{marker.name}}</span>
+					  <span>{{marker.description}}</span>
+					  <span *ngIf="marker.date !== null">{{marker.date | date:'short'}}</span>
+
+					  <!-- link to event details page, venues don't have a date -->
+					  <a *ngIf="marker.date !== null" [routerLink]="['/event-details/', marker.key]">View event details</a>
+
+					  <!-- Link to venue information page 
+					  <a *ngIf="marker.date == null" [routerLink]="['/venue/', marker.key]">View venue details</a>-->
+					</div>
+				</info-window>
+
 			</ngui-map>
 		</div>
 	<!-- Map form results end -->

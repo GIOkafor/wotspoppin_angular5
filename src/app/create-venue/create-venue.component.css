@@ -1,0 +1,23 @@
+.top_nav{
+	background: black;
+    color: #e18047;
+    padding: 5px;
+    border-bottom: 1px solid #fff;
+}
+
+.createEvent{
+	padding: 10px;
+	height: 100vh;
+	background: black;
+    color: #fff;
+}
+
+.cta_btns .btn{
+	margin: 10px;
+}
+
+#imageUrl{
+	width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}

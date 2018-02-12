@@ -33,10 +33,33 @@
 	height: 100vh;
 }
 
+.map{
+	height: 425px;
+}
+
+.hidden_marker{
+	display: none;
+}
+
 .new_event_container .fa{
 	position: fixed;
     right: 15px;
     bottom: 70px;
     color: #e18047;
     cursor: pointer;
+}
+
+.custom_marker_icon{
+	height: 40px;
+}
+
+.display_window{
+    display: flex;
+    flex-direction: column;
+}
+
+@media and screen only (min-height: 650px) {
+	.map{
+		height: 525px;
+	}
 }
