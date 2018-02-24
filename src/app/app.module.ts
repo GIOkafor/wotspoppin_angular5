@@ -71,6 +71,9 @@ import { UserDisplayNamePipe } from './pipes/user-display-name.pipe';
 import { InviteFilterPipe } from './pipes/invite-filter.pipe';
 import { EventInfoFilterPipe } from './pipes/event-info-filter.pipe';
 
+//guards
+import { PendingChangesGuard } from './guards/pending-changes.guard';
+
 //environment access
 import { environment } from './../environments/environment';
 
@@ -135,7 +138,8 @@ const routes: Routes = [
   },
   {
     path: 'create-venue',
-    component: CreateVenueComponent
+    component: CreateVenueComponent,
+    canDeactivate: [PendingChangesGuard]
   },
   {
     path: 'create-event',
@@ -229,7 +233,8 @@ const routes: Routes = [
     VenuesService,
     UploadService,
     UserMediaService,
-    MessagingService
+    MessagingService,
+    PendingChangesGuard
   ],
   entryComponents: [
     InviteFriendsComponent,

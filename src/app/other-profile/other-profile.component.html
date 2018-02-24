@@ -12,7 +12,14 @@
 <div class="other_profile_container" *ngIf="user">
 	<div class="imageDiv">
 		<img class="user-image"[src]="user.key | userImageUrl | async">
-		
+
+		<div class="image-upload" *ngIf="checkUser(currentUser.uid)">
+		    <label for="file-input">
+		        <i class="btn change_profile" type="file">Change Photo</i>
+		    </label>
+
+		    <input id="file-input" type="file" (change)="detectFiles($event)"/>
+		</div>
 
 		<div class="userinfo_text_container">
 			<span class="username">{{user.payload.val().userInfo.displayName}}</span>
@@ -51,7 +58,7 @@
 				<input type="text" name="phoneNumber" [(ngModel)]="user.payload.val().userInfo.phoneNumber" *ngIf="!checkUser(currentUser.uid)" disabled>
 
 				<!-- This is shown for your profile -->
-				<input type="text" name="phoneNumber" [(ngModel)]="user.payload.val().userInfo.phoneNumber" *ngIf="checkUser(currentUser.uid)" ngModel>
+				<input type="text" name="phoneNumber" [(ngModel)]="user.payload.val().userInfo.phoneNumber" *ngIf="checkUser(currentUser.uid)" required ngModel>
 			</div>
 
 			<div class="form-group">
@@ -60,7 +67,7 @@
 				<input type="text" name="sex" [(ngModel)]="user.payload.val().userInfo.sex" *ngIf="!checkUser(currentUser.uid)" disabled>
 
 				<!-- This is shown for your profile -->
-				<input type="text" name="sex" [(ngModel)]="user.payload.val().userInfo.sex" *ngIf="checkUser(currentUser.uid)" ngModel>
+				<input type="text" name="sex" [(ngModel)]="user.payload.val().userInfo.sex" *ngIf="checkUser(currentUser.uid)" required ngModel>
 			</div>
 
 			<div class="form-group">
@@ -69,10 +76,10 @@
 				<input type="text" name="location" [(ngModel)]="user.payload.val().userInfo.location" *ngIf="!checkUser(currentUser.uid)" disabled>
 
 				<!-- This is shown for your profile -->
-				<input type="text" name="location" [(ngModel)]="user.payload.val().userInfo.location" *ngIf="checkUser(currentUser.uid)" ngModel>
+				<input type="text" name="location" [(ngModel)]="user.payload.val().userInfo.location" *ngIf="checkUser(currentUser.uid)" required ngModel>
 			</div>
 
-			<button *ngIf="checkUser(currentUser.uid)" type="submit" class="btn submit_btn">Done</button>
+			<button *ngIf="checkUser(currentUser.uid)" type="submit" class="btn submit_btn" [disabled]="!f.valid">Done</button>
 
 		<!--
 			<div class="form-group">

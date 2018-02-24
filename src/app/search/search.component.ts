@@ -87,10 +87,13 @@ export class SearchComponent implements OnInit {
   filterRes(val){
     console.log("Filtering results: ", val);
 
-    if(val === 'clubs')
-      this.hideMarker = 'clubs';
-    else if(val === 'events')
-      this.hideMarker = 'events';
+    if(val === 'clubs'){
+      this.hideMarker = 'clubs'
+    }
+    else if(val === 'events'){
+      this.hideMarker = 'events'
+    }
+
   }
 
 }

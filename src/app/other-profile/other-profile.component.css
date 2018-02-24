@@ -25,7 +25,7 @@ img{
 }
 
 .imageDiv{
-	padding-top: 50px;
+	padding-top: 25px;
     padding-bottom: 25px;
     /* For now use placeholder image, later switch to user defined cover image */
     background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/4f/Toronto.Night.PNG);
@@ -34,6 +34,18 @@ img{
     flex-direction: column;
     align-items: center;
     color: #fff;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+
+.change_profile{
+    margin-top: 20px;
+    background-color: #e18047;
+    color: black;
+    padding: 0px 10px;
 }
 
 .userinfo_text_container{

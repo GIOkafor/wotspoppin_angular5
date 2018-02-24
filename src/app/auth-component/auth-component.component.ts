@@ -42,8 +42,8 @@ export class AuthComponentComponent implements OnInit {
           //if this is a brand new user, or user without profile information, code below gets triggered
           if(res.payload.val() == null){
 
-            //set userInfo in db to current user before navigating
-            const promise = userRef.update({ displayName: user.displayName, imageUrl: user.photoURL });
+            //set userInfo in db to current user before navigating, set email as well
+            const promise = userRef.update({ displayName: user.displayName, imageUrl: user.photoURL, email: user.email });
 
             //navigate user to profile view so they can fill out their key information
             promise.then(_=> this.router.navigate(['edit-profile', user.uid]));

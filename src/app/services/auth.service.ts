@@ -29,7 +29,7 @@ export class AuthService {
 
   //update local storage value
   updateLocStor(val){
-    //console.log(JSON.stringify(val));
+    console.log(JSON.stringify(val));
     
     //remove old info
     localStorage.removeItem('currentUser');

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, ElementRef, HostListener } from '@angular/core';
 import { Location } from '@angular/common';
 import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
@@ -8,14 +8,16 @@ import { MatSnackBar } from '@angular/material';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadService } from '../services/upload.service';
 import { Upload } from '../classes/upload';
+import { Observable } from 'rxjs/Rx';
 import 'rxjs/add/operator/map';
+import { ComponentCanDeactivate } from '../guards/pending-changes.guard';
 
 @Component({
   selector: 'app-create-venue',
   templateUrl: './create-venue.component.html',
   styleUrls: ['./create-venue.component.css']
 })
-export class CreateVenueComponent implements OnInit {
+export class CreateVenueComponent implements OnInit, ComponentCanDeactivate {
 
   venuesList: any;//venue list will be referenced here
   formData:any; //use this to prepare object to be pushed to db
@@ -71,6 +73,22 @@ export class CreateVenueComponent implements OnInit {
   }
 
   ngOnInit() {
+  }
+
+  // @HostListener allows us to also guard against browser refresh, close, etc.
+  @HostListener('window:beforeunload')
+  canDeactivate(): Observable<boolean> | boolean {
+    // insert logic to check if there are pending changes here;
+    // returning true will navigate without confirmation
+    // returning false will show a confirm dialog before navigating away
+    if(this.venueForm.dirty){
+      //console.log("Changes exist staying on page");
+      return false;
+    }
+    else{
+      //console.log("Changes dont exist, leaving page");
+      return false;
+    }
   }
 
   ngAfterViewInit() {
