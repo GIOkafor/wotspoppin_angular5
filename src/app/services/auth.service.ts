@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { MatSnackBar } from '@angular/material';
+import { MatSnackBar, MatDialog } from '@angular/material';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { ErrorComponent } from '../error/error.component';
 
 @Injectable()
 export class AuthService {
 
   constructor(
   	private snackBar: MatSnackBar,
-  	private router: Router) { }
+  	private router: Router,
+    private afAuth: AngularFireAuth,
+    private dialog: MatDialog,
+    private db: AngularFireDatabase) { }
 
   getCurrentUser(){
   	var currentUser = localStorage.getItem('currentUser');
@@ -35,6 +41,68 @@ export class AuthService {
     localStorage.removeItem('currentUser');
     //add new
     localStorage.setItem('currentUser', JSON.stringify(val));
+  }
+
+  //create new account using email and password
+  //specifically for venues
+  emailSignUp(val){
+    this.afAuth.auth.createUserWithEmailAndPassword(val.email, val.password)
+      .then(_=> {
+        //add user info to profile
+        this.db.object('/venue-users/'+this.afAuth.auth.currentUser.uid + '/userInfo').set({email: val});
+
+        this.sendEmailVerification();
+
+        //save user uid for later use
+        var currentUser = {
+          uid : this.afAuth.auth.currentUser.uid
+        } 
+
+        this.updateLocStor(currentUser);
+
+        //redirect to venue creation page
+        this.router.navigate(['/create-venue']);
+      })
+      .catch(err => this.handleError(err.message));
+  }
+
+  handleError(errMessage){
+    this.dialog.open(ErrorComponent, {
+      data: errMessage,
+    });
+  }
+
+  sendEmailVerification(){
+    //sending email verification
+    this.afAuth.auth.currentUser.sendEmailVerification()
+     .then(_=> {
+       //console.log("Email sent successfully");
+       this.snackBar.open("Account confirmation email sent successfully", "", {duration: 3000});
+     }).catch(error => {
+       //console.log(error + " happened");
+       this.snackBar.open(error, "", {duration: 3000});
+     });
+  }
+
+  //sign in via email for venues
+  emailSignIn(email, password){
+    this.afAuth.auth.signInWithEmailAndPassword(email, password)
+      .then(_=> {
+        var uid = this.afAuth.auth.currentUser.uid;
+        localStorage.setItem('currentUserUID', uid);
+
+      /*
+        //find venue created by this user
+        this.db.list('Venues/', ref => ref.orderByChild('createdBy').equalTo(uid)).snapshotChanges()
+          .subscribe((res:any) => {
+            console.log(res[0].key);
+            
+            //navigate to venue page
+            this.router.navigate(['/venue/', res[0].key]);
+          })
+      */  
+      })
+      .catch(err => this.handleError(err.message));
   }
 
 }

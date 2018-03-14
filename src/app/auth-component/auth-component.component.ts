@@ -4,6 +4,7 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-auth-component',
@@ -13,11 +14,14 @@ import * as firebase from 'firebase/app';
 export class AuthComponentComponent implements OnInit {
 
   newUser: boolean = false;
+  userSignUp: boolean = false;
+  venueSignIn: boolean = false;
 
   constructor(
   	public afAuth: AngularFireAuth,
   	public db: AngularFireDatabase,
-    public router: Router) { }
+    public router: Router,
+    private authSvc: AuthService) { }
 
   ngOnInit() {
   	firebase.auth().onAuthStateChanged(user => {
@@ -96,6 +100,17 @@ export class AuthComponentComponent implements OnInit {
   logout() {
     this.afAuth.auth.signOut();
     localStorage.removeItem('currentUser');
+  }
+
+  showUserSignUp(){
+    //console.log("Showing user signup");
+    this.userSignUp = true;
+  }
+
+  emailLogin(val){
+    console.log(val);
+
+    this.authSvc.emailSignIn(val.email, val.password);
   }
 
   /*	

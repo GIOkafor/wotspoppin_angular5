@@ -5,6 +5,7 @@ import { AngularFireDatabase } from 'angularfire2/database';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 import { environment } from '../../environments/environment';
+import { AuthService } from '../services/auth.service';
 
 @Component({
   selector: 'app-venue-information',
@@ -23,16 +24,19 @@ export class VenueInformationComponent implements OnInit {
     menu: ""
   };
 
+  currentUser: any;
   events$: any;//event list for this particular venue
   showDetails = false;//hide popup until button is clicked
   spotlightEvent: any;
   guestList: any = '';
+  isAdmin: boolean = false;
 
   constructor(
   	private db: AngularFireDatabase,
     private route: ActivatedRoute,
   	private router: Router,
-    private location: Location) { }
+    private location: Location,
+    private authSvc: AuthService) {  this.currentUser = this.authSvc.getCurrentUser();}
 
   ngOnInit() {
     this.route.paramMap
@@ -41,13 +45,24 @@ export class VenueInformationComponent implements OnInit {
         .subscribe(
           (venue: any) => {
             this.venue = venue;
+
+            //check if auth'ed user is admin of venue
+            this.isAdmin = this.checkIfAdmin();
+
+            //get events belonging to venue
+            this.db.list('/Events', ref => ref.orderByChild("createdBy").equalTo(this.venue.key)).snapshotChanges()
+              .subscribe(res => {
+                this.events$ = res;
+              })
           });
 
-       //wait 3 seconds to get venue information from firebase before getting events
-       let timer = Observable.timer(3000);
-       timer.subscribe(t=>{
-         this.getEvents();
-       });
+      /*   
+         //wait 3 seconds to get venue information from firebase before getting events
+         let timer = Observable.timer(3000);
+         timer.subscribe(t=>{
+           this.getEvents();
+         });
+      */
   }
 
   getEvents(){
@@ -82,6 +97,31 @@ export class VenueInformationComponent implements OnInit {
   //get event guest list
   getGuestList(event){
     //this.guestList = this.db.list('Events/' + event.$key + '/guestlist');
+  }
+
+  //checks if current user is creator
+  checkIfAdmin(){
+    
+    //console.log("Value passed is: ", creator);
+    if(this.currentUser.uid === this.venue.payload.val().createdBy)
+      return true;
+    else
+      return false;
+  }
+
+  //edit venue information
+  editVenue(){
+    console.log("Editing venue information, for venue: ", this.venue.key);
+  }
+
+  //adds new event
+  addEvent(){
+    console.log("Adding new event");
+  }
+
+  //edit bottle service menu
+  editMenu(){
+    console.log("Editing bottle service menu");
   }
 
 }

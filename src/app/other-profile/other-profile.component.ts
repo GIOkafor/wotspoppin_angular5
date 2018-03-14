@@ -128,7 +128,7 @@ export class OtherProfileComponent implements OnInit {
           
           userUp.then(_=> {
             this.snackBar.open("Image change successfull, reloading page...", "", {duration: 3000});
-            location.reload();
+            //location.reload();
           });
           
         });

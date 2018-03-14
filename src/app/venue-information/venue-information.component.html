@@ -5,7 +5,50 @@
 
 	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
 
-	<i class="fa fa-lg fa-bars" aria-hidden="true"></i>
+	<!-- Make this toggleable a menu if it was created by current user -->
+	<span *ngIf="isAdmin">
+		<i  class="fa fa-lg fa-bars" aria-hidden="true" (click)='helpPO.toggle($event)'></i>
+
+		<pop-over #helpPO
+	    	[y-offset]="10"
+	    	[anchor-to]="true"
+	    	[my]="'top right'"
+	    	[at]="'bottom left'">
+
+		   <div class="popover_container" style="
+		   		background-color: black;
+				color: #fff;
+			">
+		       <ul class="legend_list" style="
+		       		list-style: none;
+					padding-left: 0px;
+					margin-bottom: 0px;
+		       ">
+		       		<li class="legend" (click)="editVenue()" style="
+		       			border-bottom: 1px solid #e18047;
+						padding: 2.5px 10px;
+		       		">
+		       			Edit Venue
+		       		</li>
+
+		       		<li class="legend" (click)="addEvent()" style="
+		       			border-bottom: 1px solid #e18047;
+						padding: 2.5px 10px;
+		       		">
+		       			Add Events
+		       		</li>
+
+		       		<li class="legend" (click)="editMenu()" style="
+		       			border-bottom: 1px solid #e18047;
+						padding: 2.5px 10px;
+		       		">
+		       			Edit Menu
+		       		</li>
+		       </ul>
+		   </div>
+		</pop-over>
+	</span>
+
 </div>
 
 <div class="venue-component">
@@ -25,53 +68,46 @@
 
 	<!-- Venue events -->
 	<div class="events">
-		<h4>Upcoming Events</h4>
 
-		<table class="table table-striped">
-			<tr>
-				<th>Event Name</th>
-				<th>Date</th>
-			</tr>
+		<app-venue-event-list [events]="events$"></app-venue-event-list>
 
-				<!-- Repeat this row below --> 
-				<tr *ngFor="let event of events$ | async" (click)="getEventDetails(event);">
-					<td>{{event.payload.val().name}}</td>
-					<td>{{event.payload.val().date | date:'medium'}}</td>
+		<!-- Old events list 
+			<table class="table table-striped">
+				<tr>
+					<th>Event Name</th>
+					<th>Date</th>
 				</tr>
 
-			<div class="events-loading">
+					<tr *ngFor="let event of events$" (click)="getEventDetails(event);">
+						<td>{{event.payload.val().name}}</td>
+						<td>{{event.payload.val().date | date:'medium'}}</td>
+					</tr>
 
-				<mat-spinner
-					[color]="yellow"
-					*ngIf="!events$"></mat-spinner>
+				<div class="events-loading">
 
-			</div>
-		</table>
+					<mat-spinner
+						[color]="yellow"
+						*ngIf="!events$"></mat-spinner>
 
-		<!--	
-			<div class="show-details" *ngIf="showDetails">
-				<div class="modal-contents">
-					<button type="button" class="close" (click)="hideDetails()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-
-					<img class="promoImage" [src]="spotlightEvent.promoImage">
-					
-					<h4>{{spotlightEvent.name}}</h4>
-
-					<p class="event-description">{{spotlightEvent.description}}</p>
-
-					<div class="buttons">
-						<button class="btn btn-primary" (click)="attendEvent();">Attend</button>
-						<button class="btn btn-default" (click)="getGuestList(spotlightEvent)">Maybe</button>
-					</div>
-
-					
-					<div class="guest-list">
-						<h5>Your friends that are attending: </h5>
-						<span *ngFor="let guest of guestList | async">{{guest.$value}}</span>
-					</div>
 				</div>
-			</div>
-		-->
+			</table>
+		--> 
+	</div>
+
+	<!-- Venue bottle service menu -->
+	<div class="menu">
+		<h4>MENU</h4>
+
+		<!-- menu goes below, separated by categories -->
+
+		<!-- Repeat for each category --> 
+		<div>
+			<h5>Category Name</h5>
+
+			<!-- repeat for each item in category -->
+			<span>Category Item  --  <span class="item_price">$200</span></span>
+		</div>
+
 	</div>
 </div>
 <app-footer></app-footer>

@@ -5,6 +5,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { UploadService } from '../services/upload.service';
+import { Upload } from '../classes/upload';
 
 @Component({
   selector: 'app-create-event',
@@ -18,6 +20,10 @@ export class CreateEventComponent implements OnInit {
   //for now it's just going to reference all events 'Venues/events'
   events: any;//FirebaseListObservable<any>;
   user: any;//firebase.User;//reference to current user
+  imageSource: any; //for toggling venue image source
+  //file upload vars
+  currentUpload: Upload;
+  selectedFiles: FileList;
 
   constructor(
   	private router: Router,
@@ -25,7 +31,8 @@ export class CreateEventComponent implements OnInit {
     private db: AngularFireDatabase,
     private authSvc: AuthService,
     private snackBar: MatSnackBar,
-    private location: Location) { 
+    private location: Location,
+    private upSvc: UploadService) { 
 
 	  //check if user is authenticated first
     this.user = authSvc.getCurrentUser();
@@ -81,6 +88,39 @@ export class CreateEventComponent implements OnInit {
 
   goBack(){
     this.location.back();
+  }
+
+  //for toggling image src input
+  imageSrc(val){
+    //console.log(val);
+    this.imageSource = val;
+  }
+
+  //
+  //for detecting when user selects image from their device then calls photo upload function
+  detectFiles(event) {
+    this.selectedFiles = event.target.files;
+
+    //call upload single after file is selected
+    this.uploadSingle();
+  }
+
+  uploadSingle() {
+    //doesn't let user upload photo unless they have an account
+    if(this.authSvc.checkUserAuth()){
+      let file = this.selectedFiles.item(0)
+
+      if(file){
+        this.currentUpload = new Upload(file);
+        
+        this.upSvc.eventUpload(this.currentUpload, (res)=>{
+          console.log("Setting value to: ", res);
+          this.eventForm.controls['promoImage'].setValue(res);
+        });
+      }else{
+        console.log("No file chosen");
+      }
+    }
   }
 
 }

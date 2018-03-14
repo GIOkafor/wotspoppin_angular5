@@ -57,6 +57,20 @@
 			<div class="bg-danger error" *ngIf="venueForm.controls['imageUrl'].hasError('required') && venueForm.controls['imageUrl'].touched">Venue imageUrl is required</div>
 		</div>
 
+		<div class="form-group">
+			<label>Venue Type</label>
+
+			<mat-radio-group class="venue-select" [formControl]="venueForm.controls['venueType']">
+			  <mat-radio-button value="bar">Bar</mat-radio-button>
+			  <mat-radio-button value="club">Club</mat-radio-button>
+			  <mat-radio-button value="event">Event</mat-radio-button>
+			</mat-radio-group>
+		</div>
+
+		<!-- If club enter menu -->
+		<!-- May have to put this on it's own page -->
+		
+
 		<div class="cta_btns">
 			<span class="btn btn-warning">Cancel</span>
 			<button [disabled]="!venueForm.valid" class="btn btn-success" type="submit">Create Venue</button>

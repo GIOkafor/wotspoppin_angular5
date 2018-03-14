@@ -17,7 +17,7 @@ import { NgxStripeModule } from 'ngx-stripe';
 import { PopoverModule } from 'ng2-pop-over';
 
 //angular material modules
-import { MatProgressSpinnerModule, MatAutocompleteModule, MatInputModule } from '@angular/material';
+import { MatProgressSpinnerModule, MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/material';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
@@ -38,7 +38,6 @@ import { VenueDetailsComponent } from './venue-details/venue-details.component';
 import { VenueInformationComponent } from './venue-information/venue-information.component';
 import { FeedComponent } from './feed/feed.component';
 import { FeedItemComponent } from './feed-item/feed-item.component';
-import { ErrorComponent } from './auth-component/error/error.component';
 import { MyPhotosComponent } from './user-profile/my-photos/my-photos.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { InviteFriendsComponent } from './invite-friends/invite-friends.component';
@@ -51,6 +50,12 @@ import { ActionConfirmDialog } from './event-details/event-details.component';
 import { DeleteUpcomingNotifDialog } from './upcoming-events/upcoming-events.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
 import { MapLegendComponent } from './search/map-legend/map-legend.component';
+import { VenueSignupComponent } from './venue-signup/venue-signup.component';
+import { ErrorComponent } from './error/error.component';
+import { EditMenuComponent } from './edit-menu/edit-menu.component';
+import { AttendingNotificationComponent } from './attending-notification/attending-notification.component';
+import { VenueEventListComponent } from './venue-event-list/venue-event-list.component';
+import { ViewFriendsComponent } from './user-profile/view-friends/view-friends.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -96,6 +101,10 @@ const routes: Routes = [
     component: AuthComponentComponent
   },
   {
+    path: 'venue-signup',
+    component: VenueSignupComponent
+  },
+  {
     path: 'profile',
     component: UserProfileComponent,
     children: [
@@ -133,6 +142,7 @@ const routes: Routes = [
     component: VenueComponent,
     children: [
       {path: '', component: VenueInformationComponent},
+      {path: 'edit-menu', component: EditMenuComponent},
       {path: 'event/:id/event-details', component: EventDetailsComponent}
     ]
   },
@@ -182,7 +192,6 @@ const routes: Routes = [
     VenueComponent,
     VenueDetailsComponent,
     VenueInformationComponent,
-    ErrorComponent,
     FeedComponent,
     FeedItemComponent,
     ObjToArrayPipe,
@@ -204,7 +213,13 @@ const routes: Routes = [
     ActionConfirmDialog,
     DeleteUpcomingNotifDialog,
     SearchUsersComponent,
-    MapLegendComponent
+    MapLegendComponent,
+    VenueSignupComponent,
+    ErrorComponent,
+    EditMenuComponent,
+    AttendingNotificationComponent,
+    VenueEventListComponent,
+    ViewFriendsComponent
   ],
   imports: [
     BrowserModule,
@@ -224,7 +239,17 @@ const routes: Routes = [
     MatInputModule,
     MatSnackBarModule,
     MatDialogModule,
+    MatButtonModule,
+    MatRadioModule,
     PopoverModule
+  ],
+  entryComponents: [
+    InviteFriendsComponent,
+    GuestlistComponent,
+    ActionConfirmDialog,
+    DeleteUpcomingNotifDialog,
+    ErrorComponent,
+    ViewFriendsComponent
   ],
   providers: [
     AuthService,
@@ -236,12 +261,6 @@ const routes: Routes = [
     MessagingService,
     PendingChangesGuard
   ],
-  entryComponents: [
-    InviteFriendsComponent,
-    GuestlistComponent,
-    ActionConfirmDialog,
-    DeleteUpcomingNotifDialog
-    ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

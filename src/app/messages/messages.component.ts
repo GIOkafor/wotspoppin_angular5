@@ -38,7 +38,7 @@ export class MessagesComponent implements OnInit {
   }
 
   newMessage(){
-  	console.log("Trigger new message popup");
+  	//console.log("Trigger new message popup");
 
   	const modalRef = this.modalSvc.open(InviteFriendsComponent);
   	modalRef.componentInstance.event = this.event;

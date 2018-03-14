@@ -1,0 +1,47 @@
+<div class="eventListContainer">
+	<h4>Upcoming Events</h4>
+
+	<!-- List starts -->
+	<!-- Consider putting events into their own component -->
+	<div class="events_list" *ngFor="let event of events">
+		
+		<!-- Event info starts -->
+		<!-- Repeat event for each event in their list -->
+		<div class="event" (click)="getEventDetails(event);">
+			<!-- Event header starts -->
+			<div class="header">
+				<!-- date goes here in fancy box -->
+				<div class="date">
+					<span>{{event.payload.val().date | date:'E'}}</span>
+					<span>{{event.payload.val().date | date:'d'}}</span>
+					<span>{{event.payload.val().date | date:'MMM'}}</span>
+					<span>{{event.payload.val().date | date:'y'}}</span>
+				</div>
+				<!-- date and box end -->
+
+				<!-- Title section start -->
+				<div class="event_title">
+					<span class="event_name">{{event.payload.val().name}}</span>
+
+					<!-- Extra info start -->
+					<div class="extra">
+						<span class="event_time">{{event.payload.val().date | date:'shortTime'}} </span>
+
+						<span class="venue_name" *ngFor="let creator of (event.payload.val().createdBy | venueInfo | async)">
+							{{creator.name}}
+						</span>
+
+						<span class="address" *ngFor="let eventCreator of (event.payload.val().createdBy | venueInfo | async)">- {{ eventCreator.address }}</span>
+					</div>
+					<!-- Extra info end -->
+				</div>
+				<!-- Title section end -->
+			</div>
+			<!-- Event header ends -->
+
+			<!-- Event flyer Image start -->
+			<img class="flyer_image" [src]="event.payload.val().promoImage">
+			<!-- Event flyer Image end -->
+		</div>
+	</div>
+</div>

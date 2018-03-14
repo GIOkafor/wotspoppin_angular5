@@ -1,0 +1,41 @@
+.attending_notif_container{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+}
+
+.user_info img{
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    border: 2px solid white;
+}
+
+.user_info{
+	display: flex;
+    flex-direction: column;
+    padding: 5px;
+    align-items: center;
+}
+
+.going{
+	font-size: 15px;
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    text-align: center;
+}
+.going .timeAgo{
+    color: #cccc;
+}
+
+.place{
+    display: flex;
+    flex-direction: column;
+}
+.place img{
+    height: 65px;
+    width: 65px;
+    border-radius: 50%;
+    border: 2px solid;
+}

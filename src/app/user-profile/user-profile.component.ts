@@ -5,6 +5,8 @@ import { AuthService } from '../services/auth.service';
 import { UserMediaService } from '../services/user-media.service';
 import { BuddiesService } from '../services/buddies.service';
 import { MatSnackBar } from '@angular/material';
+import { NgbModal, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+import { ViewFriendsComponent } from './view-friends/view-friends.component';
 
 @Component({
   selector: 'app-user-profile',
@@ -24,7 +26,8 @@ export class UserProfileComponent implements OnInit {
     public authSvc: AuthService,
     public userMedSvc: UserMediaService,
     public buddiesSvc: BuddiesService,
-    public snackBar: MatSnackBar) { 
+    public snackBar: MatSnackBar,
+    private modalSvc: NgbModal) { 
       this.currentUser = authSvc.getCurrentUser();
 
       //check if user is signed in 
@@ -56,6 +59,10 @@ export class UserProfileComponent implements OnInit {
     this.afAuth.auth.signOut();
     localStorage.removeItem('currentUser');
     this.router.navigate(['authenticate']);
+  }
+
+  viewFriends(){
+    const modalRef = this.modalSvc.open(ViewFriendsComponent);
   }
 
 }

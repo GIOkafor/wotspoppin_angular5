@@ -31,6 +31,15 @@
 	background-color: #396cbe;
 }
 
+.account_type{
+	color: black;
+    margin-bottom: 10px;
+}
+
+.user_sign_up{
+    text-align: center;
+}
+
 @media only screen and (max-width: 340px){
 	.title{
 		font-size: 3em;

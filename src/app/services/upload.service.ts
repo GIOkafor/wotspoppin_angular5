@@ -18,6 +18,7 @@ export class UploadService {
 
   private basePath:string = '/uploads';
   private profilePath:string = '/profilePics';
+  private eventsPath:string = '/eventPics';
   uploads: any;
 
   pushUpload(upload: Upload) {
@@ -77,6 +78,36 @@ export class UploadService {
       }
     );
   }
+
+  //upload event photo
+  eventUpload(upload: any, fn){
+    let storageRef = this.af.storage().ref();
+    let uploadTask = storageRef.child(`${this.eventsPath}/${upload.file.name}`).put(upload.file);
+
+    uploadTask.on(firebase.storage.TaskEvent.STATE_CHANGED,
+      (snapshot) =>  {
+        // upload in progress
+        upload.progress = (uploadTask.snapshot.bytesTransferred / uploadTask.snapshot.totalBytes) * 100
+      },
+      (error) => {
+        // upload failed
+        console.log(error)
+      },
+      () => {
+        // upload success
+        upload.url = uploadTask.snapshot.downloadURL
+        upload.name = upload.file.name
+        upload.userUid = this.authSvc.getCurrentUser().uid;
+        //upload.displayName = this.authSvc.getCurrentUser().displayName;
+        upload.type = upload.file.type;
+
+        this.saveEventData(upload);
+
+        //callback function for handling response and upating form accordingly
+        fn(upload.url);
+      }
+    );
+  }
   
   // Writes the file details to the realtime db
   //return image upload url
@@ -87,6 +118,13 @@ export class UploadService {
   //upload profile pic primarily for venues
   public saveProfileData(upload: any) {
     const promise = this.db.list(`${this.profilePath}/`).push(upload);
+  }
+
+  //save reference to event info in db
+  public saveEventData(upload: any){
+    console.log("Saving event photo...");
+
+    const promise = this.db.list(`${this.eventsPath}/`).push(upload);
   }
 
   deleteUpload(upload: Upload) {

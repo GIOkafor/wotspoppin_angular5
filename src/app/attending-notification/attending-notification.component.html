@@ -1,0 +1,16 @@
+<div class="attending_notif_container">
+	<div class="user_info">
+		<img [src]="notification.val.userUid | userImageUrl | async">
+		<span class="username">{{notification.val.userUid | userDisplayName | async}}</span>
+	</div>
+
+	<div class="going">
+		<span>Is going to</span>
+		<span class="timeAgo">about {{notification.val.createdAt | timeAgoC | async}}</span>
+	</div>
+
+	<div class="place">
+		<img [src]="notification.val.imgUrl">
+		<span class="name">{{notification.val.goingTo}}</span>
+	</div>
+</div>

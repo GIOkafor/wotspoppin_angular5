@@ -16,3 +16,9 @@
 .event_type_container .form-check-input{
 	margin-left: 0 !important;
 }
+
+.promoImage_uploadType{
+	display: flex;
+	justify-content: space-around;
+    margin-bottom: 15px;
+}

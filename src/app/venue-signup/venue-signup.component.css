@@ -1,0 +1,11 @@
+.venue_signup_container{
+    padding: 10px;
+    background-color: black;
+    color: #fff;
+    height: 100vh;
+}
+
+.submit-btn{
+	background-color: #ea7a3b;
+	color: #fff;
+}

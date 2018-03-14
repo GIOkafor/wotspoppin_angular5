@@ -13,7 +13,7 @@
 	text-align: center;
 	background-color: black;
     color: #fff;
-	height: 100vh;
+	height: 100%;
 }
 
 .venue_image{
@@ -37,9 +37,12 @@
 
 .events{
 	background-color: black;
-    padding-bottom: 50px;
 }
 
 .events h4{
 	margin-top: 8px;
+}
+
+.menu{
+	padding-bottom: 80px;
 }

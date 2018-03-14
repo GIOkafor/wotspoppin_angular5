@@ -40,8 +40,19 @@
 
 		<!-- TODO : change this to file upload -->
 		<div class="form-group">
-			<label for="promoImage">Link to flyer image</label>
-			<input name="promoImage" type="text" id="promoImage" class="form-control" [formControl]="eventForm.controls['promoImage']" required>
+			<label for="promoImage">Promo image</label>
+
+			<div class="promoImage_uploadType">
+				<span class="btn btn-secondary" (click)="imageSrc('url')">From Url</span>
+
+				<span class="btn btn-secondary" (click)="imageSrc('file')">Upload File</span>
+			</div>
+
+			<!-- Show this if they want to upload via image url -->
+			<input *ngIf="imageSource === 'url'" name="promoImage" type="text" id="promoImage" placeholder="www.imageurl.com" class="form-control" [formControl]="eventForm.controls['promoImage']" required>
+
+			<!-- Show this if they want to upload via file upload -->
+			<input *ngIf="imageSource === 'file'" id="imageUrl" name="imageUrl" type="file" (change)="detectFiles($event)"/>
 
 			<!-- error message display code -->
 			<div *ngIf="!eventForm.controls['promoImage'].valid && eventForm.controls['promoImage'].touched"
