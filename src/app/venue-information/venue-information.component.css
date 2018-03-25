@@ -37,6 +37,7 @@
 
 .events{
 	background-color: black;
+	padding-top: 40px;
 }
 
 .events h4{
@@ -45,4 +46,14 @@
 
 .menu{
 	padding-bottom: 80px;
+    padding-top: 40px;
+}
+
+.menu_items{
+	text-align: left;
+}
+
+.btn.make_rsrv{
+	color: #fff;
+	background-color: #ea7a3b;
 }

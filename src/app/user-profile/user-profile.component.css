@@ -24,7 +24,7 @@ img{
 	padding-top: 80px;
     padding-bottom: 25px;
     /* For now use placeholder image, later switch to user defined cover image */
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/4f/Toronto.Night.PNG);
+    background-image: url(https://firebasestorage.googleapis.com/v0/b/noteapp-436f9.appspot.com/o/cntower.jpeg?alt=media&token=3531fafe-ff35-45e8-a98d-4e70c4a1697f);
     background-position: center;
     display: flex;
     flex-direction: column;

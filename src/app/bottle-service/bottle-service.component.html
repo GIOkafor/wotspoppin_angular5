@@ -1,0 +1,79 @@
+<div class="header">
+	<h2 class="title">Bottle Service</h2>
+	<i class="fa fa-times" (click)="close()"></i>
+</div>
+
+
+<div class="bottle_service_component">
+	<form #bottleServiceForm="ngForm" (submit)="placeOrder(bottleServiceForm.value); bottleServiceForm.reset();">
+		<div class="form-group">
+			<label>Number Of Guests</label>
+			<select name="numofGuests" [(ngModel)]="guestsNum">
+				<option [ngValue]="1">1</option>
+				<option [ngValue]="2">2</option>
+				<option [ngValue]="3">3</option>
+				<option [ngValue]="4">4</option>
+				<option [ngValue]="5">5</option>
+				<option [ngValue]="6">6</option>
+				<option [ngValue]="7">7</option>
+				<option [ngValue]="8">8+</option>
+			</select>
+		</div>
+
+	<!-- NOT DELETING THIS YET
+		<div class="form-group">
+			<label>Number of Bottles</label>
+			<select>
+				<option>3 min</option>
+				<option>5 min</option>
+				<option>7 min</option>
+				<option>10 min</option>
+			</select>
+		</div>
+	-->
+
+		<div class="form-group">
+			<label>Date Of Reservation</label>
+			<input type="date" name="date" ngModel>
+		</div>
+
+		<div class="form-group">
+			<label>Select Bottles</label>
+
+			<table class="table table-striped menu_items">
+				<thead class="thead-dark">
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">Quantity</th>
+						<th scope="col">Add</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="menu_item" *ngFor="let item of menu; index as i;">
+						<td>{{item.payload.val().name}}</td> 
+						<td>${{item.payload.val().price}}</td>
+						<td><input type="number" name="bottleCount" class="bottle_count" ngModel #bottleCount="ngModel"></td>
+						<td> <i class="fa fa-cart-plus" (click)="addToCart(item, bottleCount.value)"></i></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<button class="btn place_order_btn" click="placeOrder(bottleServiceForm.value); bottleServiceForm.reset();">Place Order</button>
+	</form>
+
+	<div class="card cartContents">
+
+		<div class="card-header"> 
+			<span class="headerTitle">Cart</span>
+			<span class="totalCost float-right">Total: ${{totalCost}}</span>
+		</div>
+
+		<div *ngFor="let bottle of cart; index as ind" class="cartItem">
+			<span>{{bottle.name}} - {{bottle.quantity}} bottles - ${{bottle.value * bottle.quantity}}</span>
+			<i class="fa fa-times" (click)="remove(ind);"></i>
+		</div>
+	</div>
+</div>

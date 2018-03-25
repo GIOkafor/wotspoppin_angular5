@@ -1,26 +1,46 @@
 .authContainer{
-	background-image: url("/assets/skyline_night.jpg");
+	background-image: url("/assets/streets_night.jpeg");
+    background-position: center;
 	height: 100vh;
-	color: #fff;
+	color: #e18047;
 }
 
-.title{
-	text-align: center;
-	font-size: 4em;
+.logoContainer{
+	display: flex;
+    justify-content: center;
+}
+
+.logo{
+    height: 150px;
 }
 
 .btn{
 	color: #fff;
+	margin-bottom: 10px;
+}
+
+.loginBtn{
+    width: 225px;
+    border-radius: 0px;
+    align-self: center;
+    background-color: #d6824f;
 }
 
 .signIn, .signUp{
 	display: flex;
     flex-direction: column;
     align-items: center;
+    background-color: #00000099;
 }
 
-.btn{
-	margin-bottom: 10px;
+.signin_text{
+	font-size: 20px;
+	padding-top: 10px;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
 }
 
 .googleAuth{
@@ -38,6 +58,15 @@
 
 .user_sign_up{
     text-align: center;
+}
+
+.forgot_password{
+	text-decoration: underline;
+}
+
+.signIn .form-group{
+    justify-content: space-between;
+    display: flex;
 }
 
 @media only screen and (max-width: 340px){

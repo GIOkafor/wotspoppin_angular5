@@ -4,5 +4,50 @@
 		<i class="fa fa-lg fa-chevron-left" (click)="goBack()"></i>
 	</div>
 
-	
+	<!-- Edit menu form -->
+	<div class="menu_items_container">
+		<h4>Menu Items</h4>
+
+		<form #menuForm="ngForm"
+			(submit)="addNew(menuForm.value)">
+			<!-- repeat current menu items start -->
+			<table class="table table-responsive-sm table-sm menu_items">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">Delete</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="menu_item" *ngFor="let item of menu">
+						<td>{{item.payload.val().name}}</td> 
+						<td>${{item.payload.val().price}}</td>
+						<td><i class="fa fa-trash" (click)="openDelete(item.key)"></i></td>
+					</tr>
+
+					<!-- make form, reset afterwards -->
+					<!-- input field for adding new item start-->
+					<tr class="new_item">
+						<td>
+							<input type="text" placeholder="Name" name="name" class="new_item_name" [(ngModel)]="name">
+						</td>
+
+						<td>
+							<input type="number" placeholder="$Price" name="price" class="new_item_price" [(ngModel)]="price">
+						</td>
+
+						<td>
+							<i class="fa fa-plus" (click)="addNew(menuForm.value);menuForm.reset();"></i>
+						</td>
+
+					</tr>
+					<!-- input field for adding new item end-->
+				</tbody>
+			</table>
+			<!-- repeat current menu items end -->
+		</form>
+
+	</div>
 </div>

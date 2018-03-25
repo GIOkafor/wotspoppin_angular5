@@ -1,6 +1,21 @@
+.menu_component{
+	background-color: black;
+	color: #e18047;
+}
 .top_nav{
 	background: black;
     color: #e18047;
     padding: 5px;
     border-bottom: 1px solid #fff;
+}
+
+.menu_items_container{
+	text-align: center;
+}
+
+.new_item input{
+	background-color: transparent;
+    color: #e18047;
+    text-align: center;
+    font-style: italic;
 }

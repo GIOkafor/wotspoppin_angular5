@@ -1,7 +1,4 @@
 <div class="top-nav sticky-top">
-	<!--
-		<button (click)="goBack();">Go Back</button>
-	-->
 
 	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
 
@@ -101,12 +98,23 @@
 		<!-- menu goes below, separated by categories -->
 
 		<!-- Repeat for each category --> 
-		<div>
-			<h5>Category Name</h5>
+		<table class="table menu_items">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Price</th>
+				</tr>
+			</thead>
 
-			<!-- repeat for each item in category -->
-			<span>Category Item  --  <span class="item_price">$200</span></span>
-		</div>
+			<tbody>
+				<tr class="menu_item" *ngFor="let item of menu">
+					<td>{{item.payload.val().name}}</td> 
+					<td>${{item.payload.val().price}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<button class="btn make_rsrv" (click)="orderBottles()">Order Bottles</button>
 
 	</div>
 </div>

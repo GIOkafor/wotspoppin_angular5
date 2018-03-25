@@ -7,8 +7,7 @@
 .user_info img{
     height: 65px;
     width: 65px;
-    border-radius: 50%;
-    border: 2px solid white;
+    border: 1px solid white;
 }
 
 .user_info{
@@ -36,6 +35,5 @@
 .place img{
     height: 65px;
     width: 65px;
-    border-radius: 50%;
-    border: 2px solid;
+    border: 1px solid;
 }

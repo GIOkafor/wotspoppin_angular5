@@ -56,6 +56,8 @@ import { EditMenuComponent } from './edit-menu/edit-menu.component';
 import { AttendingNotificationComponent } from './attending-notification/attending-notification.component';
 import { VenueEventListComponent } from './venue-event-list/venue-event-list.component';
 import { ViewFriendsComponent } from './user-profile/view-friends/view-friends.component';
+import { DeleteConfirmDialog } from './edit-menu/edit-menu.component';
+import { BottleServiceComponent } from './bottle-service/bottle-service.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -66,6 +68,7 @@ import { VenuesService } from './services/venues-service.service';
 import { UploadService } from './services/upload.service';
 import { UserMediaService } from './services/user-media.service';
 import { MessagingService } from './services/messaging.service';
+import { ReservationService } from './services/reservation.service';
 
 //pipes
 import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
@@ -142,9 +145,12 @@ const routes: Routes = [
     component: VenueComponent,
     children: [
       {path: '', component: VenueInformationComponent},
-      {path: 'edit-menu', component: EditMenuComponent},
       {path: 'event/:id/event-details', component: EventDetailsComponent}
     ]
+  },
+  {
+    path: 'venue/:id/edit-menu',
+    component: EditMenuComponent
   },
   {
     path: 'create-venue',
@@ -219,7 +225,9 @@ const routes: Routes = [
     EditMenuComponent,
     AttendingNotificationComponent,
     VenueEventListComponent,
-    ViewFriendsComponent
+    ViewFriendsComponent,
+    DeleteConfirmDialog,
+    BottleServiceComponent
   ],
   imports: [
     BrowserModule,
@@ -249,7 +257,9 @@ const routes: Routes = [
     ActionConfirmDialog,
     DeleteUpcomingNotifDialog,
     ErrorComponent,
-    ViewFriendsComponent
+    ViewFriendsComponent,
+    DeleteConfirmDialog,
+    BottleServiceComponent
   ],
   providers: [
     AuthService,
@@ -259,6 +269,7 @@ const routes: Routes = [
     UploadService,
     UserMediaService,
     MessagingService,
+    ReservationService,
     PendingChangesGuard
   ],
   bootstrap: [AppComponent]

@@ -6,6 +6,8 @@ import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
+import { MatDialog, MatDialogRef } from '@angular/material';
+import { BottleServiceComponent } from '../bottle-service/bottle-service.component';
 
 @Component({
   selector: 'app-venue-information',
@@ -30,13 +32,15 @@ export class VenueInformationComponent implements OnInit {
   spotlightEvent: any;
   guestList: any = '';
   isAdmin: boolean = false;
+  menu: any;
 
   constructor(
   	private db: AngularFireDatabase,
     private route: ActivatedRoute,
   	private router: Router,
     private location: Location,
-    private authSvc: AuthService) {  this.currentUser = this.authSvc.getCurrentUser();}
+    private authSvc: AuthService,
+    private dialog: MatDialog) {  this.currentUser = this.authSvc.getCurrentUser();}
 
   ngOnInit() {
     this.route.paramMap
@@ -46,8 +50,13 @@ export class VenueInformationComponent implements OnInit {
           (venue: any) => {
             this.venue = venue;
 
-            //check if auth'ed user is admin of venue
-            this.isAdmin = this.checkIfAdmin();
+            this.getMenu();
+
+            //prevents unauthed users from trigerring checkAdmin function
+            if(this.currentUser){
+              //check if auth'ed user is admin of venue
+              this.isAdmin = this.checkIfAdmin();
+            }
 
             //get events belonging to venue
             this.db.list('/Events', ref => ref.orderByChild("createdBy").equalTo(this.venue.key)).snapshotChanges()
@@ -55,27 +64,21 @@ export class VenueInformationComponent implements OnInit {
                 this.events$ = res;
               })
           });
-
-      /*   
-         //wait 3 seconds to get venue information from firebase before getting events
-         let timer = Observable.timer(3000);
-         timer.subscribe(t=>{
-           this.getEvents();
-         });
-      */
   }
 
-  getEvents(){
-    console.log("Getting events for venue: ", this.venue.key);
-
-    this.events$ = this.db.list('/Events', ref => ref.orderByChild("createdBy").equalTo(this.venue.key)).snapshotChanges();
-  }
-
-//function for populating module content
+  //function for populating module content
   getEventDetails(event: any){
     console.log("Getting event details for event key: "+event.key);
 
     this.router.navigate(['event-details', event.key]);
+  }
+
+  //get bottle service menu
+  getMenu(){
+    this.db.list('/Venues/' + this.venue.key + '/menu').snapshotChanges()
+      .subscribe(res => {
+        this.menu = res;
+      })
   }
 
   hideDetails(){
@@ -122,6 +125,14 @@ export class VenueInformationComponent implements OnInit {
   //edit bottle service menu
   editMenu(){
     console.log("Editing bottle service menu");
+    this.router.navigate(['/venue', this.venue.key, 'edit-menu']);
+  }
+
+  //open bottle service dialog
+  orderBottles(){
+    let dialogRef = this.dialog.open(BottleServiceComponent, {
+      data: { menu: this.menu, venue: this.venue.key }
+    });
   }
 
 }

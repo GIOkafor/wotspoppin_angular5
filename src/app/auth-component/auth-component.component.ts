@@ -113,6 +113,10 @@ export class AuthComponentComponent implements OnInit {
     this.authSvc.emailSignIn(val.email, val.password);
   }
 
+  emailSignup(val){
+    console.log(val);
+  }
+
   /*	
 	  //check if user exists in db
 	  checkIfUserExists(){

@@ -14,11 +14,18 @@
 	background-color: #e6e6e6;
 	color: #797979;
 	border-radius: 5px;
-    width: 3.2em;
+    width: 5.3em;
     text-align: center;
     font-size: 0.8em;
     text-transform: uppercase;
     padding: 1px 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.day_num{
+    font-size: 1.2em;
+    font-weight: bold;
 }
 
 .event .event_title{
