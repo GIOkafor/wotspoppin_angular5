@@ -29,6 +29,15 @@
 				<span>Friends: {{friendCount}}</span>
 			</div>
 		</div>
+
+		<div class="sendRequest" *ngIf="!checkUser(currentUser.uid)">
+			<div *ngIf="!isFriend(user.key)" class="not_friend">
+				<button *ngIf="!isFriend(user.key) && !isRequested(user.key)" class="btn" (click)="addFriend(user.key)">Add Friend</button>
+				<button class="btn btn-outline-info requested" *ngIf="isRequested(user.key)">Requested</button>
+			</div>
+			
+			<button *ngIf="isFriend(user.key)" class="btn btn-danger" (click)="removeFriend(user.key)">Remove Friend</button>
+		</div>
 	</div>
 
 	<!-- User information section start -->

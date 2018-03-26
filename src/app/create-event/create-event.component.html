@@ -38,7 +38,6 @@
 			<div *ngIf="eventForm.controls['description'].hasError('required') && eventForm.controls['description'].touched">Please enter short description of event</div>
 		</div>
 
-		<!-- TODO : change this to file upload -->
 		<div class="form-group">
 			<label for="promoImage">Promo image</label>
 
@@ -66,46 +65,50 @@
 			<input type="text" name="address" id="address" class="form-control" [formControl]="eventForm.controls['address']" required>
 		</div>
 
-		<div class="form-group event_type_container">
+		<div class="form-group">
 			<label>Event Type</label>
 
-			<div class="form-check">
-			  <input class="form-check-input" type="radio" name="eventType" id="preParty" value="preParty" [formControl]="eventForm.controls['eventType']">
-			  <label class="form-check-label" for="preParty">
-			    Pre Party
-			  </label>
-			</div>
+			<div class="event_type_container">
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventType === 'preParty'}">
+				  <input class="form-check-input" type="radio" name="eventType" id="preParty" value="preParty" [formControl]="eventForm.controls['eventType']">
+				  <label class="form-check-label" for="preParty">
+				    Pre Party
+				  </label>
+				</div>
 
-			<div class="form-check">
-			  <input class="form-check-input" type="radio" name="eventType" id="houseParty" value="houseParty" [formControl]="eventForm.controls['eventType']">
-			  <label class="form-check-label" for="houseParty">
-			    House Party
-			  </label>
-			</div>
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventType === 'houseParty'}">
+				  <input class="form-check-input" type="radio" name="eventType" id="houseParty" value="houseParty" [formControl]="eventForm.controls['eventType']">
+				  <label class="form-check-label" for="houseParty">
+				    House Party
+				  </label>
+				</div>
 
-			<div class="form-check">
-			  <input class="form-check-input" type="radio" name="eventType" id="afterParty" value="afterParty" [formControl]="eventForm.controls['eventType']">
-			  <label class="form-check-label" for="afterParty">
-			    After Party
-			  </label>
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventType === 'afterParty'}">
+				  <input class="form-check-input" type="radio" name="eventType" id="afterParty" value="afterParty" [formControl]="eventForm.controls['eventType']">
+				  <label class="form-check-label" for="afterParty">
+				    After Party
+				  </label>
+				</div>
 			</div>
 		</div>
 
 		<div class="form-group">
 			<label>Event Visibility</label>
 
-			<div class="form-check">
-			  <input type="radio" name="eventVisibility" id="publicEvent" value="public" [formControl]="eventForm.controls['eventVisibility']">
-			  <label class="form-check-label" for="publicEvent">
-			    Public
-			  </label>
-			</div>
+			<div class="event_visibility_container">
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventVisibility === 'public'}">
+				  <input class="form-check-input" type="radio" name="eventVisibility" id="publicEvent" value="public" [formControl]="eventForm.controls['eventVisibility']">
+				  <label class="form-check-label" for="publicEvent">
+				    Public
+				  </label>
+				</div>
 
-			<div class="form-check">
-			  <input type="radio" name="eventVisibility" id="privateEvent" value="private" [formControl]="eventForm.controls['eventVisibility']">
-			  <label class="form-check-label" for="privateEvent">
-			    Private
-			  </label>
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventVisibility === 'private'}">
+				  <input class="form-check-input" type="radio" name="eventVisibility" id="privateEvent" value="private" [formControl]="eventForm.controls['eventVisibility']">
+				  <label class="form-check-label" for="privateEvent">
+				    Private
+				  </label>
+				</div>
 			</div>
 		</div>
 
@@ -119,7 +122,9 @@
 			<p>Form is invalid, please fill in all required fields</p>
 		</div>
 
-		<button [disabled]="!eventForm.valid" type="submit" class="btn btn-success">Submit</button>
+		<div class="btn_container">
+			<button [disabled]="!eventForm.valid" type="submit" class="btn btn-success">Submit</button>
+		</div>
 	</form>
 </div>
 

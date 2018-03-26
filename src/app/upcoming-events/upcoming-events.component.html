@@ -19,3 +19,15 @@
 
 	</table>
 </div>
+
+<div class="reservations">
+	<h4>Reservations</h4>
+
+	<div class="list-group">
+		<div class="list-group-item list-group-item-dark" *ngFor="let rsrv of userReservations">
+			<span>{{rsrv.payload.val().date}}</span> 
+			<span *ngFor="let venue of (rsrv.payload.val().venue | venueInfo | async)">@ {{venue.name}}</span>
+		</div>
+	</div>
+	
+</div>

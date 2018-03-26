@@ -21,6 +21,8 @@ export class OtherProfileComponent implements OnInit {
   postsCount: any = 0;
   friendCount: any = 0;
   currentUser: any; // refers to currently authenticated user
+  currentUserBuddies: any; //for keeping track of auth'ed user's friends
+  buddyRequests: any;
   currentUpload: Upload;
   selectedFiles: FileList;
 
@@ -34,6 +36,7 @@ export class OtherProfileComponent implements OnInit {
     private uploadSvc: UploadService,
     private snackBar: MatSnackBar) { 
       this.currentUser = authSvc.getCurrentUser();//currently signed in user
+      this.getBuddies(this.currentUser.uid);
   }
 
   ngOnInit() {
@@ -55,6 +58,11 @@ export class OtherProfileComponent implements OnInit {
 	            	.subscribe(res => {
 	            		res.forEach(_ => this.friendCount++);
 	            	});
+
+              this.buddiesSvc.getBuddyRequests(this.currentUser.uid)
+                .subscribe(res => {
+                  this.buddyRequests = res;
+                }); 
 	          });
   }
 
@@ -138,9 +146,70 @@ export class OtherProfileComponent implements OnInit {
     }
   }
 
-  //updates local storage values based on data passed
-  updateLoc(imgUrl, name){
-    //
-    //if(img)
+  //gets current user's friends
+  getBuddies(uid){
+    //console.log("getting buddies for user: ", uid);
+
+    this.buddiesSvc.getUserBuddies(uid)
+      .subscribe(res => this.currentUserBuddies = res);
+  }
+
+  //checks if user uid passed is currently one of my friends
+  isFriend(user){
+    //console.log("checking if user: " + user + " is a friend");
+
+    var i;
+
+    //it takes a while for results to come in from realtime db, this prevents app from crashing and only triggers when there is data to display
+    if(this.currentUserBuddies !== undefined){
+      for(i = 0; i < this.currentUserBuddies.length; i++){
+        if (this.currentUserBuddies[i] === user)
+          return true;
+      }
+
+      return false;
+    }
+  }
+
+  //send friend request to user with uid
+  addFriend(uid){
+    console.log("Sending request to user: ", uid);
+
+    let req = {from: this.authSvc.getCurrentUser().uid};
+
+    if(this.isRequested(uid)){
+      return;
+    }else{
+      //send friend request to user
+      this.db.list('Users/' + uid + '/notifications/friend-requests')
+        .push(req);
+
+      //add user to requested list
+      this.db.list('Users/' + this.currentUser.uid + '/sent-friend-requests')
+        .push(uid);
+    }
+
+  }
+
+  //checks to see if request has been sent to user already
+  //return either true or false
+  isRequested(user):boolean{
+    var i;
+
+    //it takes a while for results to come in from realtime db, this prevents app from crashing and only triggers when there is data to display
+    if(this.buddyRequests !== undefined){
+      for(i = 0; i < this.buddyRequests.length; i++){
+        if(this.buddyRequests[i] === user){
+          //console.log("User is a match: ", this.buddyRequests[i]);
+          return true;
+        }
+      }
+
+      return false;
+    }
+  }
+
+  removeFriend(uid){
+    console.log("Removing friend: " + uid);
   }
 }

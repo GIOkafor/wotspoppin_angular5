@@ -130,9 +130,12 @@ export class VenueInformationComponent implements OnInit {
 
   //open bottle service dialog
   orderBottles(){
-    let dialogRef = this.dialog.open(BottleServiceComponent, {
-      data: { menu: this.menu, venue: this.venue.key }
-    });
+    let dialogRef = this.dialog.open(BottleServiceComponent,
+      {
+        height: '400px',
+        width: '600px',
+        data: { menu: this.menu, venue: this.venue.key }
+      });
   }
 
 }

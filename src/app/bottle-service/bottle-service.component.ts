@@ -1,6 +1,8 @@
 import { Component, OnInit, Inject } from '@angular/core';
+import { Router } from '@angular/router';
 import { Location } from '@angular/common';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
+import { MatSnackBar } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { ReservationService } from '../services/reservation.service';
 
@@ -20,7 +22,9 @@ export class BottleServiceComponent implements OnInit {
   constructor(
   	private authSvc: AuthService,
   	private location: Location,
+  	private router: Router,
   	private rsrvSvc: ReservationService,
+  	public snackBar: MatSnackBar,
   	public dialogRef: MatDialogRef<BottleServiceComponent>,
   	@Inject(MAT_DIALOG_DATA) public data: any) { 
   		this.menu = data.menu;
@@ -65,7 +69,7 @@ export class BottleServiceComponent implements OnInit {
   	//CHARGE USER ACCOUNT
 
   	//store transaction details for venue
-  	this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests);
+  	this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
   }
 
   calculatePrice(): number{
@@ -124,6 +128,16 @@ export class BottleServiceComponent implements OnInit {
 
   close(){
   	this.dialogRef.close();
+  }
+
+  //show success snackbar
+  successSnackbar(){
+  	let message = 'Your reservation has been made successfully';
+  	let snackRef = this.snackBar.open(message, '', {duration: 2000});
+
+  	snackRef.afterDismissed().subscribe(() => {
+  		this.router.navigate(['/profile/upcoming-events']);
+  	})
   }
 
 }

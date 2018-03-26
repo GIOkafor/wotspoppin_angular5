@@ -2,6 +2,7 @@ import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AuthService } from '../services/auth.service';
+import { ReservationService } from '../services/reservation.service';
 import { MatSnackBar } from '@angular/material';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 
@@ -13,14 +14,17 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class UpcomingEventsComponent implements OnInit {
 
   userEvents: any;
+  userReservations: any;
 
   constructor(
   	private router: Router,
   	private authSvc: AuthService,
+    private rsrvSvc: ReservationService,
   	private db: AngularFireDatabase,
     private snackBar: MatSnackBar,
     public dialog: MatDialog) { 
   		this.userEvents = db.list('Users/'+ authSvc.getCurrentUser().uid + '/upcoming-events').snapshotChanges();
+      this.getReservations(); 
   }
 
   ngOnInit() {
@@ -51,6 +55,11 @@ export class UpcomingEventsComponent implements OnInit {
     //console.log(key);
 
     this.db.list('Users/'+ this.authSvc.getCurrentUser().uid + '/upcoming-events/' + key).remove();
+  }
+
+  getReservations(){
+    this.rsrvSvc.getUserReservations(this.authSvc.getCurrentUser().uid)
+      .subscribe(res => this.userReservations = res);
   }
 
 }

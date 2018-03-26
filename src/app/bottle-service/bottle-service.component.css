@@ -44,3 +44,17 @@
     background-color: #ea7a3b;
     color: #fff;
 }
+
+@media only screen and (max-width: 320px){
+    .header{
+        align-items: start;
+    }
+
+    .header .title, .header .fa{
+        font-size: 20px;
+    }
+
+    .bottle_service_component{
+        font-size: .8em;
+    }
+}

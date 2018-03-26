@@ -66,6 +66,10 @@ span.username{
 	margin-right: 40px;
 }
 
+.sendRequest{
+    margin-top: 10px;
+}
+
 .user_info form{
     margin: 30px 0px;
 }

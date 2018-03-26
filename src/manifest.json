@@ -1,6 +1,6 @@
 {
-  "name": "Wotspoppin",
-  "short_name": "Wotspoppin",
+  "name": "NightNetwork",
+  "short_name": "NightNetwork",
   "theme_color": "#e18047",
   "background_color": "black",
   "display": "standalone",
@@ -19,33 +19,23 @@
         "type": "image/png"
       },
       {
-        "src": "/assets/icons/icon-96x96.png",
-        "sizes": "128x128",
+        "src": "/assets/icons/icon-120x120.png",
+        "sizes": "120x120",
         "type": "image/png"
       },
       {
-        "src": "/assets/icons/icon-96x96.png",
+        "src": "/assets/icons/icon-144x144.png",
         "sizes": "144x144",
         "type": "image/png"
       },
       {
-        "src": "/assets/icons/icon-96x96.png",
-        "sizes": "152x152",
-        "type": "image/png"
-      },
-      {
-        "src": "/assets/icons/icon-96x96.png",
+        "src": "/assets/icons/icon-192x192.png",
         "sizes": "192x192",
         "type": "image/png"
       },
       {
-        "src": "/assets/icons/icon-96x96.png",
-        "sizes": "384x384",
-        "type": "image/png"
-      },
-      {
-        "src": "/assets/icons/icon-96x96.png",
-        "sizes": "512x512",
+        "src": "/assets/icons/icon-310x310.png",
+        "sizes": "310x310",
         "type": "image/png"
       }
     ]

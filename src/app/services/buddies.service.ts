@@ -10,4 +10,8 @@ export class BuddiesService {
   getUserBuddies(uid: string){
   	return this.db.list('Users/' + uid + '/buddies').valueChanges();
   }
+
+  getBuddyRequests(uid: string){
+  	return this.db.list('Users/' + uid + '/sent-friend-requests').valueChanges();
+  }
 }
