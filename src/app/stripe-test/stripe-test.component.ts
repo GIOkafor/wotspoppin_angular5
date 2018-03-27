@@ -1,7 +1,9 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { Location } from '@angular/common';
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
 import { HttpClient } from '@angular/common/http';
+import { PaymentService } from '../services/payment.service';
 
 @Component({
   selector: 'app-stripe-test',
@@ -36,7 +38,9 @@ export class StripeTestComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private stripeService: StripeService,
-    private http: HttpClient) {}
+    private http: HttpClient,
+    private paymentSvc: PaymentService,
+    private location: Location) {}
 
   ngOnInit() {
     this.stripeTest = this.fb.group({
@@ -53,10 +57,21 @@ export class StripeTestComponent implements OnInit {
           // Use the token to create a charge or a customer
           // https://stripe.com/docs/charges
           console.log(result.token.id);
+          //store token for later use
+          this.storeToken(result.token.id);
+
         } else if (result.error) {
           // Error creating the token
           console.log(result.error.message);
         }
       });
+  }
+
+  storeToken(tkn){
+    this.paymentSvc.storeTkn(tkn);
+  }
+
+  goBack(){
+    this.location.back();
   }
 }

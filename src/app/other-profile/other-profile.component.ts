@@ -211,5 +211,8 @@ export class OtherProfileComponent implements OnInit {
 
   removeFriend(uid){
     console.log("Removing friend: " + uid);
+    console.log(this.currentUserBuddies);
+
+    this.buddiesSvc.removeFriend(this.currentUser.uid, uid);
   }
 }

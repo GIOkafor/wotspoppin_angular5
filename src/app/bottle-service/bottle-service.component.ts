@@ -5,6 +5,7 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 import { MatSnackBar } from '@angular/material';
 import { AuthService } from '../services/auth.service';
 import { ReservationService } from '../services/reservation.service';
+import { PaymentService } from '../services/payment.service';
 
 @Component({
   selector: 'app-bottle-service',
@@ -24,6 +25,7 @@ export class BottleServiceComponent implements OnInit {
   	private location: Location,
   	private router: Router,
   	private rsrvSvc: ReservationService,
+    private paymentSvc: PaymentService,
   	public snackBar: MatSnackBar,
   	public dialogRef: MatDialogRef<BottleServiceComponent>,
   	@Inject(MAT_DIALOG_DATA) public data: any) { 
@@ -67,9 +69,14 @@ export class BottleServiceComponent implements OnInit {
   	let order = {bottles: this.cart, totalValue: this.totalCost};
 
   	//CHARGE USER ACCOUNT
+    //first check if user has payment info on file
+    if(this.paymentSvc.checkPayment()){
 
-  	//store transaction details for venue
-  	this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
+      //charge card with token
+
+  	  //store transaction details for venue
+  	  this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
+    }
   }
 
   calculatePrice(): number{

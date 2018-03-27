@@ -9,8 +9,9 @@
 		<a class="nav-link dropdown-toggle" id="dropDownMenuButton" ngbDropdownToggle>Settings</a>
 
 		<div class="dropdown-menu" aria-labelledy="dropDownMenuButton" ngbDropdownMenu>
-			<a class="dropdown-item" (click)="logOut();">Logout <i class="fa fa-sign-out" aria-hidden="true"></i></a>
-			<a class="dropdown-item" [routerLink]="['/user-profile', currentUser.uid]"> Edit Profile <i class="fa fa-pencil-square-o" aria-hidden="true"></i> </a>
+			<a class="dropdown-item" (click)="logOut();"> <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+			<a class="dropdown-item" [routerLink]="['/user-profile', currentUser.uid]"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile </a>
+			<a class="dropdown-item" [routerLink]="['/payment-information']"> <i class="fa fa-credit-card" aria-hidden="true"></i>Payment</a>
 		</div>
 	</div>
 </nav>

@@ -174,7 +174,7 @@ const routes: Routes = [
     component: EventDetailsComponent
   },
   {
-    path: 'stripe-test',
+    path: 'payment-information',
     component: StripeTestComponent
   },
   {

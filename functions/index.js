@@ -16,6 +16,9 @@ var options = {
 
 var geocoder = NodeGeocoder(options);
 
+//stripe stuff
+var stripe = require("stripe")("sk_test_joqW1S4ZWcmtsg2GyLIf5Jon");//test key, CHANGE TO PRODUCTION KEY LATER
+
 /////////////////FUNCTIONS START///////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
@@ -109,3 +112,22 @@ exports.addLocation = functions.database.ref('Events/{id}')
 				return;
 			});
 	});
+
+//create customer on stripe via token
+exports.createCustomer = functions.database.ref('Users/{uid}/paymentInfo/token')
+	.onWrite(event => {
+		let evt = event.data.val();
+		console.log("Data passed is: ",  evt);
+
+		const customer = await.stripe.customers.create({
+			source = evt;//set this to token data added in user db
+		}, function(err, customer){
+			//customer
+		});
+
+	})
+
+//charge customer account
+exports.chargeCustomer = functions.https.onRequest((req, res) => {
+
+})

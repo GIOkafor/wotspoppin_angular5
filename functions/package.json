@@ -14,7 +14,8 @@
     "firebase-admin": "~5.4.2",
     "firebase-functions": "^0.7.1",
     "ng2-pop-over": "^0.9.37",
-    "node-geocoder": "^3.22.0"
+    "node-geocoder": "^3.22.0",
+    "stripe": "^5.6.1"
   },
   "private": true
 }
