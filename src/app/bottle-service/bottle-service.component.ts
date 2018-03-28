@@ -62,25 +62,40 @@ export class BottleServiceComponent implements OnInit {
   }
 
   placeOrder(val){
-  	console.log("Total cart value is: ", this.totalCost);
-  	console.log("Cart contents are: ", this.cart);
-  	console.log("Form value IS: ", val);
+  	//console.log("Total cart value is: ", this.totalCost);
+  	//console.log("Cart contents are: ", this.cart);
+  	//console.log("Form value IS: ", val);
 
   	let order = {bottles: this.cart, totalValue: this.totalCost};
 
   	//CHARGE USER ACCOUNT
     //first check if user has payment info on file
-    if(this.paymentSvc.checkPayment()){
+    this.paymentSvc.getPaymentInfo()
+      .subscribe(res => {
+        //console.log(res);
 
-      console.log("Proceeding with charge operation");
+        if(res){
+          //console.log("Proceeding with charge operation");
 
-      //charge card with token
-      this.paymentSvc.chargeUser(this.currentUser, this.totalCost)
-        .subscribe(res => console.log(res), err => console.log(err));
+          //charge card with token
+          this.paymentSvc.chargeUser(this.currentUser, this.totalCost)
+            .subscribe(res => {
+              //console.log(res);
 
-  	  //store transaction details for venue
-  	  //this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
-    }
+              //card charged successfuly, create barcode 
+
+              //store transaction details for venue
+              //this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
+
+            }, err => {
+              console.log(err);
+
+              this.snackBar.open('Transaction failed, please review your payment settings');
+            });
+
+        }
+      });
+    
   }
 
   calculatePrice(): number{

@@ -154,21 +154,17 @@ exports.chargeCustomer = functions.https.onRequest((req, res) => {
 				amount: cost,
 				currency: "cad",
 				customer: userPaymentId
-			}, function(err, res){
-				if(res){
+			}, function(err, result){
+				if(result){
 					console.log("Charge created is...");
-					console.log(res);
+					console.log(result);
 
-					//capture charge ...
-					stripe.charges.capture(res.id, function(err, ch){
-						if(err)
-							console.log(err);
-						else
-							console.log(ch);
-					})
+					res.header("Access-Control-Allow-Origin", "*");
+					res.status(200).send(result);
 				}else{
 					console.log("Error is...");
 					console.log(err);
+					return err;
 				}
 			});
 		})

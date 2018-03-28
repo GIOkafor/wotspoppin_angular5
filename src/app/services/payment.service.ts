@@ -42,7 +42,7 @@ export class PaymentService {
       console.log(JSON.stringify(data));
     
     return this.http.post(this.chargeUrl, JSON.stringify(data))
-      .map((res:Response) => res.json());
+      .map((res) => res);
   }
 
   //CHECK IF USER HAS PAYMENT INFO on file
@@ -64,6 +64,10 @@ export class PaymentService {
   		})
   	
     return false;
+  }
+
+  getPaymentInfo(){
+    return this.db.object('Users/' + this.currentUser.uid + '/paymentInfo/token').valueChanges();
   }
 
 }
