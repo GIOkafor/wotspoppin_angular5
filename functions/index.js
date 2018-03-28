@@ -117,17 +117,61 @@ exports.addLocation = functions.database.ref('Events/{id}')
 exports.createCustomer = functions.database.ref('Users/{uid}/paymentInfo/token')
 	.onWrite(event => {
 		let evt = event.data.val();
+		let userKey = event.params.uid;
 		console.log("Data passed is: ",  evt);
+		console.log("User key in db is: ", userKey);
 
-		const customer = await.stripe.customers.create({
-			source = evt;//set this to token data added in user db
+		const customer = stripe.customers.create({
+			source: evt//set this to token data added in user db
 		}, function(err, customer){
-			//customer
+			console.log("Customer created is: ");
+			console.log(customer);
+
+			//store customer info in db
+			return admin.database().ref('Users/' + userKey + '/paymentInfo/details').set(customer)
 		});
 
 	})
 
 //charge customer account
 exports.chargeCustomer = functions.https.onRequest((req, res) => {
+	console.log("Request sent is: ", req.body);
 
+	let uid = req.body.uid;
+	let cost = req.body.cost * 100; //this is done because $20 == 2000
+	let userPaymentId; //for storing user id created by stripe in db
+
+	//GET USER ID USERS/UID/PAYMENTINFO/DETAILS/ID
+
+	let customerRef = admin.database().ref('Users/' + uid + '/paymentInfo/details/id').once('value')
+		.then(function(snapshot){
+			userPaymentId = snapshot.val();
+			console.log("User stripe id is...");
+			console.log(userPaymentId);
+
+			//create charge
+			const charge = stripe.charges.create({
+				amount: cost,
+				currency: "cad",
+				customer: userPaymentId
+			}, function(err, res){
+				if(res){
+					console.log("Charge created is...");
+					console.log(res);
+
+					//capture charge ...
+					stripe.charges.capture(res.id, function(err, ch){
+						if(err)
+							console.log(err);
+						else
+							console.log(ch);
+					})
+				}else{
+					console.log("Error is...");
+					console.log(err);
+				}
+			});
+		})
+
+	
 })

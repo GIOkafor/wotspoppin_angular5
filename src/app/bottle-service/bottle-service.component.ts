@@ -72,10 +72,14 @@ export class BottleServiceComponent implements OnInit {
     //first check if user has payment info on file
     if(this.paymentSvc.checkPayment()){
 
+      console.log("Proceeding with charge operation");
+
       //charge card with token
+      this.paymentSvc.chargeUser(this.currentUser, this.totalCost)
+        .subscribe(res => console.log(res), err => console.log(err));
 
   	  //store transaction details for venue
-  	  this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
+  	  //this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
     }
   }
 
@@ -128,7 +132,7 @@ export class BottleServiceComponent implements OnInit {
 
   //removes bottle from a users cart
   remove(index){
-  	console.log("Removing: ", index);
+  	//console.log("Removing: ", index);
 
   	this.cart.splice(index, 1);
   }
