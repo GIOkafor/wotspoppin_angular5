@@ -15,6 +15,8 @@ import { NguiMapModule} from '@ngui/map';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PopoverModule } from 'ng2-pop-over';
+// Import ngx-barcode module
+import { NgxBarcodeModule } from 'ngx-barcode';
 
 //angular material modules
 import { MatProgressSpinnerModule, MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/material';
@@ -58,6 +60,7 @@ import { VenueEventListComponent } from './venue-event-list/venue-event-list.com
 import { ViewFriendsComponent } from './user-profile/view-friends/view-friends.component';
 import { DeleteConfirmDialog } from './edit-menu/edit-menu.component';
 import { BottleServiceComponent } from './bottle-service/bottle-service.component';
+import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -117,6 +120,10 @@ const routes: Routes = [
       {path: 'my-events', component: MyEventsComponent},
       { path: '', redirectTo: '/profile/my-photos', pathMatch: 'full'}
     ]
+  },
+  {
+    path: 'reservations/:id',
+    component: ReservationDetailsComponent
   },
   {
     path: 'user-profile/:id',
@@ -227,7 +234,8 @@ const routes: Routes = [
     VenueEventListComponent,
     ViewFriendsComponent,
     DeleteConfirmDialog,
-    BottleServiceComponent
+    BottleServiceComponent,
+    ReservationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -249,7 +257,8 @@ const routes: Routes = [
     MatDialogModule,
     MatButtonModule,
     MatRadioModule,
-    PopoverModule
+    PopoverModule,
+    NgxBarcodeModule
   ],
   entryComponents: [
     InviteFriendsComponent,
