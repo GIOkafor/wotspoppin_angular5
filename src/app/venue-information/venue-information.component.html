@@ -63,6 +63,35 @@
 		</div>
 	</div>
 
+	<!-- Venue bottle service menu -->
+	<div class="menu">
+		<h4>MENU</h4>
+
+		<!-- menu goes below, separated by categories -->
+
+		<!-- Repeat for each category --> 
+		<table class="table menu_items">
+			<thead>
+				<tr>
+					<th scope="col">Name</th>
+					<th scope="col">Price</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr class="menu_item" *ngFor="let item of menu">
+					<td>{{item.payload.val().name}}</td> 
+					<td>${{item.payload.val().price}}</td>
+				</tr>
+			</tbody>
+		</table>
+
+		<button class="btn make_rsrv" (click)="orderBottles()">Order Bottles</button>
+
+	</div>
+
+	<!-- Venue bottle service menu ends-->
+
 	<!-- Venue events -->
 	<div class="events">
 
@@ -90,32 +119,7 @@
 			</table>
 		--> 
 	</div>
+	<!-- Venue events ENDS-->
 
-	<!-- Venue bottle service menu -->
-	<div class="menu">
-		<h4>MENU</h4>
-
-		<!-- menu goes below, separated by categories -->
-
-		<!-- Repeat for each category --> 
-		<table class="table menu_items">
-			<thead>
-				<tr>
-					<th scope="col">Name</th>
-					<th scope="col">Price</th>
-				</tr>
-			</thead>
-
-			<tbody>
-				<tr class="menu_item" *ngFor="let item of menu">
-					<td>{{item.payload.val().name}}</td> 
-					<td>${{item.payload.val().price}}</td>
-				</tr>
-			</tbody>
-		</table>
-
-		<button class="btn make_rsrv" (click)="orderBottles()">Order Bottles</button>
-
-	</div>
 </div>
 <app-footer></app-footer>

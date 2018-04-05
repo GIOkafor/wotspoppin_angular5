@@ -14,7 +14,6 @@ import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material';
 export class UpcomingEventsComponent implements OnInit {
 
   userEvents: any;
-  userReservations: any;
 
   constructor(
   	private router: Router,
@@ -24,7 +23,6 @@ export class UpcomingEventsComponent implements OnInit {
     private snackBar: MatSnackBar,
     public dialog: MatDialog) { 
   		this.userEvents = db.list('Users/'+ authSvc.getCurrentUser().uid + '/upcoming-events').snapshotChanges();
-      this.getReservations(); 
   }
 
   ngOnInit() {
@@ -55,11 +53,6 @@ export class UpcomingEventsComponent implements OnInit {
     //console.log(key);
 
     this.db.list('Users/'+ this.authSvc.getCurrentUser().uid + '/upcoming-events/' + key).remove();
-  }
-
-  getReservations(){
-    this.rsrvSvc.getUserReservations(this.authSvc.getCurrentUser().uid)
-      .subscribe(res => this.userReservations = res);
   }
 
 }

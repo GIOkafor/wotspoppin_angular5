@@ -38,6 +38,7 @@
 .events{
 	background-color: black;
 	padding-top: 40px;
+	padding-bottom: 80px;
 }
 
 .events h4{
@@ -45,7 +46,6 @@
 }
 
 .menu{
-	padding-bottom: 80px;
     padding-top: 40px;
 }
 

@@ -58,6 +58,26 @@
     flex-direction: column;
 }
 
+.popover_container{
+    background-color: black;
+    color: #fff;
+}
+
+.legend_list{
+	list-style: none;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.legend{
+	border-bottom: 1px solid #e18047;
+	padding: 2.5px 10px;
+}
+
+.legend span{
+	margin-left: 10px;
+}
+
 @media and screen only (min-height: 650px) {
 	.map{
 		height: 525px;

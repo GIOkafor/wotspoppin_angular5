@@ -15,6 +15,8 @@ import { NguiMapModule} from '@ngui/map';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PopoverModule } from 'ng2-pop-over';
+import { ModalModule } from 'ngx-bootstrap/modal';
+
 // Import ngx-barcode module
 import { NgxBarcodeModule } from 'ngx-barcode';
 
@@ -23,6 +25,11 @@ import { MatProgressSpinnerModule, MatAutocompleteModule, MatInputModule, MatRad
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialogModule } from '@angular/material/dialog';
+import { MatCardModule } from '@angular/material/card';
+import { MatIconModule } from '@angular/material/icon';
+import { MatProgressBarModule } from '@angular/material/progress-bar';
+import { MatStepperModule } from '@angular/material/stepper';
+import { MatSelectModule } from '@angular/material/select';
 
 //app components
 import { AppComponent } from './app.component';
@@ -47,7 +54,6 @@ import { MessagesComponent } from './messages/messages.component';
 import { MessageDetailsComponent } from './messages/message-details/message-details.component';
 import { GuestlistComponent } from './guestlist/guestlist.component';
 import { OtherProfileComponent } from './other-profile/other-profile.component';
-import { MyEventsComponent } from './my-events/my-events.component';
 import { ActionConfirmDialog } from './event-details/event-details.component';
 import { DeleteUpcomingNotifDialog } from './upcoming-events/upcoming-events.component';
 import { SearchUsersComponent } from './search-users/search-users.component';
@@ -61,6 +67,9 @@ import { ViewFriendsComponent } from './user-profile/view-friends/view-friends.c
 import { DeleteConfirmDialog } from './edit-menu/edit-menu.component';
 import { BottleServiceComponent } from './bottle-service/bottle-service.component';
 import { ReservationDetailsComponent } from './reservation-details/reservation-details.component';
+import { CheckInComponent } from './check-in/check-in.component';
+import { CheckInScannerComponent } from './check-in-scanner/check-in-scanner.component';
+import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 
 //services
@@ -72,6 +81,8 @@ import { UploadService } from './services/upload.service';
 import { UserMediaService } from './services/user-media.service';
 import { MessagingService } from './services/messaging.service';
 import { ReservationService } from './services/reservation.service';
+import { BarcodeScannerService } from './services/barcode-scanner.service';
+import { BarcodeValidatorService } from './services/barcode-validator.service';
 
 //pipes
 import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
@@ -84,6 +95,9 @@ import { EventInfoFilterPipe } from './pipes/event-info-filter.pipe';
 
 //guards
 import { PendingChangesGuard } from './guards/pending-changes.guard';
+
+//custom directives
+import { ModalHolderDirective } from './modal-holder/modal-holder.directive';
 
 //environment access
 import { environment } from './../environments/environment';
@@ -117,7 +131,7 @@ const routes: Routes = [
       {path: 'my-photos', component: MyPhotosComponent},
       {path: 'notifications', component: NotificationsComponent},
       {path: 'upcoming-events', component: UpcomingEventsComponent},
-      {path: 'my-events', component: MyEventsComponent},
+      {path: 'my-reservations', component: MyReservationsComponent},
       { path: '', redirectTo: '/profile/my-photos', pathMatch: 'full'}
     ]
   },
@@ -159,6 +173,15 @@ const routes: Routes = [
     path: 'venue/:id/edit-menu',
     component: EditMenuComponent
   },
+  {
+    path: 'venue/:id/check-in',
+    component: CheckInComponent
+  },
+  {
+    path: 'venue/:id/check-in-scanner',
+    component: CheckInScannerComponent
+  }
+  ,
   {
     path: 'create-venue',
     component: CreateVenueComponent,
@@ -222,7 +245,6 @@ const routes: Routes = [
     MessageDetailsComponent,
     GuestlistComponent,
     OtherProfileComponent,
-    MyEventsComponent,
     ActionConfirmDialog,
     DeleteUpcomingNotifDialog,
     SearchUsersComponent,
@@ -235,7 +257,11 @@ const routes: Routes = [
     ViewFriendsComponent,
     DeleteConfirmDialog,
     BottleServiceComponent,
-    ReservationDetailsComponent
+    ReservationDetailsComponent,
+    CheckInComponent,
+    CheckInScannerComponent,
+    MyReservationsComponent,
+    ModalHolderDirective
   ],
   imports: [
     BrowserModule,
@@ -258,7 +284,13 @@ const routes: Routes = [
     MatButtonModule,
     MatRadioModule,
     PopoverModule,
-    NgxBarcodeModule
+    NgxBarcodeModule,
+    MatCardModule,
+    MatIconModule,
+    MatProgressBarModule,
+    MatStepperModule,
+    MatSelectModule,
+    ModalModule.forRoot()
   ],
   entryComponents: [
     InviteFriendsComponent,
@@ -268,7 +300,8 @@ const routes: Routes = [
     ErrorComponent,
     ViewFriendsComponent,
     DeleteConfirmDialog,
-    BottleServiceComponent
+    BottleServiceComponent,
+    ReservationDetailsComponent
   ],
   providers: [
     AuthService,
@@ -279,7 +312,9 @@ const routes: Routes = [
     UserMediaService,
     MessagingService,
     ReservationService,
-    PendingChangesGuard
+    PendingChangesGuard,
+    BarcodeScannerService,
+    BarcodeValidatorService
   ],
   bootstrap: [AppComponent]
 })

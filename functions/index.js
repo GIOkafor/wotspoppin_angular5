@@ -133,21 +133,27 @@ exports.createCustomer = functions.database.ref('Users/{uid}/paymentInfo/token')
 
 	})
 
-//charge customer account
 exports.chargeCustomer = functions.https.onRequest((req, res) => {
-	console.log("Request sent is: ", req.body);
+	//console.log("Request sent is: ", req.body);
+  	//console.log(req.body);
 
-	let uid = req.body.uid;
-	let cost = req.body.cost * 100; //this is done because $20 == 2000
+  	//turn string request into json object
+  	reqObject = JSON.parse(req.body);
+  
+	let uid = reqObject.uid;
+	let cost = reqObject.cost * 100; //this is done because $20 == 2000
 	let userPaymentId; //for storing user id created by stripe in db
 
+  	//console.log("User uid is: ", uid);
+  	//console.log("Cost is: ", cost);
+  
 	//GET USER ID USERS/UID/PAYMENTINFO/DETAILS/ID
 
 	let customerRef = admin.database().ref('Users/' + uid + '/paymentInfo/details/id').once('value')
 		.then(function(snapshot){
 			userPaymentId = snapshot.val();
-			console.log("User stripe id is...");
-			console.log(userPaymentId);
+			//console.log("User stripe id is...");
+			//console.log(userPaymentId);
 
 			//create charge
 			const charge = stripe.charges.create({
@@ -156,15 +162,16 @@ exports.chargeCustomer = functions.https.onRequest((req, res) => {
 				customer: userPaymentId
 			}, function(err, result){
 				if(result){
-					console.log("Charge created is...");
-					console.log(result);
+					console.log("Charge created successfully");
+					//console.log(result);
+                  	
+                  	res.header("Access-Control-Allow-Origin", "*");
+                  	res.status(200).send(result);
 
-					res.header("Access-Control-Allow-Origin", "*");
-					res.status(200).send(result);
 				}else{
 					console.log("Error is...");
-					console.log(err);
-					return err;
+					//console.log(err);
+                  	res.status(200).send(err);
 				}
 			});
 		})

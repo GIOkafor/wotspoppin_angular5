@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-import { AngularFireDatabase } from 'angularfire2/database';
+import { BsModalRef } from 'ngx-bootstrap/modal/bs-modal-ref.service';
 import 'rxjs/add/operator/switchMap';
 
 @Component({
@@ -14,16 +13,10 @@ export class ReservationDetailsComponent implements OnInit {
   value: any = '';
 
   constructor(
-  	private route: ActivatedRoute,
-  	private db: AngularFireDatabase) { }
+  	private bsModalRef: BsModalRef) { }
 
   ngOnInit() {
-  	this.route.paramMap
-  		.switchMap((params: ParamMap) => this.db.object('reservations/'+params.get('id')).snapshotChanges())
-  			.subscribe((res) => {
-  				this.reservation = res;
-  				this.value = this.reservation.key;
-  			});
+  	this.value = this.reservation.key;
   }
 
 }

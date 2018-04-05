@@ -3,21 +3,33 @@
     background-color: black;
     border-bottom: 1px solid #8e8e8e;
 }
-.fa-ellipsis-v::after{
-    content: none;
+.settings_menu{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 130px;
 }
+.settings_menu a{
+    color: black !important;
+}
+
+.settings_menu .fa{
+    margin-right: 5px;
+}
+
 .userProfile{	
 	text-align: center;
 	background-color: black;
 }
 
-img{
-	max-width: 50%;
+.user-image{
+	max-width: 125px;
 	border-radius: 50%;
 }
 
-.dropdown-menu{
-    margin-right: 20px;
+.placeholder-image{
+    width: 125px;
+    height: 150px;
 }
 
 .imageDiv{
@@ -73,4 +85,9 @@ span.username{
 	background-color: black;
 	height: 100%;
     padding-bottom: 64px;
+}
+
+.stamp_icon{
+    height: 23px;
+    width: 23px;
 }

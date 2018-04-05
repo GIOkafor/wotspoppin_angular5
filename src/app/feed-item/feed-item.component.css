@@ -26,6 +26,10 @@
 	color: #e18047;
 }
 
+.uploadedBy{
+	color: #e18047 !important;
+}
+
 .time{
 	padding-bottom: 5px;
     margin-right: 10px;

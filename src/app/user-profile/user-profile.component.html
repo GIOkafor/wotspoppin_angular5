@@ -1,24 +1,32 @@
-<nav class="navbar fixed-top user_profile_header">
+<nav class="navbar sticky-top user_profile_header">
 	<i class="fa fa-lg fa-envelope-o" aria-hidden="true" routerLink='/messages'></i>
 	
-	<div class="dropdown" ngbDropdown>	
+	<div class="dropdown">	
 		<!--
 			<i class="fa fa-lg fa-ellipsis-v btn" type="button" id="dropDownMenuButton" aria-hidden="true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle></i>
 		-->
 
-		<a class="nav-link dropdown-toggle" id="dropDownMenuButton" ngbDropdownToggle>Settings</a>
+		<a placement="left" (click)='settingsPO.toggle($event)'>Settings</a>
 
-		<div class="dropdown-menu" aria-labelledy="dropDownMenuButton" ngbDropdownMenu>
-			<a class="dropdown-item" (click)="logOut();"> <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
-			<a class="dropdown-item" [routerLink]="['/user-profile', currentUser.uid]"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile </a>
-			<a class="dropdown-item" [routerLink]="['/payment-information']"> <i class="fa fa-credit-card" aria-hidden="true"></i>Payment</a>
-		</div>
+		<pop-over #settingsPO
+		    	[y-offset]="10"
+		    	[anchor-to]="true"
+		    	[my]="'top right'"
+		    	[at]="'bottom left'">
+
+		    	<div class="settings_menu">
+					<a (click)="logOut();"> <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+					<a [routerLink]="['/user-profile', currentUser.uid]"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile </a>
+					<a [routerLink]="['/payment-information']"> <i class="fa fa-credit-card" aria-hidden="true"></i>Payment</a>
+				</div>
+		</pop-over>
 	</div>
 </nav>
 
 <div class="userProfile">
 	<div class="imageDiv">
-		<img class="user-image" [src]="currentUser.uid | userImageUrl | async">
+		<img class="user-image" *ngIf="(currentUser.uid | userImageUrl | async) !== null" [src]="currentUser.uid | userImageUrl | async">
+		<img class="placeholder-image" *ngIf="(currentUser.uid | userImageUrl | async) == null" src="assets/profile-placeholder.png">
 
 		<div class="userinfo_text_container">
 			<span class="username">{{currentUser.displayName}}</span>
@@ -45,8 +53,8 @@
 			<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>
 		</span>
 
-		<span class="nav-item" routerLink='/profile/my-events' routerLinkActive="active">
-			<i class="fa fa-lg fa-user-secret" aria-hidden="true"></i>
+		<span class="nav-item" routerLink='/profile/my-reservations' routerLinkActive="active">
+			<img class="stamp_icon" src="assets/Stamp-icon.png"/>
 		</span>
 
 	</nav>

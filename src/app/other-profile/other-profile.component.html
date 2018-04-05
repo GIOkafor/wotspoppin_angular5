@@ -11,7 +11,8 @@
 
 <div class="other_profile_container" *ngIf="user">
 	<div class="imageDiv">
-		<img class="user-image"[src]="user.key | userImageUrl | async">
+		<img class="user-image" *ngIf="(user.key | userImageUrl | async) !== null" [src]="user.key | userImageUrl | async">
+		<img class="placeholder-image" *ngIf="(user.key | userImageUrl | async) == null" src="assets/profile-placeholder.png">
 
 		<div class="image-upload" *ngIf="checkUser(currentUser.uid)">
 		    <label for="file-input">

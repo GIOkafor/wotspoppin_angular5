@@ -5,6 +5,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import { AngularFireDatabase } from 'angularfire2/database';
 import * as firebase from 'firebase/app';
 import { AuthService } from '../services/auth.service';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-auth-component',
@@ -16,16 +17,23 @@ export class AuthComponentComponent implements OnInit {
   newUser: boolean = false;
   userSignUp: boolean = false;
   venueSignIn: boolean = false;
+  firstFormGroup: FormGroup;
+  secondFormGroup: FormGroup;
+  thirdFormGroup: FormGroup;
+  fourthFormGroup: FormGroup;
+  fifthFormGroup: FormGroup;
+  sixthFormGroup: FormGroup;
 
   constructor(
   	public afAuth: AngularFireAuth,
   	public db: AngularFireDatabase,
     public router: Router,
-    private authSvc: AuthService) { }
+    private authSvc: AuthService,
+    private fBuilder: FormBuilder) { }
 
   ngOnInit() {
   	firebase.auth().onAuthStateChanged(user => {
-  		//console.log("Auth state has changed, user: ", user);
+  		console.log("Auth state has changed, user: ", user);
 
   		if(user){
 	  		//build user object
@@ -35,7 +43,9 @@ export class AuthComponentComponent implements OnInit {
           'displayName': user.displayName
 				}
 
-  			localStorage.setItem('currentUser', JSON.stringify(currentUser));
+        console.log("User object created is: ", currentUser);
+        this.authSvc.updateLocStor(currentUser);
+  			//localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
         //bind database reference to variable for easy access and manipulation
         const userRef = this.db.object('Users/' + user.uid + '/userInfo');
@@ -66,6 +76,26 @@ export class AuthComponentComponent implements OnInit {
 
         });
   		}
+
+      //if new user auth'ing
+      this.firstFormGroup = this.fBuilder.group({
+      email: ['', Validators.required]
+      });
+      this.secondFormGroup = this.fBuilder.group({
+        displayName: ['', Validators.required]
+      });
+      this.thirdFormGroup = this.fBuilder.group({
+        password: ['', Validators.required]
+      });
+      this.fourthFormGroup = this.fBuilder.group({
+        birthday: ['', Validators.required]
+      });
+      this.fifthFormGroup = this.fBuilder.group({
+        sex: ['', Validators.required]
+      });
+      this.sixthFormGroup = this.fBuilder.group({
+        card: ['', Validators.required]
+      });
   	})
   }
 
@@ -110,11 +140,25 @@ export class AuthComponentComponent implements OnInit {
   emailLogin(val){
     console.log(val);
 
+    //specify how login happens ie emailSignIn or userEmailSignIn
+
     this.authSvc.emailSignIn(val.email, val.password);
   }
 
-  emailSignup(val){
-    console.log(val);
+  emailSignup(){
+    let val = this.firstFormGroup;//email, displayName, password, birthday, sex, credit card info
+
+    //create user sign up object
+    let user = {
+      email: this.firstFormGroup.value.email,
+      displayName: this.secondFormGroup.value.displayName,
+      password: this.thirdFormGroup.value.password,
+      birthday: this.fourthFormGroup.value.birthday,
+      sex: this.fifthFormGroup.value.sex
+    }
+
+    console.log(user);
+    this.authSvc.userEmailSignUp(user);
   }
 
   /*	

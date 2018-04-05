@@ -1,7 +1,24 @@
 <div class="container">
-	<div>Details of event goes here</div>
+	<div class="modal-header">
+		<h4 class="modal-title">Reservation Details</h4>
 
-	{{reservation | json}}
+		<button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+        	<span aria-hidden="true">&times;</span>
+      	</button>
+	</div>
 
-	<ngx-barcode [bc-value]="value" [bc-width]="1" [bc-display-value]="true"></ngx-barcode>
+	<div class="modal-body">
+		<div class="username">{{reservation.payload.val().user | userDisplayName | async}}</div>
+
+		<div class="purpose">Reservation Type: {{reservation.payload.val().type}}</div>
+
+		<div class="venue" *ngFor="let venue of (reservation.payload.val().venue | venueInfo | async)">Venue: {{ venue.name }}</div>
+
+		<ngx-barcode [bc-value]="value" [bc-width]="1" [bc-display-value]="true"></ngx-barcode>
+
+		<div class="price">Price: ${{reservation.payload.val().order.totalValue}}</div>
+
+		<div class="date">{{reservation.payload.val().date}}</div>
+	</div>
+
 </div>

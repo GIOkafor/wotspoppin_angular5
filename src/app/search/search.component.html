@@ -15,19 +15,9 @@
 		    	[my]="'top right'"
 		    	[at]="'bottom left'">
 
-			   <div class="popover_container" style="
-			   		background-color: black;
-					color: #fff;
-				">
-			       <ul class="legend_list" style="
-			       		list-style: none;
-    					padding-left: 0px;
-    					margin-bottom: 0px;
-			       ">
-			       		<li class="legend" (click)="filterRes('clubs')" style="
-			       			border-bottom: 1px solid #e18047;
-    						padding: 2.5px 10px;
-			       		">
+			   <div class="popover_container">
+			       <ul class="legend_list">
+			       		<li class="legend" (click)="filterRes('clubs')">
 			       			<img src="assets/map_icons/red_MarkerO.png"> <span style="margin-left: 10px;">Clubs</span>
 			       		</li>
 
@@ -38,7 +28,7 @@
 			       			<img src="assets/map_icons/darkgreen_MarkerO.png"> <span style="margin-left: 10px;">Pubs/Bars</span>
 			       		</li>
 
-			       		<li class="legend" (click)="filterRes('houseParties')" style="
+			       		<li class="legend" (click)="housePartiesPO.toggle($event)" style="
 			       			border-bottom: 1px solid #e18047;
     						padding: 2.5px 10px;
 			       		">
@@ -51,6 +41,30 @@
 			       		">
 			       			<img src="assets/map_icons/yellow_MarkerO.png"> <span style="margin-left: 10px;">Events</span>
 			       		</li>
+
+			       		<!-- popovers start -->
+			       		<pop-over #housePartiesPO
+					    	[y-offset]="10"
+					    	[anchor-to]="true"
+					    	[my]="'top right'"
+					    	[at]="'bottom left'">
+					    		<div class="popover_container"> 
+						    		<ul class="legend_list">
+						    			<li class="legend">
+						    				<img src="assets/map_icons/blue_MarkerO.png"> <span style="margin-left: 10px;">Pre Parties</span>
+						    			</li>
+
+						    			<li class="legend">
+						    				<img src="assets/map_icons/blue_MarkerO.png"> <span style="margin-left: 10px;">After Parties</span>
+						    			</li>
+
+						    			<li class="legend">
+						    				<img src="assets/map_icons/blue_MarkerO.png"> <span style="margin-left: 10px;">House Parties</span>
+						    			</li>
+						    		</ul>
+					    		</div>
+					    </pop-over>
+			       		<!-- popovers end -->
 			       </ul>
 			   </div>
 			</pop-over>

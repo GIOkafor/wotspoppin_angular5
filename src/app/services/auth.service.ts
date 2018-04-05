@@ -35,6 +35,7 @@ export class AuthService {
 
   //update local storage value
   updateLocStor(val){
+    console.log('Raw value passed: ' + val);
     console.log(JSON.stringify(val));
     
     //remove old info
@@ -66,6 +67,36 @@ export class AuthService {
       .catch(err => this.handleError(err.message));
   }
 
+  //user creates new account using email and password
+  //specifically for users
+  userEmailSignUp(val){
+    this.afAuth.auth.createUserWithEmailAndPassword(val.email, val.password)
+      .then(_=> {
+        //add user info to db
+        this.db.object('Users/' + this.afAuth.auth.currentUser.uid + '/userInfo').set({email: val.email, displayName: val.displayName, sex: val.sex})
+          .then(_=> {
+            //send account verification email
+            this.sendEmailVerification();
+
+            //if user entered their credit card information in sign up form, update their payment info
+            if(val.cardInfo)
+              //update payment info
+
+            //otherwise continue here
+        /*
+            //save user uid for later use
+            var currentUser = {
+              uid : this.afAuth.auth.currentUser.uid
+            } 
+
+            this.updateLocStor(currentUser);
+*/
+            //redirect to homepage
+            this.router.navigate(['/venues']);
+          });
+      }).catch(err => this.handleError(err.message));
+  }
+
   handleError(errMessage){
     this.dialog.open(ErrorComponent, {
       data: errMessage,
@@ -84,7 +115,7 @@ export class AuthService {
      });
   }
 
-  //sign in via email for venues
+  //sign in via email for venues and users
   emailSignIn(email, password){
     this.afAuth.auth.signInWithEmailAndPassword(email, password)
       .then(_=> {

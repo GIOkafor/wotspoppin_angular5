@@ -85,7 +85,7 @@ export class BottleServiceComponent implements OnInit {
               //card charged successfuly, create barcode 
 
               //store transaction details for venue
-              //this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
+              this.rsrvSvc.newBottleServiceReservation(this.currentUser, order, this.venue, val.date, val.numofGuests, (() => { this.close(); this.successSnackbar(); }));
 
             }, err => {
               console.log(err);
@@ -162,7 +162,7 @@ export class BottleServiceComponent implements OnInit {
   	let snackRef = this.snackBar.open(message, '', {duration: 2000});
 
   	snackRef.afterDismissed().subscribe(() => {
-  		this.router.navigate(['/profile/upcoming-events']);
+  		this.router.navigate(['/profile/my-reservations']);
   	})
   }
 

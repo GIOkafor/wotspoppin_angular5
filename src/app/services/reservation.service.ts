@@ -21,8 +21,9 @@ export class ReservationService {
 						venue: venu,
 						order: ordr,
 						date: dat,
-						guests: gues
-					  };
+						guests: gues,
+            type: 'Bottle Service'
+	  };
 
 	//store in venue database
 	this.db.list('reservations')

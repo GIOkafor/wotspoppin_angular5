@@ -31,11 +31,11 @@
 					<div *ngIf="item.val.type !== 'goingOut'">
 						<!-- feed item header section start -->
 						<div class="feed_item_header">
-							<div>	
+							<a [routerLink]="['/user-profile/', item.val.userUid]">	
 								<img class="uploader_image" [src]="item.val.userUid | userImageUrl | async">
 
 								<span class="uploadedBy">{{item.val.displayName}}</span>
-							</div>
+							</a>
 
 							<!-- make this time set by cloud function -->
 							<span class="time">{{item.val.createdAt | timeAgoC | async}}</span>
@@ -45,9 +45,9 @@
 						<!-- feed media start -->
 						<div class="media_container">
 							<!-- if media is image, show below -->
-							<img *ngIf="item.val.type !== 'video/mp4'" class="media_image" [src]="item.val.url" (dblclick)="likeMedia(item)">
+							<img *ngIf="item.val.type !== 'video/mp4' && item.val.type !== 'video/quicktime'" class="media_image" [src]="item.val.url" (dblclick)="likeMedia(item)">
 							<!-- if media is video, show below -->
-							<video *ngIf="item.val.type == 'video/mp4'" class="media_image" controls [src]="item.val.url" (dblclick)="likeMedia(item)"></video>
+							<video *ngIf="item.val.type == 'video/mp4' || item.val.type == 'video/quicktime'" class="media_image" controls [src]="item.val.url" (dblclick)="likeMedia(item)"></video>
 
 							<!-- media footer - where all user actions stay - starts -->
 							<div class="media_footer">

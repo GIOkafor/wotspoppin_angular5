@@ -9,7 +9,7 @@
 			<div>	
 				<img class="uploader_image" [src]="media.userUid | userImageUrl | async">
 
-				<span class="uploadedBy">{{media.displayName}}</span>
+				<a class="uploadedBy" [routerLink]="['/user-profile/', media.userUid]">{{media.displayName}}</a>
 			</div>
 
 			<!-- make this time set by cloud function -->
@@ -20,9 +20,9 @@
 		<!-- feed media start -->
 		<div class="media_container">
 			<!-- if media is image, show below -->
-			<img *ngIf="media.type !== 'video/mp4'" class="media_image" [src]="media.url" (dblclick)="likeMedia(item)">
+			<img *ngIf="media.type !== 'video/mp4' && item.val.type !== 'video/quicktime'" class="media_image" [src]="media.url" (dblclick)="likeMedia(item)">
 			<!-- if media is video, show below -->
-			<video *ngIf="media.type == 'video/mp4'" class="media_image" controls autoplay [src]="media.url" (dblclick)="likeMedia(item)"></video>
+			<video *ngIf="media.type == 'video/mp4' || item.val.type == 'video/quicktime'" class="media_image" controls autoplay [src]="media.url" (dblclick)="likeMedia(item)"></video>
 
 			<!-- media footer - where all user actions stay - starts -->
 			<div class="media_footer">
