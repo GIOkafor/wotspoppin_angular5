@@ -36,7 +36,7 @@ export class FeedItemComponent implements OnInit {
   			.subscribe(media => this.media = media);
   }
 
-  likeMedia(media){
+  likeMedia(){
     //check if user is signed in first
     if(this.authSvc.checkUserAuth()){
     	var currentUserUid = this.authSvc.getCurrentUser().uid;

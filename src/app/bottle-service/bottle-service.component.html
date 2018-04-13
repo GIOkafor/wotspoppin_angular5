@@ -1,11 +1,11 @@
 <div class="header">
-	<h2 class="title">Bottle Service</h2>
+	<h3 class="title">Bottle Service</h3>
 	<i class="fa fa-times" (click)="close()"></i>
 </div>
 
 
 <div class="bottle_service_component">
-	<form #bottleServiceForm="ngForm" (submit)="placeOrder(bottleServiceForm.value); bottleServiceForm.reset();">
+	<form #bottleServiceForm="ngForm" (submit)="placeOrder(bottleServiceForm.value); bottleServiceForm.reset();" *ngIf="!processingPayment">
 		<div class="form-group">
 			<label>Number Of Guests</label>
 			<select name="numofGuests" [(ngModel)]="guestsNum">
@@ -61,19 +61,26 @@
 			</table>
 		</div>
 
-		<button class="btn place_order_btn" click="placeOrder(bottleServiceForm.value); bottleServiceForm.reset();">Place Order</button>
+		<!-- Cart starts -->
+		<div class="card cartContents">
+
+			<div class="card-header"> 
+				<span class="headerTitle">Cart</span>
+				<span class="totalCost float-right">Total: ${{totalCost}}</span>
+			</div>
+
+			<div *ngFor="let bottle of cart; index as ind" class="cartItem">
+				<span>{{bottle.name}} - {{bottle.quantity}} bottles - ${{bottle.value * bottle.quantity}}</span>
+				<i class="fa fa-times" (click)="remove(ind);"></i>
+			</div>
+		</div>
+		<!-- Cart ends -->
+
+		<div class="button_container">
+			<button class="btn place_order_btn" click="placeOrder(bottleServiceForm.value); bottleServiceForm.reset();">Place Order</button>
+		</div>
+
 	</form>
 
-	<div class="card cartContents">
-
-		<div class="card-header"> 
-			<span class="headerTitle">Cart</span>
-			<span class="totalCost float-right">Total: ${{totalCost}}</span>
-		</div>
-
-		<div *ngFor="let bottle of cart; index as ind" class="cartItem">
-			<span>{{bottle.name}} - {{bottle.quantity}} bottles - ${{bottle.value * bottle.quantity}}</span>
-			<i class="fa fa-times" (click)="remove(ind);"></i>
-		</div>
-	</div>
+	<mat-spinner *ngIf="processingPayment"></mat-spinner>
 </div>

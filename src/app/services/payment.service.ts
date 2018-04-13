@@ -27,7 +27,10 @@ export class PaymentService {
 
   //stores token generated from user card for later charges
   storeTkn(tkn){
-  	this.db.object('Users/' + this.currentUser.uid + '/paymentInfo/token')
+  	let currentUserNow = this.authSvc.getCurrentUser();
+    console.log("Current user is: ", currentUserNow);
+    
+    this.db.object('Users/' + currentUserNow.uid + '/paymentInfo/token')
   		.set(tkn);
   }
 

@@ -27,7 +27,7 @@
 			}">
 
 				<!-- hide this image for my messages -->
-				<img class="sender_image" [src]="message.senderId | userImageUrl | async" alt="sender image" />
+				<img class="sender_image" [src]="(message.senderId | userImageUrl | async) ? (message.senderId | userImageUrl | async) : 'assets/profile-placeholder.jpg'" alt="sender image" />
 
 				<!-- toggle class below based on sender -->
 				<!-- message text -->
@@ -52,10 +52,12 @@
 	<!-- Message thread end -->
 
 	<!-- Message controls start -->
-	<div class="message_controls">
-		<input class="enter_message" type="text" name="message" placeholder="Type a message..." [(ngModel)]="message">
-		<i class="fa fa-paper-plane send_icon" aria-hidden="true" (click)="sendMessage(message); message = ''"></i>
-	</div>
+	<form class="message_controls">
+		<input class="enter_message" type="text" name="message" placeholder="Type a message..." [(ngModel)]="message" autocomplete="off">
+		<button class="btn" type="submit" [disabled]="message == ''" (click)="sendMessage(message); message = ''">
+			<i class="fa fa-paper-plane send_icon" aria-hidden="true"></i>
+		</button>
+	</form>
 	<!-- Message controls end -->
 </div>
 

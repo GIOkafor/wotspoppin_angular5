@@ -32,7 +32,17 @@ export class EventDetailsComponent implements OnInit {
     private modalSvc: NgbModal,
     private snackBar: MatSnackBar,
     public dialog: MatDialog) { 
-      this.currentUserUid = authSvc.getCurrentUser().uid;
+      
+      if(authSvc.getCurrentUser() == null){
+        let snackRef = snackBar.open('You must be signed in to see event details', '', {duration: 3000});
+
+        snackRef.afterDismissed().subscribe(() => {
+          this.router.navigate(['/authenticate']);
+        });
+      }else{
+        this.currentUserUid = authSvc.getCurrentUser().uid;
+      }
+      
   }
 
   ngOnInit() {

@@ -13,7 +13,7 @@
 		<!--{{buddies | async | json}}-->
 		<!-- repeat for each friend -->
 		<div class="friend" *ngFor="let buddy of buddies | async" [routerLink]="['/user-profile', buddy.payload.val()]" (click)="activeModal.dismiss('Cross click');">
-			<img class="friend_image" [src]="buddy.payload.val() | userImageUrl | async" />
+			<img class="friend_image" [src]="(message.key | userImageUrl | async) ? (message.key | userImageUrl | async) : 'assets/profile-placeholder.jpg'" />
 
 			<span class="friend_name">{{buddy.payload.val() | userDisplayName | async}}</span>
 		</div>

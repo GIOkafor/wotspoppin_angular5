@@ -32,7 +32,8 @@
 						<!-- feed item header section start -->
 						<div class="feed_item_header">
 							<a [routerLink]="['/user-profile/', item.val.userUid]">	
-								<img class="uploader_image" [src]="item.val.userUid | userImageUrl | async">
+								<img class="uploader_image" *ngIf="(item.val.userUid | userImageUrl | async) !== null" [src]="item.val.userUid | userImageUrl | async">
+								<img class="placeholder_image" *ngIf="(item.val.userUid | userImageUrl | async) == null" src="assets/profile-placeholder.jpg">
 
 								<span class="uploadedBy">{{item.val.displayName}}</span>
 							</a>
@@ -65,17 +66,17 @@
 									<i class="fa fa-lg fa-heart"></i> {{item.val.likes.count}} likes
 								</div>
 
-								<div class="comments" *ngFor="let comment of item.val.comments | objToArray; let first = first;">
+								<div class="comments" *ngFor="let comment of item.val.comments | objToArray; let last = last;">
 									
 									<!-- Show only first comment will, be changed to caption in the future -->
-									<div class="comment" *ngIf="first">
+									<div class="comment" *ngIf="last">
 										<span class="commenter_name">{{comment.displayName}}</span>
 										<span class="comment_text">{{comment.commentText}}</span>
 									</div>
 									<!-- end comment repeat -->
 							</div>
+							<!-- /media reactions - likes and comments -->
 						</div>
-						<!-- /media reactions - likes and comments -->
 					</div>
 				<!-- feed media end -->
 

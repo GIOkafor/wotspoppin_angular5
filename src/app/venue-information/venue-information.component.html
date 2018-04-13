@@ -28,11 +28,11 @@
 		       			Edit Venue
 		       		</li>
 
-		       		<li class="legend" (click)="addEvent()" style="
+		       		<li class="legend" [routerLink]="['/create-event']" style="
 		       			border-bottom: 1px solid #e18047;
 						padding: 2.5px 10px;
 		       		">
-		       			Add Events
+		       			Add Event
 		       		</li>
 
 		       		<li class="legend" (click)="editMenu()" style="
@@ -86,7 +86,7 @@
 			</tbody>
 		</table>
 
-		<button class="btn make_rsrv" (click)="orderBottles()">Order Bottles</button>
+		<button class="btn make_rsrv" *ngIf="currentUser !== null" (click)="orderBottles()">Order Bottles</button>
 
 	</div>
 
@@ -96,28 +96,6 @@
 	<div class="events">
 
 		<app-venue-event-list [events]="events$"></app-venue-event-list>
-
-		<!-- Old events list 
-			<table class="table table-striped">
-				<tr>
-					<th>Event Name</th>
-					<th>Date</th>
-				</tr>
-
-					<tr *ngFor="let event of events$" (click)="getEventDetails(event);">
-						<td>{{event.payload.val().name}}</td>
-						<td>{{event.payload.val().date | date:'medium'}}</td>
-					</tr>
-
-				<div class="events-loading">
-
-					<mat-spinner
-						[color]="yellow"
-						*ngIf="!events$"></mat-spinner>
-
-				</div>
-			</table>
-		--> 
 	</div>
 	<!-- Venue events ENDS-->
 

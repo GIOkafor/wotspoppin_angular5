@@ -20,6 +20,11 @@
 
 .cartContents{
 	margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button_container{
+    text-align: center;
 }
 
 .headerTitle{
@@ -43,6 +48,7 @@
 .place_order_btn{
     background-color: #ea7a3b;
     color: #fff;
+    width: 200px;
 }
 
 @media only screen and (max-width: 320px){

@@ -17,7 +17,7 @@
 		<!-- Message start -->
 		<div class="message" *ngFor="let message of messages | async">
 			<!-- participant image is based on thread key -->
-			<img class="sender_image" [src]="message.key | userImageUrl | async" alt="sender image" />
+			<img class="sender_image" [src]="(message.key | userImageUrl | async) ? (message.key | userImageUrl | async) : 'assets/profile-placeholder.jpg'" alt="sender image" />
 
 			<!-- Repeat this section and only show the last message in thread -->
 			<div [ngClass]="{'message_info_container': last}" *ngFor="let msg of message.val | objToArray; let last = last;" [routerLink]="['/messages', message.key]">

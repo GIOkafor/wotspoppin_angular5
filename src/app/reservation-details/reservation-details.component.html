@@ -14,7 +14,7 @@
 
 		<div class="venue" *ngFor="let venue of (reservation.payload.val().venue | venueInfo | async)">Venue: {{ venue.name }}</div>
 
-		<ngx-barcode [bc-value]="value" [bc-width]="1" [bc-display-value]="true"></ngx-barcode>
+		<ngx-barcode [bc-value]="value" [bc-width]="1" [bc-display-value]="true" [bc-format]="CODE128"></ngx-barcode>
 
 		<div class="price">Price: ${{reservation.payload.val().order.totalValue}}</div>
 

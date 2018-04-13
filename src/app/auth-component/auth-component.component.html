@@ -44,17 +44,16 @@
 							<input type="password" name="password" ngModel>
 						</div>
 
-						<button class="btn loginBtn" type="submit">Log In</button>
+						<button class="btn loginBtn" type="submit">Sign In</button>
 					</form>
 				</div>
 
-				<!--
 					<button class="googleAuth btn" (click)="googleLogin();">Sign In with Google</button>
 					<button class="fbAuth btn" (click)="fbLogin();">Sign In with Facebook</button>
-				-->
+				
 
-				<span *ngIf="!venueSignIn" (click)="venueSignIn = true">Venue Sign-In</span>
-				<span *ngIf="venueSignIn" (click)="venueSignIn = false">User Sign-In</span>
+				<span class="sign_type" *ngIf="!venueSignIn" (click)="venueSignIn = true">Venue Sign-In</span>
+				<span class="sign_type" *ngIf="venueSignIn" (click)="venueSignIn = false">User Sign-In</span>
 
 				<span class="noAccount" (click)="showSignUp();">Don't have an account?</span>
 			</div>
@@ -70,24 +69,6 @@
 				</div>
 
 				<div *ngIf="userSignUp" class="user_sign_up">
-
-					<!-- Old user sign up form
-						<div class="userSignIn">
-							<form #userSignupForm="ngForm" (ngSubmit)="emailSignup(userSignupForm.value)" class="signupForm">
-								<div class="form-group">
-									<label>Email</label>
-									<input type="text" name="email" ngModel>
-								</div>
-
-								<div class="form-group">
-									<label>Password</label>
-									<input type="password" name="password" ngModel>
-								</div>
-
-								<button class="btn loginBtn" type="submit">Sign Up</button>
-							</form>
-						</div>
-					-->
 
 					<!-- Stepper start -->
 						<mat-vertical-stepper class="signup_steps" [linear]="isLinear">
@@ -188,6 +169,8 @@
 						  </mat-step>
 						</mat-vertical-stepper>
 					<!-- Stepper end -->
+
+					<span class="sign_type" routerLink="/venue-signup">Create Venue Account</span>
 
 				</div>
 

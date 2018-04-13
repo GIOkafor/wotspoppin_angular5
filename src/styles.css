@@ -2,7 +2,7 @@
 @import "~bootstrap/dist/css/bootstrap.css";
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 
-body{	
-/* 	background-color: black;
-	color: #e18047; */
+html{	
+ 	background-color: black;
+/*	color: #e18047; */
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../services/auth.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-venue-signup',
@@ -9,7 +10,8 @@ import { AuthService } from '../services/auth.service';
 export class VenueSignupComponent implements OnInit {
 
   constructor(
-  	private authSvc: AuthService) { }
+  	private authSvc: AuthService,
+    private location: Location) { }
 
   ngOnInit() {
   }
@@ -19,5 +21,9 @@ export class VenueSignupComponent implements OnInit {
   	//console.log("Creating user account, with value: ", val);
 
   	this.authSvc.emailSignUp(val);
+  }
+
+  goBack(){
+    this.location.back();
   }
 }

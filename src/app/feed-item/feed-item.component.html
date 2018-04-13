@@ -7,7 +7,8 @@
 		<!-- feed item header section start -->
 		<div class="feed_item_header">
 			<div>	
-				<img class="uploader_image" [src]="media.userUid | userImageUrl | async">
+				<img class="uploader_image"  *ngIf="(media.userUid | userImageUrl | async) !== null" [src]="media.userUid | userImageUrl | async">
+				<img class="placeholder_image" *ngIf="(media.userUid | userImageUrl | async) == null" src="assets/profile-placeholder.jpg">
 
 				<a class="uploadedBy" [routerLink]="['/user-profile/', media.userUid]">{{media.displayName}}</a>
 			</div>
@@ -20,9 +21,9 @@
 		<!-- feed media start -->
 		<div class="media_container">
 			<!-- if media is image, show below -->
-			<img *ngIf="media.type !== 'video/mp4' && item.val.type !== 'video/quicktime'" class="media_image" [src]="media.url" (dblclick)="likeMedia(item)">
+			<img *ngIf="media.type !== 'video/mp4' && media.type !== 'video/quicktime'" class="media_image" [src]="media.url" (dblclick)="likeMedia()">
 			<!-- if media is video, show below -->
-			<video *ngIf="media.type == 'video/mp4' || item.val.type == 'video/quicktime'" class="media_image" controls autoplay [src]="media.url" (dblclick)="likeMedia(item)"></video>
+			<video *ngIf="media.type == 'video/mp4' || media.type == 'video/quicktime'" class="media_image" controls autoplay [src]="media.url" (dblclick)="likeMedia()"></video>
 
 			<!-- media footer - where all user actions stay - starts -->
 			<div class="media_footer">

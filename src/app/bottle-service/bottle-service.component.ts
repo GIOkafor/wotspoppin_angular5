@@ -19,6 +19,7 @@ export class BottleServiceComponent implements OnInit {
   menu: any;
   cart: any = []; //for tracking user bottle selections
   totalCost: number = 0;
+  processingPayment: boolean = false;
 
   constructor(
   	private authSvc: AuthService,
@@ -68,6 +69,9 @@ export class BottleServiceComponent implements OnInit {
 
   	let order = {bottles: this.cart, totalValue: this.totalCost};
 
+    //set spinner to show
+    this.processingPayment = true;
+
   	//CHARGE USER ACCOUNT
     //first check if user has payment info on file
     this.paymentSvc.getPaymentInfo()
@@ -90,7 +94,10 @@ export class BottleServiceComponent implements OnInit {
             }, err => {
               console.log(err);
 
-              this.snackBar.open('Transaction failed, please review your payment settings');
+              this.snackBar.open('Transaction failed, please review your payment settings', '', {duration: 5000});
+
+              //hide spinner 
+              this.processingPayment = false;
             });
 
         }
@@ -154,6 +161,7 @@ export class BottleServiceComponent implements OnInit {
 
   close(){
   	this.dialogRef.close();
+    this.processingPayment = false; //payment processing is complete
   }
 
   //show success snackbar

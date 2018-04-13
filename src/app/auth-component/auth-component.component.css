@@ -17,6 +17,7 @@
 .btn{
 	color: #fff;
 	margin-bottom: 10px;
+	width: 225px;
 }
 
 .loginBtn{
@@ -32,6 +33,7 @@
     align-items: center;
    /* background-color: #00000099;*/
     background-color: #fff;
+    padding: 10px;
 }
 
 .signin_text{
@@ -58,6 +60,12 @@
     margin-bottom: 10px;
 }
 
+.account_type button{
+	background-color: #e18047;
+	color: #fff;
+    font-weight: bold;
+}
+
 .user_sign_up{
     text-align: center;
 }
@@ -73,13 +81,17 @@
     display: flex;
 }
 
+.hasAccount{
+    padding-bottom: 10px;
+}
+
 mat-vertical-stepper.signup_steps{
 	background-color: transparent !important;
 	color: black;
 }
 
-.mat-step-header .mat-step-icon{
-	background-color: #e18047 !important;
+.sign_type{
+	margin-bottom: 10px;
 }
 
 @media only screen and (max-width: 340px){

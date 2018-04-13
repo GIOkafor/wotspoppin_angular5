@@ -80,13 +80,17 @@
     padding: 0 5px;
     position: fixed;
     bottom: 70px;
+    display: flex;
 }
 
 .message_controls input{
 	width: 92%;
 }
 
+.message_controls .btn{
+	background-color: transparent;
+}
+
 .send_icon{
 	color: #ea7a3b;
-	margin-left: 4px;
 }

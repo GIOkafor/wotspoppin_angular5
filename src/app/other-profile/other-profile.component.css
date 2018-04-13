@@ -19,14 +19,14 @@
     padding-bottom: 55px;
 }
 
-.user-img{
+.user-image{
     max-width: 50%;
 	max-height: 200px;
 	border-radius: 50%;
 }
 
 .placeholder-image{
-    width: 125px;
+    width: 150px;
     height: 150px;
 }
 

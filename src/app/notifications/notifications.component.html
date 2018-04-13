@@ -1,4 +1,6 @@
 <div class="container notifications_container">
+
+	<h4 class="section_header">Notifications</h4>
 	
 	<div class="invites_container">
 
@@ -32,7 +34,7 @@
 			<!-- repeat for each friend request -->
 			<div class="request" *ngFor="let request of requests | async">
 				
-				<img class="sender_image" [src]="request.payload.val().from | userImageUrl | async">
+				<img class="sender_image" [src]="(request.payload.val().from | userImageUrl | async) ? (request.payload.val().from | userImageUrl | async) : 'assets/profile-placeholder.jpg'">
 
 				<span class="sender_name">{{request.payload.val().from | userDisplayName | async}}</span>
 

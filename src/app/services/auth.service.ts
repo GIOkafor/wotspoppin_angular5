@@ -50,17 +50,17 @@ export class AuthService {
     this.afAuth.auth.createUserWithEmailAndPassword(val.email, val.password)
       .then(_=> {
         //add user info to profile
-        this.db.object('/venue-users/'+this.afAuth.auth.currentUser.uid + '/userInfo').set({email: val});
+        this.db.object('/venue-users/'+this.afAuth.auth.currentUser.uid + '/userInfo').set({email: val.email});
 
         this.sendEmailVerification();
-
+    
         //save user uid for later use
         var currentUser = {
           uid : this.afAuth.auth.currentUser.uid
         } 
 
         this.updateLocStor(currentUser);
-
+    
         //redirect to venue creation page
         this.router.navigate(['/create-venue']);
       })

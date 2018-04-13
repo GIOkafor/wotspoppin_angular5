@@ -4,6 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { StripeService, StripeCardComponent, ElementOptions, ElementsOptions } from "ngx-stripe";
 import { HttpClient } from '@angular/common/http';
 import { PaymentService } from '../services/payment.service';
+import { MatSnackBar } from '@angular/material';
 
 @Component({
   selector: 'app-stripe-test',
@@ -12,12 +13,13 @@ import { PaymentService } from '../services/payment.service';
 })
 export class StripeTestComponent implements OnInit {
   @ViewChild(StripeCardComponent) card: StripeCardComponent;
+  processing: boolean = false;
 
   cardOptions: ElementOptions = {
     style: {
       base: {
-        iconColor: '#666EE8',
-        color: '#31325F',
+        iconColor: '#e18047',
+        color: '#fff',
         lineHeight: '40px',
         fontWeight: 300,
         fontFamily: '"Helvetica Neue", Helvetica, sans-serif',
@@ -40,7 +42,8 @@ export class StripeTestComponent implements OnInit {
     private stripeService: StripeService,
     private http: HttpClient,
     private paymentSvc: PaymentService,
-    private location: Location) {}
+    private location: Location,
+    private snackBar: MatSnackBar) {}
 
   ngOnInit() {
     this.stripeTest = this.fb.group({
@@ -48,7 +51,12 @@ export class StripeTestComponent implements OnInit {
     });
   }
 
+
+  //update user payment settings
   buy(ev) {
+    //show spinner
+    this.processing = true;
+
     const name = this.stripeTest.get('name').value;
     this.stripeService
       .createToken(this.card.getCard(), { name })
@@ -57,12 +65,25 @@ export class StripeTestComponent implements OnInit {
           // Use the token to create a charge or a customer
           // https://stripe.com/docs/charges
           console.log(result.token.id);
+
+          //show success message
+          this.snackBar.open('Payment settings successfully updated', '', {duration: 5000});
+
           //store token for later use
           this.storeToken(result.token.id);
 
+          //hide spinner, operation is finished
+          this.processing = false;
+          
         } else if (result.error) {
           // Error creating the token
           console.log(result.error.message);
+
+          //show error message
+          this.snackBar.open('Payment settings could not be update successfully', '', {duration: 5000});
+          
+          //hide spinner, operation is finished
+          this.processing = false;
         }
       });
   }

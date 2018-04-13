@@ -12,12 +12,13 @@
 		    	[y-offset]="10"
 		    	[anchor-to]="true"
 		    	[my]="'top right'"
-		    	[at]="'bottom left'">
+		    	[at]="'bottom left'"
+		    	[keep-on-click-outside]="false">
 
 		    	<div class="settings_menu">
-					<a (click)="logOut();"> <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
-					<a [routerLink]="['/user-profile', currentUser.uid]"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile </a>
-					<a [routerLink]="['/payment-information']"> <i class="fa fa-credit-card" aria-hidden="true"></i>Payment</a>
+					<a (click)="settingsPO.hide();logOut();"> <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
+					<a [routerLink]="['/user-profile', currentUser.uid]" (click)="settingsPO.hide();"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile </a>
+					<a [routerLink]="['/payment-information']" (click)="settingsPO.hide();"> <i class="fa fa-credit-card" aria-hidden="true"></i>Payment</a>
 				</div>
 		</pop-over>
 	</div>
@@ -26,7 +27,7 @@
 <div class="userProfile">
 	<div class="imageDiv">
 		<img class="user-image" *ngIf="(currentUser.uid | userImageUrl | async) !== null" [src]="currentUser.uid | userImageUrl | async">
-		<img class="placeholder-image" *ngIf="(currentUser.uid | userImageUrl | async) == null" src="assets/profile-placeholder.png">
+		<img class="placeholder-image" *ngIf="(currentUser.uid | userImageUrl | async) == null" src="assets/profile-placeholder.jpg">
 
 		<div class="userinfo_text_container">
 			<span class="username">{{currentUser.displayName}}</span>

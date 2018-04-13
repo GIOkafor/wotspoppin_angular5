@@ -59,7 +59,8 @@ export class VenueInformationComponent implements OnInit {
             }
 
             //get events belonging to venue
-            this.db.list('/Events', ref => ref.orderByChild("createdBy").equalTo(this.venue.key)).snapshotChanges()
+            //person that created venue is the same as person that created event, because venue accounts are linked to one individual account
+            this.db.list('/Events', ref => ref.orderByChild("createdBy").equalTo(this.venue.payload.val().createdBy)).snapshotChanges()
               .subscribe(res => {
                 this.events$ = res;
               })
@@ -115,11 +116,6 @@ export class VenueInformationComponent implements OnInit {
   //edit venue information
   editVenue(){
     console.log("Editing venue information, for venue: ", this.venue.key);
-  }
-
-  //adds new event
-  addEvent(){
-    console.log("Adding new event");
   }
 
   //edit bottle service menu

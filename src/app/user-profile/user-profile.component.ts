@@ -58,6 +58,7 @@ export class UserProfileComponent implements OnInit {
   logOut() {
     this.afAuth.auth.signOut();
     localStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUserUID');
     this.router.navigate(['authenticate']);
   }
 

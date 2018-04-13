@@ -184,8 +184,8 @@ const routes: Routes = [
   ,
   {
     path: 'create-venue',
-    component: CreateVenueComponent,
-    canDeactivate: [PendingChangesGuard]
+    component: CreateVenueComponent
+    //canDeactivate: [PendingChangesGuard]
   },
   {
     path: 'create-event',
