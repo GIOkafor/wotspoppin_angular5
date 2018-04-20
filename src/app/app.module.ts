@@ -16,9 +16,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgxStripeModule } from 'ngx-stripe';
 import { PopoverModule } from 'ng2-pop-over';
 import { ModalModule } from 'ngx-bootstrap/modal';
-
+//qr code generator
+import { NgxQRCodeModule } from 'ngx-qrcode2';
 // Import ngx-barcode module
 import { NgxBarcodeModule } from 'ngx-barcode';
+//barcode scanner
+import { ZXingScannerModule } from '@zxing/ngx-scanner';
+//actual working search filter
+import { FilterPipeModule } from 'ngx-filter-pipe';
 
 //angular material modules
 import { MatProgressSpinnerModule, MatAutocompleteModule, MatInputModule, MatRadioModule } from '@angular/material';
@@ -30,6 +35,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatSelectModule } from '@angular/material/select';
+import { MatExpansionModule } from '@angular/material/expansion';
 
 //app components
 import { AppComponent } from './app.component';
@@ -71,6 +77,7 @@ import { CheckInComponent } from './check-in/check-in.component';
 import { CheckInScannerComponent } from './check-in-scanner/check-in-scanner.component';
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
+import { BuyTicketsComponent } from './buy-tickets/buy-tickets.component';
 
 //services
 import { AuthService } from './services/auth.service';
@@ -83,6 +90,8 @@ import { MessagingService } from './services/messaging.service';
 import { ReservationService } from './services/reservation.service';
 import { BarcodeScannerService } from './services/barcode-scanner.service';
 import { BarcodeValidatorService } from './services/barcode-validator.service';
+import { CheckInService } from './services/check-in.service';
+import { TicketsService } from './services/tickets.service';
 
 //pipes
 import { ObjToArrayPipe } from './pipes/obj-to-array.pipe';
@@ -92,6 +101,7 @@ import { VenueInfoPipe } from './pipes/venue-info.pipe';
 import { UserDisplayNamePipe } from './pipes/user-display-name.pipe';
 import { InviteFilterPipe } from './pipes/invite-filter.pipe';
 import { EventInfoFilterPipe } from './pipes/event-info-filter.pipe';
+import { UserNameFilterPipe } from './pipes/user-name-filter.pipe';
 
 //guards
 import { PendingChangesGuard } from './guards/pending-changes.guard';
@@ -261,7 +271,9 @@ const routes: Routes = [
     CheckInComponent,
     CheckInScannerComponent,
     MyReservationsComponent,
-    ModalHolderDirective
+    ModalHolderDirective,
+    UserNameFilterPipe,
+    BuyTicketsComponent
   ],
   imports: [
     BrowserModule,
@@ -284,12 +296,16 @@ const routes: Routes = [
     MatButtonModule,
     MatRadioModule,
     PopoverModule,
+    NgxQRCodeModule,
+    ZXingScannerModule.forRoot(),
     NgxBarcodeModule,
+    FilterPipeModule,
     MatCardModule,
     MatIconModule,
     MatProgressBarModule,
     MatStepperModule,
     MatSelectModule,
+    MatExpansionModule,
     ModalModule.forRoot()
   ],
   entryComponents: [
@@ -301,7 +317,8 @@ const routes: Routes = [
     ViewFriendsComponent,
     DeleteConfirmDialog,
     BottleServiceComponent,
-    ReservationDetailsComponent
+    ReservationDetailsComponent,
+    BuyTicketsComponent
   ],
   providers: [
     AuthService,
@@ -314,7 +331,9 @@ const routes: Routes = [
     ReservationService,
     PendingChangesGuard,
     BarcodeScannerService,
-    BarcodeValidatorService
+    BarcodeValidatorService,
+    CheckInService,
+    TicketsService
   ],
   bootstrap: [AppComponent]
 })

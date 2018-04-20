@@ -1,55 +1,61 @@
-import { Component, OnInit, OnDestroy, ViewChild, AfterContentInit } from '@angular/core';
-import { BarcodeScannerService } from "../services/barcode-scanner.service";
-import { BarcodeValidatorService } from "../services/barcode-validator.service";
-import { Subject } from "rxjs/Subject";
+import { Component, OnInit } from '@angular/core';
+import { CheckInService } from '../services/check-in.service';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-check-in-scanner',
   templateUrl: './check-in-scanner.component.html',
   styleUrls: ['./check-in-scanner.component.css']
 })
-export class CheckInScannerComponent implements OnInit, OnDestroy, AfterContentInit {
-  
-  lastResult: any;
-  message: any;
-  error: any;
-  
-  code$ = new Subject<any>();
-  
-  @ViewChild('interactive') interactive;
+export class CheckInScannerComponent implements OnInit {
+
+  cameraEnabled: boolean = false; //for accessing a users camera and subsequently starting scanner
+  scanIsComplete: boolean = false;
+  selectedDevice: any;
+  reservationInfo: any;
 
   constructor(
-  	private decoderService: BarcodeScannerService,
-  	private barcodeValidator: BarcodeValidatorService) { }
+    private checkInSvc: CheckInService,
+    private location: Location) { }
 
   ngOnInit() {
-  	this.decoderService.onLiveStreamInit();
-    this.decoderService.onDecodeProcessed();
-    
-    this.decoderService
-        .onDecodeDetected()
-        .then(code => {
-          this.lastResult = code;//use this for cross-referencing user reservation
-          this.code$.next(code);
-        })
-        .catch((err) => this.error = `Something Wrong: ${err}`);
-    
-    this.barcodeValidator
-        .doSearchbyCode(this.code$)
-        .subscribe(
-          res => this.message = res,
-          err => {
-            this.message = `An Error! ${err.json().error}`
-          }
-        );
   }
-  
-  ngAfterContentInit() {
-    this.interactive.nativeElement.children[0].style.position = 'absolute';
+
+  goBack(){
+    this.location.back();
   }
-  
-  ngOnDestroy() {
-    this.decoderService.onDecodeStop();
+
+  scanComplete(res){
+    //console.log(res);
+
+    this.reservationInfo = JSON.parse(res);
+    console.log(this.reservationInfo);
+
+    //stop scanner
+    //this.cameraEnabled = false;
+    //hide scanning view
+    this.scanIsComplete = true;
+    this.checkInUser();
+  }
+
+  enableCamera(event){
+    //set camera to one of devices found
+    if(event.length > 0){
+      if(event.length > 1) 
+        this.selectedDevice = event[1];
+      else
+        this.selectedDevice = event[0];
+
+      this.cameraEnabled = true;
+    }
+
+    //console.log(event);
+  }
+
+  //check in user and restart scanning 
+  checkInUser(){
+    //check in user and propagate information across the rest of the app
+    this.checkInSvc.checkIn(this.reservationInfo.user, this.reservationInfo.venue);
   }
 
 }

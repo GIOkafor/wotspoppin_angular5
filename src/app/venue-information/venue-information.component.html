@@ -3,49 +3,53 @@
 	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
 
 	<!-- Make this toggleable a menu if it was created by current user -->
-	<span *ngIf="isAdmin">
-		<i  class="fa fa-lg fa-bars" aria-hidden="true" (click)='helpPO.toggle($event)'></i>
+	<div *ngIf="isAdmin">
+		<i class="fa fa-lg fa-qrcode" routerLink="check-in-scanner"></i>
+		<span>
+			<i  class="fa fa-lg fa-bars" aria-hidden="true" (click)='helpPO.toggle($event)'></i>
 
-		<pop-over #helpPO
-	    	[y-offset]="10"
-	    	[anchor-to]="true"
-	    	[my]="'top right'"
-	    	[at]="'bottom left'">
+			<!-- POpover start -->
+			<pop-over #helpPO
+		    	[y-offset]="10"
+		    	[anchor-to]="true"
+		    	[my]="'top right'"
+		    	[at]="'bottom left'">
 
-		   <div class="popover_container" style="
-		   		background-color: black;
-				color: #fff;
-			">
-		       <ul class="legend_list" style="
-		       		list-style: none;
-					padding-left: 0px;
-					margin-bottom: 0px;
-		       ">
-		       		<li class="legend" (click)="editVenue()" style="
-		       			border-bottom: 1px solid #e18047;
-						padding: 2.5px 10px;
-		       		">
-		       			Edit Venue
-		       		</li>
+			   <div class="popover_container" style="
+			   		background-color: black;
+					color: #fff;
+				">
+			       <ul class="legend_list" style="
+			       		list-style: none;
+						padding-left: 0px;
+						margin-bottom: 0px;
+			       ">
+			       		<li class="legend" (click)="editVenue()" style="
+			       			border-bottom: 1px solid #e18047;
+							padding: 2.5px 10px;
+			       		">
+			       			Edit Venue
+			       		</li>
 
-		       		<li class="legend" [routerLink]="['/create-event']" style="
-		       			border-bottom: 1px solid #e18047;
-						padding: 2.5px 10px;
-		       		">
-		       			Add Event
-		       		</li>
+			       		<li class="legend" (click)="helpPO.hide();createEvent();" style="
+			       			border-bottom: 1px solid #e18047;
+							padding: 2.5px 10px;
+			       		">
+			       			Create Event
+			       		</li>
 
-		       		<li class="legend" (click)="editMenu()" style="
-		       			border-bottom: 1px solid #e18047;
-						padding: 2.5px 10px;
-		       		">
-		       			Edit Menu
-		       		</li>
-		       </ul>
-		   </div>
-		</pop-over>
-	</span>
-
+			       		<li class="legend" (click)="editMenu()" style="
+			       			border-bottom: 1px solid #e18047;
+							padding: 2.5px 10px;
+			       		">
+			       			Edit Menu
+			       		</li>
+			       </ul>
+			   </div>
+			</pop-over>
+			<!-- POpover end -->
+		</span>
+	</div>
 </div>
 
 <div class="venue-component">
@@ -64,39 +68,55 @@
 	</div>
 
 	<!-- Venue bottle service menu -->
-	<div class="menu">
-		<h4>MENU</h4>
+	<div *ngIf="venue.payload">	
+		<div class="menu" *ngIf="venue.payload.val().venueType === 'club'">
+			<h4>MENU</h4>
 
-		<!-- menu goes below, separated by categories -->
+			<!-- menu goes below, separated by categories -->
 
-		<!-- Repeat for each category --> 
-		<table class="table menu_items">
-			<thead>
-				<tr>
-					<th scope="col">Name</th>
-					<th scope="col">Price</th>
-				</tr>
-			</thead>
+			<!-- Repeat for each category --> 
+			<table class="table menu_items">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+					</tr>
+				</thead>
 
-			<tbody>
-				<tr class="menu_item" *ngFor="let item of menu">
-					<td>{{item.payload.val().name}}</td> 
-					<td>${{item.payload.val().price}}</td>
-				</tr>
-			</tbody>
-		</table>
+				<tbody>
+					<tr class="menu_item" *ngFor="let item of menu">
+						<td>{{item.payload.val().name}}</td> 
+						<td>${{item.payload.val().price}}</td>
+					</tr>
+				</tbody>
+			</table>
 
-		<button class="btn make_rsrv" *ngIf="currentUser !== null" (click)="orderBottles()">Order Bottles</button>
+			<div *ngIf="menu">
+				<div *ngIf="menu.length === 0">Menu is empty, please check back later</div>
+			</div>
+		</div>
 
+		<!-- Venue CTA starts -->
+		<div class="cta">
+			<button class="btn make_rsrv" *ngIf="currentUser !== null && !isAdmin && venue.payload.val().venueType === 'club'" (click)="orderBottles()">Order Bottles</button>
+			<button class="btn buy_tickets" *ngIf="currentUser !== null && !isAdmin" (click)="buyTickets()">Buy Tickets</button>
+		</div>
+		<!-- Venue CTA end -->
 	</div>
-
 	<!-- Venue bottle service menu ends-->
 
+
 	<!-- Venue events -->
-	<div class="events">
+	<div class="events" *ngIf="events$; let events; else loading">
 
 		<app-venue-event-list [events]="events$"></app-venue-event-list>
+		<!-- If no events exist show this start -->
+		<div *ngIf="events.length === 0">No events currently exist for this venue, please check back at a later time</div>
 	</div>
+
+	<ng-template #loading style="text-align: center;">
+		<mat-spinner></mat-spinner>
+	</ng-template>
 	<!-- Venue events ENDS-->
 
 </div>

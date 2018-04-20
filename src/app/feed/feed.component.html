@@ -9,7 +9,13 @@
 		    <input id="file-input" type="file" (change)="detectFiles($event)"/>
 		</div>
 
-		<i class="fa fa-2x fa-video-camera" aria-hidden="true" (click)="uploadVideo();"></i>
+		<div class="image-upload">
+			<label for="video-input">
+				<i class="fa fa-2x fa-video-camera" aria-hidden="true" type="file"></i>
+			</label>
+
+			<input id="video-input" type="file" (change)="detectFiles($event)" accept="video/mp4,video/x-m4v,video/quicktime,video/mov,video/*"/>
+		</div>
 	</div>
 
 	<div class="feed_body">
@@ -22,13 +28,13 @@
 			<div class="feed_item" *ngFor="let item of feedItems | async">
 
 				<!-- Going out notification start  *ngIf="item.val.type === 'goingOut'"--> 
-					<div *ngIf="item.val.type == 'goingOut'">
+					<div *ngIf="item.val.type == 'checkin'">
 						<app-attending-notification [notification]="item"></app-attending-notification>
 					</div>
 				<!-- Going out notification end -->
 
 				<!-- Show this section if its not going out notification --> 
-					<div *ngIf="item.val.type !== 'goingOut'">
+					<div *ngIf="item.val.type !== 'checkin'">
 						<!-- feed item header section start -->
 						<div class="feed_item_header">
 							<a [routerLink]="['/user-profile/', item.val.userUid]">	

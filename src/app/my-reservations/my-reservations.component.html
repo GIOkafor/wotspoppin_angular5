@@ -1,13 +1,75 @@
 <div class="container reservations">
-	<h4>My Reservations</h4>
-
-	<div class="row">
-		<div class="col col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let rsrv of userReservations" (click)="viewDetails(rsrv);">
-			<!-- <span>{{rsrv.payload.val().date}}</span> -->
-			<div *ngFor="let venue of (rsrv.payload.val().venue | venueInfo | async)">{{venue.name}}</div>
-			<div> ${{rsrv.payload.val().order.totalValue}}</div>
-			<ngx-barcode [bc-value]="rsrv.key" [bc-width]="0.5"></ngx-barcode>
+	<!--
+		<div class="row">
+			<div class="col col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let rsrv of userReservations" (click)="viewDetails(rsrv);">
+				<span>{{rsrv.payload.val().date}}</span> 
+				<div *ngFor="let venue of (rsrv.payload.val().venue | venueInfo | async)">{{venue.name}}</div>
+				<div> ${{rsrv.payload.val().order.totalValue}}</div>
+				<ngx-qrcode [qrc-value] = "rsrv.key"></ngx-qrcode>
+			</div>
 		</div>
+	-->
+
+	<div id="accordion">
+	  <div class="card">
+	    <div class="card-header" id="reservationsHeading">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link" data-toggle="collapse" data-target="#reservations" aria-expanded="true" aria-controls="reservations">
+	          Reservations
+	        </button>
+	      </h5>
+	    </div>
+
+	    <div id="reservations" class="collapse show" aria-labelledby="reservationsHeading" data-parent="#accordion">
+	      <div class="card-body">
+
+	        <div class="row">
+				<div class="col col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let rsrv of userReservations" (click)="viewDetails(rsrv);">
+					<span>{{rsrv.payload.val().date}}</span> 
+					<div *ngFor="let venue of (rsrv.payload.val().venue | venueInfo | async)">{{venue.name}}</div>
+					<div> ${{rsrv.payload.val().order.totalValue}}</div>
+					<ngx-qrcode [qrc-value] = "rsrv.key"></ngx-qrcode>
+				</div>
+
+				<!-- if list is empty -->
+				<div *ngIf="userReservations">
+					<div *ngIf="userReservations.length === 0">Your reservations list is empty</div>
+				</div>
+			</div>
+	      </div>
+	    </div>
+	  </div>
+
+	  <div class="card">
+	    <div class="card-header" id="ticketsHeading">
+	      <h5 class="mb-0">
+	        <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#tickets" aria-expanded="false" aria-controls="tickets">
+	          Tickets
+	        </button>
+	      </h5>
+	    </div>
+	    <div id="tickets" class="collapse" aria-labelledby="ticketsHeading" data-parent="#accordion">
+	      <div class="card-body">
+	        <!-- Tickets go here -->
+	        <div class="row">
+				<div class="col col-sm-6 col-md-4 col-lg-3 col-xl-2" *ngFor="let ticket of userTickets" (click)="viewDetails(ticket);">
+					<span>{{ticket.payload.val().datePurchased | date:'mediumDate'}}</span> 
+					<div *ngFor="let venue of (ticket.payload.val().venue | venueInfo | async)">{{venue.name}}</div>
+					<div> ${{ticket.payload.val().price}}</div>
+					<ngx-qrcode [qrc-value] = "ticket.key"></ngx-qrcode>
+				</div>
+
+				<!-- if list is empty -->
+				<div *ngIf="userTickets">
+					<div *ngIf="userTickets.length === 0">Your tickets list is empty</div>
+				</div>
+
+			</div>
+			<!-- Tickets end here -->
+	      </div>
+	    </div>
+	  </div>
+
 	</div>
-	
+
 </div>

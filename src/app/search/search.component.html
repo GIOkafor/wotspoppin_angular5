@@ -17,11 +17,11 @@
 
 			   <div class="popover_container">
 			       <ul class="legend_list">
-			       		<li class="legend" (click)="filterRes('clubs')">
+			       		<li class="legend" (click)="filterRes('club'); helpPO.hide();">
 			       			<img src="assets/map_icons/red_MarkerO.png"> <span style="margin-left: 10px;">Clubs</span>
 			       		</li>
 
-			       		<li class="legend" (click)="filterRes('bars')" style="
+			       		<li class="legend" (click)="filterRes('bar'); helpPO.hide();" style="
 			       			border-bottom: 1px solid #e18047;
     						padding: 2.5px 10px;
 			       		">
@@ -35,11 +35,17 @@
 			       			<img src="assets/map_icons/blue_MarkerO.png"> <span style="margin-left: 10px;">House Parties</span>
 			       		</li>
 
-			       		<li class="legend" (click)="filterRes('events')" style="
+			       		<li class="legend" (click)="filterRes('events'); helpPO.hide();" style="
 			       			border-bottom: 1px solid #e18047;
     						padding: 2.5px 10px;
 			       		">
 			       			<img src="assets/map_icons/yellow_MarkerO.png"> <span style="margin-left: 10px;">Events</span>
+			       		</li>
+
+			       		<li class="legend" (click)="filterRes(''); helpPO.hide();" style="
+    						padding: 2.5px 10px;
+			       		">
+			       			See All
 			       		</li>
 
 			       		<!-- popovers start -->
@@ -78,8 +84,13 @@
 
 	<!-- Show results in list form based on selection above -->
 		<div class="list-group search-results-list" *ngIf="view === 'list'">
-			<div class="list-group-item" *ngFor="let venue of venues | async">
-				<app-venue-details [venue]="venue.payload.val()" (click)="getVenue(venue)"></app-venue-details>
+			<div class="list-group-item" *ngFor="let venue of venues | async | filterBy: venueFilter">
+				<app-venue-details [venue]="venue.val" (click)="getVenue(venue)"></app-venue-details>
+			</div>
+
+			<!-- in case you want to show empty message -->
+			<div *ngIf="venues|async; let venues$" class="empty_response">	
+				<div *ngIf="(venues$ | filterBy: venueFilter).length === 0">No venues matching that query</div>
 			</div>
 
 			<!--
@@ -97,10 +108,10 @@
 			<!-- Map -->
 			<ngui-map default-style="false" class="map">
 				<!-- each venue has lat long position, set during creation -->
-				<marker class="venues_marker" [ngClass]="{'hidden_marker': hideMarker !== 'clubs'}" *ngFor="let venue of venues | async" (click)="clicked($event, venue)" [position]="venue.payload.val().position"></marker>
+				<marker class="venues_marker" [ngClass]="{'hidden_marker': hideMarker !== 'clubs'}" *ngFor="let venue of venues | async" (click)="clicked($event, venue)" [position]="venue.val.position"></marker>
 
 		      	<marker class="events_marker" [ngClass]="{'hidden_marker': hideMarker !== 'events'}" *ngFor="let event of events | async" (click)="clicked($event, event)" 
-		      		[position]="event.payload.val().position"
+		      		[position]="event.val.position"
 		      		[icon]="{
 		      			url: 'https://firebasestorage.googleapis.com/v0/b/noteapp-436f9.appspot.com/o/google_maps_yellow_pin.png?alt=media&token=67fd1f65-0b78-4598-b06e-ee8a3501fbf1',
 		      			anchor: [16,16],

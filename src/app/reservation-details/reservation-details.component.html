@@ -7,18 +7,36 @@
       	</button>
 	</div>
 
-	<div class="modal-body">
+	<!-- If it is bottle service, show section underneath -->
+	<div class="modal-body" *ngIf="reservation.payload.val().type === 'Bottle Service'">
 		<div class="username">{{reservation.payload.val().user | userDisplayName | async}}</div>
 
 		<div class="purpose">Reservation Type: {{reservation.payload.val().type}}</div>
 
 		<div class="venue" *ngFor="let venue of (reservation.payload.val().venue | venueInfo | async)">Venue: {{ venue.name }}</div>
 
-		<ngx-barcode [bc-value]="value" [bc-width]="1" [bc-display-value]="true" [bc-format]="CODE128"></ngx-barcode>
+		<!--
+			<ngx-barcode [bc-value]="value" [bc-width]="1" [bc-display-value]="true" [bc-format]="CODE128"></ngx-barcode>
+		-->
+		<ngx-qrcode [qrc-value] = "value"></ngx-qrcode>
 
 		<div class="price">Price: ${{reservation.payload.val().order.totalValue}}</div>
 
 		<div class="date">{{reservation.payload.val().date}}</div>
+	</div>
+
+
+	<!-- if user is viewing ticket code -->
+	<div class="modal-body" *ngIf="reservation.payload.val().type !== 'Bottle Service'">
+		<div class="username">{{reservation.payload.val().user | userDisplayName | async}}</div>
+
+		<div class="venue" *ngFor="let venue of (reservation.payload.val().venue | venueInfo | async)">Venue: {{ venue.name }}</div>
+
+		<ngx-qrcode [qrc-value] = "value"></ngx-qrcode>
+
+		<div class="price">Price: ${{reservation.payload.val().price}}</div>
+
+		<div class="date">{{reservation.payload.val().datePurchased | date:'mediumDate'}}</div>
 	</div>
 
 </div>

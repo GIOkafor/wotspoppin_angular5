@@ -56,8 +56,10 @@ export class AuthComponentComponent implements OnInit {
           //if this is a brand new user, or user without profile information, code below gets triggered
           if(res.payload.val() == null){
 
-            //do nothing
-
+            //this gets triggered when venues try signing in because their account info is in a seperate section
+            //'/Users' vs 'venue-users'
+            this.router.navigate(['venues']);
+            
             //below is no longer necessary because users fill in all their info before creating account
             //venues create their account, then venue and optionally fill out their info themselves
             /*

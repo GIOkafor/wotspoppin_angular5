@@ -29,6 +29,13 @@
 	margin-bottom: 60px;
 }
 
+.list-group.search-results-list .empty_response{
+	background-color: black;
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+}
+
 .map_results{
 	height: 100vh;
 }

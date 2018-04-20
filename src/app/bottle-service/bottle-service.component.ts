@@ -20,6 +20,7 @@ export class BottleServiceComponent implements OnInit {
   cart: any = []; //for tracking user bottle selections
   totalCost: number = 0;
   processingPayment: boolean = false;
+  bottleCount: number = 0;
 
   constructor(
   	private authSvc: AuthService,
@@ -60,6 +61,7 @@ export class BottleServiceComponent implements OnInit {
 
 	//update total cost which gets displayed in the DOM
   	this.totalCost = this.calculatePrice();
+    this.bottleCount = this.countBottles();
   }
 
   placeOrder(val){
@@ -67,7 +69,7 @@ export class BottleServiceComponent implements OnInit {
   	//console.log("Cart contents are: ", this.cart);
   	//console.log("Form value IS: ", val);
 
-  	let order = {bottles: this.cart, totalValue: this.totalCost};
+  	let order = {bottles: this.cart, totalValue: this.totalCost, numberOfBottles: this.bottleCount};
 
     //set spinner to show
     this.processingPayment = true;
@@ -116,6 +118,17 @@ export class BottleServiceComponent implements OnInit {
   	}
 
   	return sum;
+  }
+
+  countBottles(): number{
+    let crt = this.cart;
+    let bottles = 0; //var for keeping track of bottle count
+
+    for(var i = 0; i < crt.length; i++){
+      bottles += crt[i].quantity;
+    }
+
+    return bottles;
   }
 
   //checks cart to see if item is already added

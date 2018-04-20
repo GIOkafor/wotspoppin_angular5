@@ -31,6 +31,10 @@
     color: #fff;
 }
 
+.results_list{
+    margin-bottom: 70px;
+}
+
 .search_results{
 	padding: 10px;
 }

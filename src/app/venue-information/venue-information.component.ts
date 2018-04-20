@@ -8,6 +8,7 @@ import { environment } from '../../environments/environment';
 import { AuthService } from '../services/auth.service';
 import { MatDialog, MatDialogRef } from '@angular/material';
 import { BottleServiceComponent } from '../bottle-service/bottle-service.component';
+import { BuyTicketsComponent } from '../buy-tickets/buy-tickets.component';
 
 @Component({
   selector: 'app-venue-information',
@@ -69,7 +70,7 @@ export class VenueInformationComponent implements OnInit {
 
   //function for populating module content
   getEventDetails(event: any){
-    console.log("Getting event details for event key: "+event.key);
+    //console.log("Getting event details for event key: "+event.key);
 
     this.router.navigate(['event-details', event.key]);
   }
@@ -124,6 +125,11 @@ export class VenueInformationComponent implements OnInit {
     this.router.navigate(['/venue', this.venue.key, 'edit-menu']);
   }
 
+  //create event
+  createEvent(){
+    this.router.navigate(['/create-event']);
+  }
+
   //open bottle service dialog
   orderBottles(){
     let dialogRef = this.dialog.open(BottleServiceComponent,
@@ -131,6 +137,15 @@ export class VenueInformationComponent implements OnInit {
         height: '400px',
         width: '600px',
         data: { menu: this.menu, venue: this.venue.key }
+      });
+  }
+
+  buyTickets(){
+    let dialogRef = this.dialog.open(BuyTicketsComponent,
+      {
+        height: '400px',
+        width: '600px',
+        data: { venue: this.venue }
       });
   }
 

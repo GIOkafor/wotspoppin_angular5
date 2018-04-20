@@ -1,9 +1,30 @@
-.link {
-  display: block;
-  padding: 33px 0 0 0;
-  color: #313131;
-  text-decoration: none;
-  cursor: pointer;
+/* New QRcode stuff */
+.top-nav{
+  background-color: black;
+  color: #ea7a3b;
+  padding: 5px;
+}
+
+.scanner{
+  padding-top: 15px;
+  padding-bottom: 15px;
+  height: 100vh;
+  background-color: black;
+  color: #fff;
+}
+
+.cta{
+  text-align: center;
+}
+
+.cta .btn{
+  background-color: #ea7a3b;
+}
+
+.small-video{
+  max-height: 70vh;
+  width: 100vw;
+  object-fit: contain;
 }
 
 /*  ================================================

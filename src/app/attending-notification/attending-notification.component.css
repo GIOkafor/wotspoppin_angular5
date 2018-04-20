@@ -1,6 +1,5 @@
 .attending_notif_container{
     display: flex;
-    align-items: center;
     justify-content: space-around;
 }
 
@@ -15,6 +14,7 @@
     flex-direction: column;
     padding: 5px;
     align-items: center;
+    text-align: center;
 }
 
 .going{
@@ -31,6 +31,8 @@
 .place{
     display: flex;
     flex-direction: column;
+    text-align: center;
+    align-items: center;
 }
 .place img{
     height: 65px;

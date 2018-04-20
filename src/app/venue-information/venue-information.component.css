@@ -37,7 +37,7 @@
 
 .events{
 	background-color: black;
-	padding-top: 40px;
+	padding-top: 20px;
 	padding-bottom: 80px;
 }
 
@@ -53,7 +53,16 @@
 	text-align: left;
 }
 
-.btn.make_rsrv{
+.cta{
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin-top: 15px;
+}
+
+.cta .btn{
+	width: 200px;
 	color: #fff;
 	background-color: #ea7a3b;
+	margin-bottom: 20px;
 }

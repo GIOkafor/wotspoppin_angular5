@@ -28,6 +28,7 @@ export class SearchComponent implements OnInit {
     key: null //for assigning event or venue key
   };
   hideMarker: any = null; //for hiding ans showing markers
+  venueFilter: any = {key: '', val: { venueType: ''}}; //for filtering results based on venue type
 
   constructor(
   	private db: AngularFireDatabase,
@@ -42,7 +43,10 @@ export class SearchComponent implements OnInit {
   }
 
   getVenues(){
-  	return this.db.list('/Venues').snapshotChanges();
+  	return this.db.list('/Venues').snapshotChanges()
+        .map(res => {
+          return res.map(c => ({ key: c.payload.key, val: c.payload.val() }))
+        });
   }
 
   getVenue(venue){
@@ -58,7 +62,11 @@ export class SearchComponent implements OnInit {
   }
 
   getEvents(){
-    return this.db.list('Events/').snapshotChanges();
+    return this.db.list('Events/')
+      .snapshotChanges()
+      .map(res => {
+        return res.map(c => ({ key: c.payload.key, val: c.payload.val() }))
+      });
   }
 
   clicked({target: marker}, targ) {
@@ -86,14 +94,17 @@ export class SearchComponent implements OnInit {
   //doesnt reinstate removed element
   filterRes(val){
     console.log("Filtering results: ", val);
-
+/*
     if(val === 'clubs'){
       this.hideMarker = 'clubs'
     }
     else if(val === 'events'){
       this.hideMarker = 'events'
     }
+*/
 
+    this.venueFilter.val.venueType = val;
+    console.log(this.venueFilter.val.venueType);
   }
 
 }
