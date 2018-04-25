@@ -27,6 +27,8 @@ export class CreateVenueComponent implements OnInit, ComponentCanDeactivate {
   //file upload vars
   currentUpload: Upload;
   selectedFiles: FileList;
+  hoursWorked: any = []; //for keeping track of hours worked and updating form before submit
+  newHours: any = {day: '', startTime: '', endTime: ''};//for keeping track of new user entries
 
   //UNSTABLE
   //google maps variable declaration
@@ -65,7 +67,7 @@ export class CreateVenueComponent implements OnInit, ComponentCanDeactivate {
       this.venueForm = fb.group({
         'name': ['', Validators.required],
         'address': ['', Validators.required],
-        'hours': ['', Validators.required],
+        'hours': [''],
         'imageUrl': [''],
         'createdBy': [ authSvc.getCurrentUser().uid ],
         'position': [''],
@@ -125,6 +127,9 @@ export class CreateVenueComponent implements OnInit, ComponentCanDeactivate {
 
         this.venueForm.controls['position'].setValue(res.results[0].geometry.location);
         //console.log(this.formData.position);
+
+        //set hours worked based on user updates
+        this.venueForm.controls['hours'].setValue(this.hoursWorked);
 
         //add form data to list of venues 
         this.venuesList.push(this.venueForm.value)
@@ -218,6 +223,32 @@ export class CreateVenueComponent implements OnInit, ComponentCanDeactivate {
   //for address select list
   suggest(val){
     console.log(val);
+  }
+
+  //for adding new hours to list of working times
+  addHours(newHours, startTime, endTime){
+    /*
+    console.log("Adding: ", newHours);
+    console.log("Adding: ", startTime);
+    console.log("Adding: ", endTime);
+    */
+
+    let newDay = { 
+      day: newHours, 
+      startTime: startTime, 
+      endTime: endTime 
+    };
+
+    this.hoursWorked.push(newDay);
+
+    console.log("Hours is now: ", this.hoursWorked);
+  }
+
+  //for removing day from hours of operation
+  remove(day){
+    //console.log(day);
+
+    this.hoursWorked.splice(day, 1);
   }
 
 }

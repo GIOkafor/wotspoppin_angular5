@@ -4,6 +4,8 @@ import { PaymentService } from '../services/payment.service';
 import { AuthService } from '../services/auth.service';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { TicketsService } from '../services/tickets.service';
+import { Ticket } from '../classes/ticket';
+import { EventTicket } from '../classes/event-ticket';
 
 @Component({
   selector: 'app-buy-tickets',
@@ -56,7 +58,7 @@ export class BuyTicketsComponent implements OnInit {
   	}
   }
 
-  buyTicket(price){
+  buyTicket(price, date, type){
   	//ticket price, venue name, event name, date purchased
 
   	let currentUser = this.authSvc.getCurrentUser().uid;
@@ -65,12 +67,27 @@ export class BuyTicketsComponent implements OnInit {
   		venue: '',
   		user: currentUser,
   		datePurchased: Date.now(),
+      eventDate: date,
   		price: price
-  	};
+  	};//event cover || regular night cover
+    //event class create()
+
+    //if its an event, create new event ticket
+    let ticket;
+
+    //else create regular night ticket
+    if(type.value === 'event'){
+      //create event ticket 
+      console.log("Creating event ticket");
+      ticket = new EventTicket(this.venue.key, currentUser, Date.now(), date, price, type.eventId);
+    }else{
+      //create regular event ticket
+      ticket = new Ticket(this.venue.key, currentUser, Date.now(), date, price);
+    }
 
   	order.venue = this.venue.key;
 
-  	console.log("buying ticket: ", order);
+  	console.log("buying ticket: ", ticket);
 
   	//show loading spinner
   	this.loading = true;
@@ -82,14 +99,14 @@ export class BuyTicketsComponent implements OnInit {
 	        if(res){
 
 	          //charge card with token
-	          this.paymentSvc.chargeUser(currentUser, order.price)
+	          this.paymentSvc.chargeUser(currentUser, ticket.price)
 	            .subscribe(res => {
 	              //console.log(res);
 
 	              //card charged successfuly, create barcode 
 
 	              //store transaction details for venue
-	              this.ticketsSvc.buyTicket(order);
+	              this.ticketsSvc.buyTicket(ticket);
 
 	              //hide spinner 
 	              this.loading = false;

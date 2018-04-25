@@ -32,7 +32,7 @@
 
 			<span>Venue currently has no upcoming events</span>
 
-			<button class="btn" (click)="date = true">Buy By Date Instead</button>
+			<button class="btn" (click)="date = true;">Buy By Date Instead</button>
 		</div>
 	</div>
 
@@ -45,16 +45,18 @@
 		<div class="card-header">Order Summary</div>
 
 		<div class="card-body">
-			<div class="price" *ngIf="selected"><i>Ticket Price: </i> ${{selected.payload.val().ticketPrice}}</div>
-			<div class="date" *ngIf="selected"><i>Date: </i> {{selected.payload.val().date | date:mediumDate}}</div>
+			<div class="price" *ngIf="selected && !date"><i>Ticket Price: </i> ${{selected.payload.val().ticketPrice}}</div>
+			<div class="date" *ngIf="selected && !date"><i>Date: </i> {{selected.payload.val().date | date:mediumDate}}</div>
+			<div class="date" *ngIf="selected && !date"><i>Available tickets: </i> {{selected.payload.val().availableTickets}}</div>
 		</div>
 	</div>
 </mat-dialog-content>
 
 <mat-spinner *ngIf="loading"></mat-spinner>
 
-<mat-dialog-actions>
+<mat-dialog-actions *ngIf="selected">
   <button class="btn btn-danger" mat-dialog-close>Cancel</button>
   
-  <button class="btn sub_btn" (click)="buyTicket(selected.payload.val().ticketPrice)">Submit</button>
+  <button class="btn sub_btn" *ngIf="!date" [disabled]="selected.payload.val().availableTickets < 0" (click)="buyTicket(selected.payload.val().ticketPrice, selected.payload.val().date, {value:'event', eventId: selected.key})">Submit</button>
+  <button class="btn sub_btn" *ngIf="date" [disabled]="selected.payload.val().availableTickets < 0" (click)="buyTicket(selected.payload.val().ticketPrice, selected.payload.val().date, {value:'regular'})">Submit</button>
 </mat-dialog-actions>

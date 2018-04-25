@@ -89,8 +89,8 @@
 			</div>
 
 			<!-- in case you want to show empty message -->
-			<div *ngIf="venues|async; let venues$" class="empty_response">	
-				<div *ngIf="(venues$ | filterBy: venueFilter).length === 0">No venues matching that query</div>
+			<div *ngIf="venues|async; let venues$">	
+				<div *ngIf="(venues$ | filterBy: venueFilter).length === 0" class="empty_response">No venues matching that query</div>
 			</div>
 
 			<!--

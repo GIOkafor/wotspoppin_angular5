@@ -1,0 +1,111 @@
+<basic-top-nav></basic-top-nav>
+
+<div class="edit-venue-container">
+	<!-- Cover image for venue -->
+	<div class="cover_image_container">
+		<img class="cover_image" alt="Image" *ngIf="venueForm" [src]="venue.imageUrl ? venue.imageUrl : 'assets/venue-placeholder-image.png'">
+		
+		<div class="image-upload">
+		    <label for="file-input">
+		        <i class="btn change_profile" type="file">Change Photo</i>
+		    </label>
+
+		    <input id="file-input" type="file" (change)="detectFiles($event)"/>
+		</div>
+	</div>
+
+	<div class="container">
+
+		<div class="venue_details" *ngIf="venueForm">
+			<form [formGroup]="venueForm"
+				  (ngSubmit)="updateVenue(venueForm.value)">
+
+				<div class="form-group" *ngIf="venueForm">
+					<label>Venue Name</label>
+					<input type="text" formControlName="name" [formControl]="venueForm.controls['name']">
+
+					<!-- error message display code -->
+					<div *ngIf="!venueForm.controls['name'].valid && venueForm.controls['name'].touched"
+						class="bg-danger error">Venue name is invalid</div>
+					<div class="bg-danger error" *ngIf="venueForm.controls['name'].hasError('required') && venueForm.controls['name'].touched">Venue name is required</div>
+				</div>
+
+				<div class="form-group">
+					<label>Address</label>
+					<input type="text" name="address" formControlName="address" #address id="address" autocomplete="false" [formControl]="venueForm.controls['address']">
+
+					<!-- error message display code -->
+					<div *ngIf="!venueForm.controls['address'].valid && venueForm.controls['address'].touched"
+						class="bg-danger error">Venue address is invalid</div>
+					<div class="bg-danger error" *ngIf="venueForm.controls['address'].hasError('required') && venueForm.controls['address'].touched">Venue address is required</div>
+				</div>
+
+				<div class="form-group">
+					<label>Hours of Operation</label>
+					<!--
+						<input type="text" formControlName="hours" [formControl]="venueForm.controls['hours']">
+					-->
+
+					<!-- 
+						day of week,
+						hours worked from select box (add),
+
+						Array of days of week worked
+						[
+							{ mon - 11:00pm - 1:00am - remove(pop/split) }
+						]
+					-->
+
+					<div class="hours" *ngFor="let day of hoursWorked; let i = index;">
+						<input type="text" name="day-of-week" [(ngModel)]="day.day" [ngModelOptions]="{standalone: true}"> 
+						<input type="time" class="startTime" [(ngModel)]="day.startTime" [ngModelOptions]="{standalone: true}">  
+						<input type="time" class="endTime" [(ngModel)]="day.endTime" [ngModelOptions]="{standalone: true}"> 
+						<i class="fa fa-times fa-lg btn remove" (click)="remove(i)"></i>
+					</div>
+
+					<div class="hours-input">
+						<!-- Day of the week selector start -->
+							<mat-select [(value)]="newDay" class="dow">
+								<mat-option value="Monday">Monday</mat-option>
+								<mat-option value="Tuesday">Tuesday</mat-option>
+								<mat-option value="Wednesday">Wednesday</mat-option>
+								<mat-option value="Thursday">Thursday</mat-option>
+								<mat-option value="Friday">Friday</mat-option>
+								<mat-option value="Saturday">Saturday</mat-option>
+								<mat-option value="Sunday">Sunday</mat-option>
+							</mat-select>
+						<!-- Day of the week selector end -->
+
+						<!-- select time start-->
+							<input type="time" [(ngModel)]="startTime" name="startTime" [ngModelOptions]="{standalone: true}">
+							<input type="time" [(ngModel)]="endTime" name="endTime" [ngModelOptions]="{standalone: true}">
+						<!-- select time end-->
+
+						<i class="fa fa-plus fa-lg btn add-time-btn" (click)="addHours(newDay, startTime, endTime);"></i>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label>Venue Type</label>
+
+					<div class="btn-group btn-group-toggle" data-toggle="buttons">
+					  <label class="btn btn-secondary" (click)="venue.venueType = 'bar'; setVenueType('bar')" [ngClass]="{'active': venue.venueType === 'bar'}">
+					    <input type="radio" formControlName="venueType" value="bar"> Bar
+					  </label>
+					  <label class="btn btn-secondary" (click)="venue.venueType = 'club'; setVenueType('club')" [ngClass]="{'active': venue.venueType === 'club'}">
+					    <input type="radio" formControlName="venueType" value="club"> Club
+					  </label>
+					  <label class="btn btn-secondary" (click)="venue.venueType = 'event'; setVenueType('event')" [ngClass]="{'active': venue.venueType === 'event'}">
+					    <input type="radio" formControlName="venueType" value="event"> Event
+					  </label>
+					</div>
+				</div>
+
+				<div class="cta_btns">
+					<span class="btn btn-warning">Cancel</span>
+					<button [disabled]="!venueForm.valid" class="btn btn-success" type="submit">Update Venue</button>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>

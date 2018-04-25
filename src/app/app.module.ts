@@ -78,6 +78,8 @@ import { CheckInScannerComponent } from './check-in-scanner/check-in-scanner.com
 import { MyReservationsComponent } from './my-reservations/my-reservations.component';
 import { StripeTestComponent } from './stripe-test/stripe-test.component';
 import { BuyTicketsComponent } from './buy-tickets/buy-tickets.component';
+import { EditVenueComponent } from './edit-venue/edit-venue.component';
+import { BasicTopNavComponent } from './basic-top-nav/basic-top-nav.component';
 
 //services
 import { AuthService } from './services/auth.service';
@@ -190,8 +192,11 @@ const routes: Routes = [
   {
     path: 'venue/:id/check-in-scanner',
     component: CheckInScannerComponent
-  }
-  ,
+  },
+  {
+    path: 'venue/:id/edit-venue',
+    component: EditVenueComponent
+  },
   {
     path: 'create-venue',
     component: CreateVenueComponent
@@ -273,7 +278,9 @@ const routes: Routes = [
     MyReservationsComponent,
     ModalHolderDirective,
     UserNameFilterPipe,
-    BuyTicketsComponent
+    BuyTicketsComponent,
+    EditVenueComponent,
+    BasicTopNavComponent
   ],
   imports: [
     BrowserModule,

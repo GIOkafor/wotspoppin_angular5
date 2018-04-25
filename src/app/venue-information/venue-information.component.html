@@ -24,7 +24,7 @@
 						padding-left: 0px;
 						margin-bottom: 0px;
 			       ">
-			       		<li class="legend" (click)="editVenue()" style="
+			       		<li class="legend" (click)="helpPO.hide();editVenue();" style="
 			       			border-bottom: 1px solid #e18047;
 							padding: 2.5px 10px;
 			       		">
@@ -56,13 +56,14 @@
 
 	<div class="venue_details_container" *ngIf="venue.payload">
 
-		<img class="venue_image" [src]="venue.payload.val().imageUrl">
+		<img class="venue_image" [src]="(venue.payload.val().imageUrl) ? (venue.payload.val().imageUrl) : 'assets/venue-placeholder-image.png'">
 
 		<div class="details">
 			<span class="name">{{venue.payload.val().name}}</span>
 
 			<div class="distance_and_address">
-				<span class="distance">10 km away</span> - <span class="address">{{venue.payload.val().address}}</span>
+				<span class="distance">10 km away</span>  
+				<span class="address">{{venue.payload.val().address}}</span>
 			</div>
 		</div>
 	</div>

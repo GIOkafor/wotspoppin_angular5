@@ -51,11 +51,10 @@
 					<button class="googleAuth btn" (click)="googleLogin();">Sign In with Google</button>
 					<button class="fbAuth btn" (click)="fbLogin();">Sign In with Facebook</button>
 				
+				<span class="noAccount" (click)="showSignUp();">Don't have an account?</span>
 
 				<span class="sign_type" *ngIf="!venueSignIn" (click)="venueSignIn = true">Venue Sign-In</span>
 				<span class="sign_type" *ngIf="venueSignIn" (click)="venueSignIn = false">User Sign-In</span>
-
-				<span class="noAccount" (click)="showSignUp();">Don't have an account?</span>
 			</div>
 
 			<div class="signUp" *ngIf="newUser">

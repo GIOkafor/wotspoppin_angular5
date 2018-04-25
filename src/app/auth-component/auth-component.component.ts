@@ -58,7 +58,24 @@ export class AuthComponentComponent implements OnInit {
 
             //this gets triggered when venues try signing in because their account info is in a seperate section
             //'/Users' vs 'venue-users'
-            this.router.navigate(['venues']);
+
+            //console.log("Checking for user: ", user.uid);
+
+            //check if user has created a venue in the past
+            this.db.list('Venues/', ref => ref.orderByChild('createdBy').equalTo(user.uid))
+            .snapshotChanges().subscribe(res => {
+              //console.log(res);
+
+              if(res.length == 0){
+                console.log("this user currently has no venues created");
+                //do nothing but show next page in sequence
+              }else{
+                //user exists already, therefore show them their venue page
+                //console.log("Navigating to venue with key: ", res);
+                this.router.navigate(['venues']);
+              }
+            })
+            
             
             //below is no longer necessary because users fill in all their info before creating account
             //venues create their account, then venue and optionally fill out their info themselves

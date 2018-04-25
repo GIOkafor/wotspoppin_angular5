@@ -36,13 +36,13 @@ export class PaymentService {
 
   //CHARGE USER Account based on pregenerated, stored token
   chargeUser(uid, cost){
-    console.log("Charging user: " + uid + " " + cost);
+    //console.log("Charging user: " + uid + " " + cost);
     let data = {"uid": uid, "cost": cost};
 
     
-      console.log("Regular data: ", data);
-      /*console.log(data.toString());*/
-      console.log(JSON.stringify(data));
+      /*console.log("Regular data: ", data);
+      console.log(data.toString());
+      console.log(JSON.stringify(data));*/
     
     return this.http.post(this.chargeUrl, JSON.stringify(data))
       .map((res) => res);

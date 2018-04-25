@@ -30,12 +30,44 @@
 
 		<div class="form-group">
 			<label>Hours</label>
-			<input type="text" name="hours" placeholder="9pm - 4pm" id="hours" [formControl]="venueForm.controls['hours']">
+			
+			<!--
+				<input type="text" name="hours" placeholder="9pm - 4pm" id="hours" [formControl]="venueForm.controls['hours']">
+			-->
 
-			<!-- error message display code -->
-			<div *ngIf="!venueForm.controls['hours'].valid && venueForm.controls['hours'].touched"
-				class="bg-danger error">Venue hours is invalid</div>
-			<div class="bg-danger error" *ngIf="venueForm.controls['hours'].hasError('required') && venueForm.controls['hours'].touched">Venue hours is required</div>
+			<div class="hours" *ngFor="let day of hoursWorked; let i = index;">
+				<input type="text" name="day-of-week" [(ngModel)]="day.day" [ngModelOptions]="{standalone: true}"> 
+				<input type="time" class="startTime" [(ngModel)]="day.startTime" [ngModelOptions]="{standalone: true}">  
+				<input type="time" class="endTime" [(ngModel)]="day.endTime" [ngModelOptions]="{standalone: true}"> 
+				<i class="fa fa-times fa-lg btn remove" (click)="remove(i)"></i>
+			</div>
+
+			<div class="hours-input">
+				<!-- Day of the week selector start -->
+					<mat-select [(value)]="newDay" class="dow">
+						<mat-option value="Monday">Monday</mat-option>
+						<mat-option value="Tuesday">Tuesday</mat-option>
+						<mat-option value="Wednesday">Wednesday</mat-option>
+						<mat-option value="Thursday">Thursday</mat-option>
+						<mat-option value="Friday">Friday</mat-option>
+						<mat-option value="Saturday">Saturday</mat-option>
+						<mat-option value="Sunday">Sunday</mat-option>
+					</mat-select>
+				<!-- Day of the week selector end -->
+
+				<!-- select time start-->
+					<input type="time" [(ngModel)]="startTime" name="startTime" [ngModelOptions]="{standalone: true}">
+					<input type="time" [(ngModel)]="endTime" name="endTime" [ngModelOptions]="{standalone: true}">
+				<!-- select time end-->
+
+				<i class="fa fa-plus fa-lg btn add-time-btn" (click)="addHours(newDay, startTime, endTime);"></i>
+			</div>
+
+			<!-- error message display code 
+				<div *ngIf="!venueForm.controls['hours'].valid && venueForm.controls['hours'].touched"
+					class="bg-danger error">Venue hours is invalid</div>
+				<div class="bg-danger error" *ngIf="venueForm.controls['hours'].hasError('required') && venueForm.controls['hours'].touched">Venue hours is required</div>
+			-->
 		</div>
 
 		<div class="form-group">

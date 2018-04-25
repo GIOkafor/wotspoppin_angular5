@@ -116,12 +116,13 @@ export class VenueInformationComponent implements OnInit {
 
   //edit venue information
   editVenue(){
-    console.log("Editing venue information, for venue: ", this.venue.key);
+    //console.log("Editing venue information, for venue: ", this.venue.key);
+    this.router.navigate(['/venue', this.venue.key, 'edit-venue']);
   }
 
   //edit bottle service menu
   editMenu(){
-    console.log("Editing bottle service menu");
+    //console.log("Editing bottle service menu");
     this.router.navigate(['/venue', this.venue.key, 'edit-menu']);
   }
 

@@ -178,3 +178,67 @@ exports.chargeCustomer = functions.https.onRequest((req, res) => {
 
 	
 })
+
+//update available tickets count
+exports.updateAvailableTickets = functions.database.ref('ticket-purchases/{key}')
+	.onWrite(event => {
+		// Only trigger when it is first created.
+		if (event.data.previous.exists()) {
+			return null;
+		}
+
+		// Exit when the data is deleted.
+		if (!event.data.exists()) {
+			return null;
+		}
+
+
+		//if ticket purchased is event ticket
+		if(event.data.val().eventKey){
+			const eventKey = event.data.val().eventKey;
+			console.log("Event key passed is: ", eventKey);
+
+			//search for event with key
+			let eventRef = admin.database().ref('Events/' + eventKey + '/availableTickets')
+				.once('value', function(snapshot){
+					console.log("Event key returned by query is: ", snapshot.key);
+					
+					let availableTickets = snapshot.val();
+
+					//update count
+					console.log("Old count was: ", availableTickets);
+
+					
+					availableTickets = availableTickets - 1;
+
+					console.log("New count is: ", availableTickets);
+
+					return admin.database().ref('Events/' + eventKey + '/availableTickets').set(availableTickets);
+
+				}); 
+		}
+		//USE EVENT KEY INSTEAD!
+		//use event date to find event that has date and update availableTickets count appropriately
+		/*const eventDate = event.data.val();
+		console.log("Event date is: ", eventDate);
+
+		//find event with the same date
+		return admin.database().ref('Events')
+			.orderByChild('date')
+			.equalTo(eventDate)
+			.once('value', function(snapshot){
+				console.log("Event key is: ", snapshot.key);
+				//update count
+				admin.database().ref('Events/' + snapshot.key + '/availableTickets')
+					.once('value', (val) => {
+						console.log("Old count was: ", val);
+
+						const availableTickets = val;
+						availableTickets = availableTickets - 1;
+
+						console.log("New count is: ", availableTickets);
+
+						return admin.database().ref('Events/' + snapshot.key + '/availableTickets').set(availableTickets);
+					})
+			});*/
+	})

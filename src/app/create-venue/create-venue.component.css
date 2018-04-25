@@ -27,3 +27,30 @@
     flex-direction: column;
     margin-left: 10px;
 }
+
+.hours {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.hours input[type="text"] {
+    width: 100px;
+}
+.hours input[type="time"]{
+    width: 98px;
+}
+.hours-input{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.hours-input .dow{
+    background-color: #fff;
+    padding-top: 10px;
+}
+.hours-input input[type="time"]{
+    width: 98px;
+}
+.add-time-btn, .remove{
+    color: #e18047;
+}

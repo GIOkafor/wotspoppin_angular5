@@ -22,13 +22,22 @@
 }
 
 .venue_details_container .details{
-	margin-top: -50px;
     color: #fff;
     background-color: #000000a6;
     position: relative;
-    padding-left: 20px;
+    padding-bottom: 5px;
 }
 
+.name{
+    font-weight: 600;
+    font-size: 20px;
+}
+
+.address{
+	display: block;
+	font-size: 15.5px;
+    color: #cc855a;
+}
 .events-loading{
 	display: flex;
 	widows: 100%;
@@ -46,7 +55,7 @@
 }
 
 .menu{
-    padding-top: 40px;
+    padding-top: 20px;
 }
 
 .menu_items{
