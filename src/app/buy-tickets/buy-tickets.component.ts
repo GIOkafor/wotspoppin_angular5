@@ -20,6 +20,7 @@ export class BuyTicketsComponent implements OnInit {
   events: any = []; //venues parsed by current date
   date: boolean = false;//used to show ticket purchase selection method
   loading: boolean = false; //used to indicate that payment is processing
+  baseCover: any; //for keeping track of base price of tickets to venue
 
   constructor(
   	private authSvc: AuthService,
@@ -32,6 +33,11 @@ export class BuyTicketsComponent implements OnInit {
   		this.venue = data.venue;
   		this.currentUser = authSvc.getCurrentUser().uid;
   		this.getVenueEvents();
+
+  		if(this.venue.payload.val().baseCover)
+  			this.baseCover = this.venue.payload.val().baseCover;
+  		else
+  			this.baseCover = 20;
   }
 
   ngOnInit() {

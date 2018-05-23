@@ -4,9 +4,23 @@
 		<span class="col-6" *ngFor="let media of myMedia | async">
 
 			<!-- if media is image, show below -->
-			<img *ngIf="media.payload.val().type !== 'video/mp4' && media.payload.val().type !== 'video/quicktime'" class="media_image" [src]="media.payload.val().url">
+			<img 
+				*ngIf="media.payload.val().type !== 'video/mp4' && media.payload.val().type !== 'video/quicktime' && media.payload.val().type !== 'checkin'" 
+				class="media_image" 
+				[src]="media.payload.val().url"
+				(click)="toggleMenu()">
+
 			<!-- if media is video, show below -->
-			<video *ngIf="media.payload.val().type == 'video/mp4' || media.payload.val().type == 'video/quicktime'" class="media_image" controls [src]="media.payload.val().url"></video>
+			<video 
+				*ngIf="media.payload.val().type == 'video/mp4' || media.payload.val().type == 'video/quicktime'" 
+				class="media_image" 
+				controls 
+				[src]="media.payload.val().url"
+				(click)="toggleMenu()"></video>
+
+			<i class="fa fa-2x fa-trash deleteIcon" 
+				(click)="deleteMedia(media);"
+				*ngIf="menu"></i>
 		</span>
 	</div>
 </div>

@@ -54,6 +54,10 @@
 	color: #e18047;
 }
 
+.ticket_price_container mat-slider{
+	background-color: #fff;
+}
+
 label.btn-secondary{
 	background-color: #e18047;
 }

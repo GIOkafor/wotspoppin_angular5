@@ -38,25 +38,33 @@
 
 	<div class="form-group" *ngIf="date">
 		<label>Event Date</label>
-		<input type="date" name="date">
+		<input type="date" name="date" [(ngModel)]="eventDate">
 	</div>
 
 	<div class="card cart">
 		<div class="card-header">Order Summary</div>
 
-		<div class="card-body">
+		<!-- for showing pre purchase summary, when user is buying ticket by event -->
+		<div class="card-body" *ngIf="selected && !date">
 			<div class="price" *ngIf="selected && !date"><i>Ticket Price: </i> ${{selected.payload.val().ticketPrice}}</div>
 			<div class="date" *ngIf="selected && !date"><i>Date: </i> {{selected.payload.val().date | date:mediumDate}}</div>
 			<div class="date" *ngIf="selected && !date"><i>Available tickets: </i> {{selected.payload.val().availableTickets}}</div>
+		</div>
+
+		<!-- for showing pre purchase summary, when user is buying ticket by date -->
+		<div class="card-body" *ngIf="!selected && date">
+			<div class="price"><i>Ticket Price: </i> ${{ baseCover }}</div>
+			<div class="date"><i>Date: </i> {{eventDate | date:mediumDate}}</div>
+			<!-- <div class="date"><i>Available tickets: </i> {{selected.payload.val().availableTickets}}</div> -->
 		</div>
 	</div>
 </mat-dialog-content>
 
 <mat-spinner *ngIf="loading"></mat-spinner>
 
-<mat-dialog-actions *ngIf="selected">
-  <button class="btn btn-danger" mat-dialog-close>Cancel</button>
+<mat-dialog-actions>
+  <button class="btn btn-danger" *ngIf="date || selected" mat-dialog-close>Cancel</button>
   
-  <button class="btn sub_btn" *ngIf="!date" [disabled]="selected.payload.val().availableTickets < 0" (click)="buyTicket(selected.payload.val().ticketPrice, selected.payload.val().date, {value:'event', eventId: selected.key})">Submit</button>
-  <button class="btn sub_btn" *ngIf="date" [disabled]="selected.payload.val().availableTickets < 0" (click)="buyTicket(selected.payload.val().ticketPrice, selected.payload.val().date, {value:'regular'})">Submit</button>
+  <button class="btn sub_btn" *ngIf="!date && selected" [disabled]="selected.payload.val().availableTickets < 0" (click)="buyTicket(selected.payload.val().ticketPrice, selected.payload.val().date, {value:'event', eventId: selected.key})">Submit</button>
+  <button class="btn sub_btn" *ngIf="date" [disabled]="!eventDate" (click)="buyTicket(baseCover, eventDate, {value:'regular'})">Submit</button>
 </mat-dialog-actions>

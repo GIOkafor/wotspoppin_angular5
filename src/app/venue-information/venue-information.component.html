@@ -65,6 +65,10 @@
 				<span class="distance">10 km away</span>  
 				<span class="address">{{venue.payload.val().address}}</span>
 			</div>
+
+			<div class="short_description" *ngIf="venue.payload.val().description">
+				{{venue.payload.val().description}}
+			</div>
 		</div>
 	</div>
 

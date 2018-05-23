@@ -1,0 +1,465 @@
+To-Do
+-------
+
+cloud function to notify(add event invite to user invites)✅
+check if i already sent user an invite✅
+event attending count 
+git comit ✅
+back button on feed item ✅
+commenting on media ✅
+like media in feed ✅
+show comments in feed section ✅
+in the future add captions to post **
+time posted on media added via cloud function ✅
+user imageUrl on post ✅
+event details page ✅✅
+direct messaging setup
+	- maybe cloud messaging
+	- realtime db✅
+user profile view✅
+create pipe for returning user imageURL info from uid ✅
+user media service for 
+	- getting media✅
+	- deleting media
+	- hiding media
+search by map
+	- show map centered around user location ✅
+	- add event markers to map
+		- events object linked to venue so when they create a new event, it populates events : {eventID, date}
+	- filter event markers on map
+geolocation✅
+distance from me(pipe maybe)
+add angular material✅
+
+payment processing setup
+	- add stripe
+	- create flow ie pay to add to list etc
+	- UPLOADS SECTION IS USED FOR GOINGOUT AS WELL
+
+
+Maintainance code automation
+-----------------------------
+clean sent events for events that have passed
+	-via cloud function
+
+Double check media like counts and update
+
+if event get's deleted, clear upcoming events from user list
+
+update event type to either photo or video
+
+
+Questions for Kyle
+-------------------
+
+- what do these icons in profile mean
+- how does one go about adding friends
+
+
+April 2nd Release Log
+----------------------
+
+- key at top of search extension
+- move menu to top of venue information page
+- video/quicktime now showing in feed
+- usernames now linking to their profile on feed
+- stamp icon in profile view
+
+
+April 4th Release Log
+----------------------
+- Reservation details moved to popup modal
+- reservation type key included in reservation object in db and service
+- changed view on my reservations screen to show mini barcode
+- fixed settings dropdown menu being cut off based on device width
+
+
+April 5th Release Log
+----------------------
+- refactored authentication process collecting user information email etc via stepper
+- user profile image placeholder image for users without profile pictures
+- user profile image placeholder image for users without profile pictures in edit profile view
+- user profile image view width
+- user profile posts show quicktime video in user posts feed
+
+
+April 6th Release Log
+----------------------
+- placeholder image for users without photo in feed and feed post details
+- media type video in feed details and profile view bug fix
+- user profile photo fixed width on edit profile view
+- way to traverse sign in and sign up types in auth component
+- reintroduced auth providers fb and gmail
+- manual sign up and sign in process A1
+- sign up process for venues flow is verified
+- create events and link them to creator
+- minor edits to venues view display
+
+
+April 7th Release Log
+----------------------
+- centerd button on reservation component
+- raised cart to above place order button
+- show last comment out of comments in feed
+- hide make reservation button if user is not signed in
+- users cant see more info for event unless they're signed in
+- my reservations list background is extended so it doesn't look weird when users have no reservations
+- placeholder images for
+	- pending friend request for user that doesn't have profile picture 
+	- select friend to message ✅
+	- select friend to invite to event✅
+	- view messages thread✅
+	- message details sender image✅
+- messaging background height for messaging empty thread, empty photos, empty reservations etc
+- prevent sending of empty message in chat
+
+
+April 13th Release Log
+----------------------
+
+- popup modal closing on click
+- spaced out auth method options on login/signup screen
+- loading spinner for when user makes reservation
+- modal now disappears after a while if user tries to place order and it fails 
+- remove user uid from local storage when user logs out
+- add card information for new users
+- appropriate message along with loading icons for payment settings update
+- switched from barcode to qr code for my reservations display
+
+
+April 14th Release Log
+----------------------
+- qr code scanning, 
+- checkin notification, view for qrcode scan response 
+
+
+April 16th Release Log
+----------------------
+- go to venue/profile view when you click on notification icon in feed
+- feed screen video upload button
+- image placeholder for users that don't have profile pics
+- autocomplete on user search (i)
+
+April 17th Release Log
+----------------------
+- autocomplete on user search (ii)
+- filter venue search by venue type
+- show empty list response if no items exist
+- prevent non admins of venue from getting access to scanner feature
+
+April 18th Release Log
+----------------------
+- hide 'make reservation' button if i am viewing my own page
+- redirect venues on login
+- hide bottles menu for other venue types but clubs
+- show empty menu, events message if venue has no items
+
+
+April 19th Release Log
+----------------------
+- buy tickets
+- tickets and reservations expansion and hiding view
+- user search bug (incomplete user values i.e keys without userInfo, breaks the search, see venues updating just payment info)
+	- remove certain actions from venue accounts
+	- updates go to their own directory
+	- update search flter to include payInfo
+
+April 20th Release Log
+----------------------
+- once tickets are sold out buyng anmore from the app becomes impossible
+
+
+April 21st Release Log
+----------------------
+- update ticket count on purchase 
+- ui edits to auth page
+- fixed height on venue images in search screen
+- image placeholder for venues without background image
+- limit  number of tickets available to venue for events
+- ui edits to search and venue view
+- edit venue form
+
+April 23rd Release Log
+----------------------
+- edit venue different times for different days
+- edit venue location trigger (ii)
+- multiple hours for different days of the week on venues
+
+April 24th Release Log
+----------------------
+- edit venue store in db (iv)
+
+April 25th Release Log
+----------------------
+- edit venue image (iii)
+- hours for venue in auth screen
+- loading spinner when user auth is processing on login screen
+
+- venue views for 
+	- sales tickets and bottles
+	- guest lists 
+
+- navigate venue users to venue page upon login
+- hammer js
+- handle payment settings differently for venues
+- venue name in feeds when they post stuff
+- hide popover menu when they select edit menu link
+- limit  number of tickets available to venue per regular cover nights
+- limit number of booths available to venues for sale
+- distance from me implementation
+
+
+
+-----------------  BETA POST QA NOTES ------------------------------
+------------------------------------------------------------------------
+1. design change for auth background NEW ✅
+
+3. hide newsfeed for unauth'd users OLD ✅
+
+12. venue description field in venue (creation) NEW - 1HR✅
+12. venue description field in venue (edit) NEW - 1HR✅
+13. venue location, maps autocomplete in creation view - 1HR ✅
+14. add slider for base ticket price for venues entered during account (creation) ✅
+14. add slider for base ticket price for venues entered during account (edit) ✅
+
+16. make use of baseCover price when buying tickets✅
+24. venue redirect to their information on login ✅
+
+15. forgot password feature not working ✅
+
+17. manually delete user account -3HRS ✅
+	- delete user photo uploads ==> uploads/userid = user  ✅
+	- delete user profile photo ==> profile-photo/userid = user  ✅
+	- delete user info ==> users/uid == useruid ✅
+	- delete images in storage bucket ✅
+
+18. add a method for users to be able to delete uploaded photos ✅
+
+26. Remove fb, gmail buttons ✅
+
+28. make placeolder user image circle, just like profile photos for user with image ✅
+
+2. format images OLD
+5. update cloud functions to match latest updates 
+7. change picture in background of profile to black NEW
+21. center user location on map on initialize or add recenter button or update map //map has ben acting weird
+22. persist user location and calculate distance from key points
+27. update favicon - white text, black bg
+29. fix issue where user search keeps breaking when update occurs to credit card info for venues
+
+
+
+May 18th Release Log
+---------------------
+
+v2
+-----
+5. send out notification to all friends when I click attending event NEW
+15. venues list view sorted by activity of venue, i.e #of people there NEW - 5HRS
+20. search venues 5hrs
+
+21. Make website desktop friendly.
+22. Clear user data on profile delete
+		- delete all dms sent by user
+		- delete all comments by user
+
+4. distance away NEW -5HRS
+16. 'you were at x venue' in user profile view
+8. notification count in notifications bar NEW - 5HRS
+
+11. calendar in venue side showing events coming up - NEW - 5 HRS
+15. Delete venue method
+		- info to delete 
+			- list of reservattions
+			- ticket sales 
+
+Layout
+------
+profile
+	-info
+		- name✅
+		- sex ✅
+		- profile pic✅
+		- cover photo✅
+		- friend count✅
+		- post count✅
+
+	sub nav within profile
+		- my images✅
+		- notifications✅
+		- upcoming events✅
+
+CHANGE-LOG
+----------
+
+
+Meeting notes
+-------------
+- when new user tries to sign up ask if user or venue
+	- user --> ✅
+	- business 
+		- different sign up flow for bars and venues
+
+			--Venue sign up page
+				- account setup
+					- email/authprovider -- think best solution
+				- venue creation page
+					- venue info etc
+
+			- bar/event
+				--- tickets to event
+				--- no guestlist or cover
+			- club
+				--- bottle service menu upload
+				--- tickets
+				--- guestlist 
+				--- cover
+
+- refactor auth flow
+
+- club information and bottle service menu
+
+- edit event creation✅
+
+- update/change profile photo ✅
+
+- check in scan and notification
+	- events/venues friends are attending get propagated in the feed
+
+- hide private events(v2)
+
+ticket scanning at door 
+
+- check in to location(3)
+
+
+- video upload function✅
+	- checks to see what media type is and makes it possible to be played on android an web✅
+
+- reverse order of feed items✅
+
+- dblclick to like media✅
+	- doesnt work on mobile
+	- works on web✅
+
+refactor user onboarding to extract key pieces of info(trigger profile edit if this is their first time accessing website) ✅
+	- sex✅
+	- display name✅
+
+- show color coded event tags on map search page(1)✅
+	- events✅
+	- venues✅
+	- buggy so venue url isn't clear, however link in name works
+	- drop down at top right of page for map legend✅
+
+- qr code generator post purchase
+
+- search all users ✅
+
+- delete upcoming events from my list✅
+
+- my hosted events screen✅
+
+- create venue(2)
+	- adress type searcher picker✅
+	- prompt user when they show leaving intent to save work!✅
+
+	- prompt for them to upload image from their device or url✅
+	
+	- different flow altogether
+	- starting from auth component
+		- no feedback on completion/fail✅
+		- error checking on form✅
+		- clear form on submit success✅
+		- styles for page✅
+		- navigate to venue page on success✅
+
+- create event✅
+	- view✅
+	- information✅
+	- function for database manipulation✅
+	- refactored events to also display events created by users i.e address ✅
+	- ability to delete event if you're the admin ✅
+
+31st January, 2018
+- PWA release✅
+	- optimize for performance
+
+30th January, 2018
+- displays accurate number of event goers✅
+
+- view user profile, by clicking on them in guest list✅
+	- profile✅
+	- posts 
+
+- user profile edit ✅
+	- view✅
+	- functions for updating values✅
+
+- Reflect liked posts in feed item details view✅
+
+- shortened date display in event details view✅
+
+- see where friends are going by event (look at guestlist) ✅
+
+BUGS
+- unlike, like not adding user to liked/users list
+
+
+29th January, 2018 Release I
+- auth view mobile friendly edits✅
+	- title was looking weird ✅
+
+- buddy request node ✅
+	-if buddy accepts request delete request from node ✅
+	-if they reject delete request from node ✅
+	-if uid already exists in node, prevent addition ✅
+	-if uid already exists in node, reflect that difference in view ✅
+
+- toggle request icon for existing friends event invite ✅
+- toggle request icon for requested users ✅
+
+- message screen looks nasty when text fills up✅
+- explore mobile friendliness for different screen sizes✅
+- shadow added to bottom of nav bar in messages✅
+- edits to feed for smaller devices ✅
+	- adjustments to usernames ✅
+	- image padding✅
+
+- images you've liked display should be different✅
+- dismiss event invite ✅
+
+28th January, 2018 Release II
+- add friends ✅
+	- via event attendees ✅
+		- see event attendees ✅
+			- see all attendees ✅
+			- hide myself from list of attendees ✅
+		- send request ✅
+
+
+28th January, 2018 Release I Notes
+- direct messaging ✅
+	- create message thread ✅
+	- retrieve message thread ✅
+	- add message to thread ✅
+	- create views ✅
+		- messages ✅
+		- message thread ✅
+- user image and information storage for new users✅
+- upcoming events changed so date actually shows up✅
+
+
+For ordering bottles....
+	- first view their menu
+	- hit order bottles to start order process (flow -->)
+		- select bottles
+			- pick from list and add to cart by hitting + button
+			- sum is agregated based on bottle prices
+		- select event for which bottles will be ordered
+		- checkout and create receipt
+
+
+UPDATES
+--------
+- consider refactoring messages in db, so instead of nesting it within individual users; maybe have it in its own node and have participants

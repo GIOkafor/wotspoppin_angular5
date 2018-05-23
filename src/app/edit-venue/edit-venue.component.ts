@@ -59,6 +59,14 @@ export class EditVenueComponent implements OnInit {
 	  	.subscribe(res => { 
 	  		//console.log(res); 
 	  		this.venue = res;
+	  		let description;
+
+	  		//check if description field exists on object, 
+	  		//for catching venues that were created without description
+	  		if(this.venue.description)
+	  			description = this.venue.description;
+	  		else
+	  			description = '';
 
 	  		//initialize form
 			this.venueForm = this.fb.group({
@@ -68,13 +76,11 @@ export class EditVenueComponent implements OnInit {
 				'createdBy': [this.venue.createdBy],
 				'imageUrl': [this.venue.imageUrl],
 				'position': [''],
-				'venueType': [this.venue.venueType, Validators.required]
+				'venueType': [this.venue.venueType, Validators.required],
+				'baseCover': [this.venue.baseCover],
+				'description': [description]
 			});
 
-			console.log(this.venueForm.value);
-
-			//test hours data
-			//this.hoursWorked = this.testHOURS; 
 			this.hoursWorked = this.venue.hours;
 	  	});
   }
@@ -145,18 +151,11 @@ export class EditVenueComponent implements OnInit {
 
   //for removing day from hours of operation
   remove(day){
-  	//console.log(day);
-
   	this.hoursWorked.splice(day, 1);
   }
 
   //for adding new hours to list of working times
   addHours(newHours, startTime, endTime){
-  	/*
-  	console.log("Adding: ", newHours);
-  	console.log("Adding: ", startTime);
-  	console.log("Adding: ", endTime);
-  	*/
 
   	let newDay = { 
   		day: newHours, 
@@ -165,8 +164,6 @@ export class EditVenueComponent implements OnInit {
   	};
 
   	this.hoursWorked.push(newDay);
-
-  	//console.log("Hours is now: ", this.hoursWorked);
   }
 
   detectFiles(event) {
@@ -192,10 +189,15 @@ export class EditVenueComponent implements OnInit {
   }
 
   setVenueType(type){
-  	console.log("Updating type: ", type);
   	this.venueForm.controls['venueType'].setValue(type);
   }
 
+  formatLabel(value: number | null){
+  	if(!value)
+  		return 0;
+
+  	return '$' + value;
+  }
 }
 
 interface LocationResponse{

@@ -66,4 +66,12 @@ export class UserProfileComponent implements OnInit {
     const modalRef = this.modalSvc.open(ViewFriendsComponent);
   }
 
+  openAccountDeleteModal(modal){
+  	this.modalSvc.open(modal);
+  }
+
+  deleteAccount(){
+  	this.authSvc.deleteAccount();
+  }
+
 }

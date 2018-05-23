@@ -17,6 +17,8 @@ export class AuthComponentComponent implements OnInit {
   newUser: boolean = false;
   userSignUp: boolean = false;
   venueSignIn: boolean = false;
+  loading: boolean = false;
+  forgotPassword: boolean = false;
   firstFormGroup: FormGroup;
   secondFormGroup: FormGroup;
   thirdFormGroup: FormGroup;
@@ -33,7 +35,7 @@ export class AuthComponentComponent implements OnInit {
 
   ngOnInit() {
   	firebase.auth().onAuthStateChanged(user => {
-  		console.log("Auth state has changed, user: ", user);
+  		//console.log("Auth state has changed, user: ", user);
 
   		if(user){
 	  		//build user object
@@ -43,7 +45,7 @@ export class AuthComponentComponent implements OnInit {
           'displayName': user.displayName
 				}
 
-        console.log("User object created is: ", currentUser);
+        //console.log("User object created is: ", currentUser);
         this.authSvc.updateLocStor(currentUser);
   			//localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
@@ -55,6 +57,7 @@ export class AuthComponentComponent implements OnInit {
 
           //if this is a brand new user, or user without profile information, code below gets triggered
           if(res.payload.val() == null){
+          	console.log("THis is a venue signing in");
 
             //this gets triggered when venues try signing in because their account info is in a seperate section
             //'/Users' vs 'venue-users'
@@ -64,18 +67,19 @@ export class AuthComponentComponent implements OnInit {
             //check if user has created a venue in the past
             this.db.list('Venues/', ref => ref.orderByChild('createdBy').equalTo(user.uid))
             .snapshotChanges().subscribe(res => {
-              //console.log(res);
+              console.log(res);
 
-              if(res.length == 0){
+              if(res.length < 1){
                 console.log("this user currently has no venues created");
+                this.loading = false;
                 //do nothing but show next page in sequence
               }else{
                 //user exists already, therefore show them their venue page
-                //console.log("Navigating to venue with key: ", res);
-                this.router.navigate(['venues']);
+                console.log("Navigating to venue with key: ", res[0].key);
+                this.loading = false;
+                this.router.navigate(['venue', res[0].key]);
               }
             })
-            
             
             //below is no longer necessary because users fill in all their info before creating account
             //venues create their account, then venue and optionally fill out their info themselves
@@ -96,6 +100,7 @@ export class AuthComponentComponent implements OnInit {
             localStorage.setItem('currentUser', JSON.stringify(currentUser));
 
             //navigate to venue
+            this.loading = false;
             this.router.navigate(['venues']);
           }
 
@@ -163,10 +168,11 @@ export class AuthComponentComponent implements OnInit {
   }
 
   emailLogin(val){
-    console.log(val);
-
     //specify how login happens ie emailSignIn or userEmailSignIn
 
+    //show loading spinner
+    this.loading = true;
+    
     this.authSvc.emailSignIn(val.email, val.password);
   }
 
@@ -184,6 +190,11 @@ export class AuthComponentComponent implements OnInit {
 
     console.log(user);
     this.authSvc.userEmailSignUp(user);
+  }
+
+  resetPassword(email){
+  	console.log("Reset password for email: ", email);
+  	this.authSvc.resetPassword(email.resetEmail);
   }
 
   /*	

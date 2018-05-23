@@ -135,7 +135,8 @@ export class OtherProfileComponent implements OnInit {
           let userUp = this.db.object('Users/' + this.currentUser.uid + '/userInfo').update({imageUrl: res});
           
           userUp.then(_=> {
-            this.snackBar.open("Image change successfull, reloading page...", "", {duration: 3000});
+            console.log("Image change successfull");
+            //this.snackBar.open("Image change successfull, reloading page...", "", {duration: 3000});
             //location.reload();
           });
           

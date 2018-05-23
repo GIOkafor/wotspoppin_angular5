@@ -1,10 +1,11 @@
 <div class="top_nav sticky-top">
 	<i class="fa fa-lg fa-chevron-left" (click)="goBack()"></i>
 </div>
-<div class="createEvent">
+<div class="createVenue">
 	<h2>Create New Venue</h2>
 
 	<form 
+		class="createVenueForm"
 		[formGroup]="venueForm"
 		(ngSubmit)="subTest(venueForm.value)">
 
@@ -99,9 +100,21 @@
 			</mat-radio-group>
 		</div>
 
-		<!-- If club enter menu -->
-		<!-- May have to put this on it's own page -->
-		
+		<div class="form-group descriptionGroup">
+			<label>Short Description <i>max(140 characters)</i></label>
+			<textarea maxlength="140" [formControl]="venueForm.controls['description']"></textarea>
+		</div>
+
+		<!-- only show this slider for clubs -->
+		<div *ngIf="venueForm.controls['venueType'].value === 'club'" class="form-group ticket_price_container">
+			<label>Base Cover</label>
+
+			<mat-slider
+				min="0"
+				step="5"
+				thumbLabel="true"
+				[formControl]="venueForm.controls['baseCover']"></mat-slider>
+		</div>		
 
 		<div class="cta_btns">
 			<span class="btn btn-warning">Cancel</span>

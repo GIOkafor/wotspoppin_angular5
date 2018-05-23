@@ -65,7 +65,7 @@
 
 					<div class="hours-input">
 						<!-- Day of the week selector start -->
-							<mat-select [(value)]="newDay" class="dow">
+							<mat-select placeholder="Weekday" [(value)]="newDay" class="dow">
 								<mat-option value="Monday">Monday</mat-option>
 								<mat-option value="Tuesday">Tuesday</mat-option>
 								<mat-option value="Wednesday">Wednesday</mat-option>
@@ -99,6 +99,22 @@
 					    <input type="radio" formControlName="venueType" value="event"> Event
 					  </label>
 					</div>
+				</div>
+
+				<div class="form-group descriptionGroup">
+					<label>Short Description <i>(140 characters max)</i></label>
+					<textarea maxlength="140" formControlName="description"></textarea>
+				</div>
+
+				<!-- only show this slifer for clubs -->
+				<div *ngIf="venue.venueType === 'club'" class="form-group ticket_price_container">
+					<label>Base Cover</label>
+
+					<mat-slider
+						min="0"
+						step="5"
+						thumbLabel="true"
+						formControlName="baseCover"></mat-slider>
 				</div>
 
 				<div class="cta_btns">

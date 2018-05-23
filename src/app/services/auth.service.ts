@@ -35,8 +35,8 @@ export class AuthService {
 
   //update local storage value
   updateLocStor(val){
-    console.log('Raw value passed: ' + val);
-    console.log(JSON.stringify(val));
+    //console.log('Raw value passed: ' + val);
+    //console.log(JSON.stringify(val));
     
     //remove old info
     localStorage.removeItem('currentUser');
@@ -134,6 +134,52 @@ export class AuthService {
       */  
       })
       .catch(err => this.handleError(err.message));
+  }
+
+  //reset user's password
+  resetPassword(email: string){
+  	console.log("reseting password to account with email: ", email);
+
+  	this.afAuth.auth.sendPasswordResetEmail(email)
+  		.then(() => { 
+        console.log("successfully sent password reset email"); 
+        this.snackBar.open("Check your inbox for password reset email", "", {duration: 3000}); 
+      })
+  		.catch((err) => { 
+        console.log(err); 
+        this.dialog.open(ErrorComponent, {
+          data: err.message,
+        });
+      });
+  }
+
+  //delete user account
+  deleteAccount(){
+    let uid = this.afAuth.auth.currentUser.uid;
+
+    //update user in realtimedb to include key delete, set to true
+    //which sets off cloud function to delete user media in realtimedb
+    //then trigger firebase delete function
+    this.db.object('Users/' + uid)
+      .update({delete: true})
+      .then(_=>{
+        console.log("Deleting account: ", uid);
+        this.afAuth.auth.currentUser.delete()
+        .then(() => {
+          console.log("User successfully deleted");
+          let snackRef = this.snackBar.open("Account successfully deleted, redirecting...", "", {duration: 3000}); 
+          snackRef.afterDismissed()
+            .subscribe(() => { this.router.navigate(['authenticate']); });
+        })
+        .catch((err) => { 
+            console.log("Error: ", err); 
+            this.dialog.open(ErrorComponent, {
+              data: err.message,
+            }); 
+        });
+      })
+
+  	
   }
 
 }

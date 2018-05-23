@@ -9,10 +9,12 @@
     "logs": "firebase functions:log"
   },
   "dependencies": {
+    "@google-cloud/storage": "^1.6.0",
     "@ngui/map": "^0.20.2",
     "@types/googlemaps": "^3.30.5",
-    "firebase-admin": "~5.4.2",
-    "firebase-functions": "^0.7.1",
+    "child-process-promise": "^2.2.1",
+    "firebase-admin": "^5.12.1",
+    "firebase-functions": "^1.0.2",
     "ng2-pop-over": "^0.9.37",
     "node-geocoder": "^3.22.0",
     "stripe": "^5.6.1"

@@ -8,7 +8,7 @@
 
 			<div class="signIn" *ngIf="!newUser">
 
-				<div class="userEmailSignIn" *ngIf="!venueSignIn">
+				<div class="userEmailSignIn" *ngIf="!venueSignIn && !forgotPassword">
 					
 					<h3 class="signin_text">USER SIGN IN</h3>
 
@@ -23,9 +23,22 @@
 							<input type="password" name="password" ngModel>
 						</div>
 
-						<span class="forgot_password">Forgot Password?</span>
+						<span class="forgot_password" (click)="forgotPassword = true;">Forgot Password?</span>
 
 						<button class="btn loginBtn" type="submit">Log In</button>
+
+						<div class="loading_spinner" *ngIf="loading">
+							<mat-spinner></mat-spinner>
+						</div>
+					</form>
+				</div>
+
+				<!-- Section for users who have forgotten their passwords -->
+				<div class="forgot_password_container" *ngIf="forgotPassword && !venueSignIn && !newUser">
+					<h3>RESET PASSWORD</h3>
+					<form #forgotEmailForm="ngForm">
+						<input type="text" placeholder="Enter Email" id="resetEmail" name="resetEmail" ngModel>
+						<button class="btn" (click)="resetPassword(forgotEmailForm.value)">Reset Password</button>
 					</form>
 				</div>
 				
@@ -48,8 +61,10 @@
 					</form>
 				</div>
 
+					<!--
 					<button class="googleAuth btn" (click)="googleLogin();">Sign In with Google</button>
 					<button class="fbAuth btn" (click)="fbLogin();">Sign In with Facebook</button>
+					-->
 				
 				<span class="noAccount" (click)="showSignUp();">Don't have an account?</span>
 
@@ -73,7 +88,7 @@
 						<mat-vertical-stepper class="signup_steps" [linear]="isLinear">
 						  <mat-step [stepControl]="firstFormGroup">
 						    <form [formGroup]="firstFormGroup">
-						      <ng-template matStepLabel class="step_label">Fill out your email address</ng-template>
+						      <ng-template matStepLabel class="step_label">Enter your email address</ng-template>
 						      <mat-form-field>
 						        <input matInput placeholder="Email" formControlName="email" required>
 						      </mat-form-field>

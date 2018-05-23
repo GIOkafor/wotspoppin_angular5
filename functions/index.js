@@ -19,20 +19,26 @@ var geocoder = NodeGeocoder(options);
 //stripe stuff
 var stripe = require("stripe")("sk_test_joqW1S4ZWcmtsg2GyLIf5Jon");//test key, CHANGE TO PRODUCTION KEY LATER
 
+const os = require('os');
+const path = require('path');
+const spawn = require('child-process-promise').spawn;
+const gcs = require('@google-cloud/storage')();
+const bucket = gcs.bucket('noteapp-436f9.appspot.com');
+
 /////////////////FUNCTIONS START///////////////////
 ///////////////////////////////////////////////////////////////////////////////////////////
 
 //adds time uploaded value to media uploaded
 exports.timeUploaded = functions.database.ref('/uploads/{key}')
-	.onWrite(event => {
-		const media = event.data.val();
+	.onWrite((change, context) => {
+		const media = change.after.val();
 
 		//if media has a time assigned exit
 		if(media.createdAt)
 			return;
 
 		//continue here when no time exists on media uploaded
-		return event.data.ref.child('createdAt').set(admin.database.ServerValue.TIMESTAMP);
+		return change.after.ref.child('createdAt').set(admin.database.ServerValue.TIMESTAMP);
 	});
 
 //change to db trigger
@@ -242,3 +248,179 @@ exports.updateAvailableTickets = functions.database.ref('ticket-purchases/{key}'
 					})
 			});*/
 	})
+
+//resize image on upload cloud function
+/*
+exports.resizeImage = functions.storage.object().onFinalize(event => {
+	const object = event.data;
+	const bucket = object.bucket;
+	const contentType = object.contentType;
+	const filePath = object.name;
+	console.log('File change detected, function execution started');
+
+	if(object.resourceState === 'not_exists'){
+		console.log("File deleted, exit...");
+		return;
+	}
+
+	if(path.basename(filePath).startsWith('resized')){
+		console.log("We already renamed that file");
+		return;
+	}
+
+	const destBucket = gcs.bucket(bucket);
+	const tmpFilePath = path.join(os.tmpdir(), path.basename(filePath));
+	const metadata = { contentType: contentType };
+
+	return destBucket.file(filePath).download({
+		destination: tmpFilePath
+	}).then(() => {
+		return spawn('convert', [tmpFilePath, '-resize', '500x500', tmpFilePath]);
+	}).then(() => {
+		return destBucket.upload(tmpFilePath, {
+			destination: 'resized-' + path.basename(filePath),
+			metadata: metadata
+		})
+	});
+});
+*/
+
+//delete user assets on account delete
+exports.deleteUser = functions.database.ref('Users/{uid}/delete')
+	.onCreate((snapshot, context) => {
+		// Only trigger when it is first created.
+		/*
+		if (event.data.previous.exists()) {
+			return null;
+		}
+
+		// Exit when the data is deleted.
+		if (!event.data.exists()) {
+			return null;
+		}
+*/
+		let uid = context.params.uid;
+		console.log(snapshot);
+		console.log(snapshot.val());
+		console.log("Uid is: ", uid);
+
+		//get photos belonging to user with info profilePics/userUid, then delete 
+		deleteProfilePics(uid);
+
+		//get photos belonging to user in uploads/userUid, then pass it to deleteUploads function 
+		deleteUploads(uid); 
+
+		//get reference to user information from db in Users/uid, then delete
+		//deleteUserInfo();
+	});
+
+function deleteProfilePics(uid){
+	console.log("deleting profile pics for user with uid: ", uid);
+
+	//get photos belonging to user in profilePics/userUid
+	admin.database().ref('profilePics/').once('value')
+		.then((snapshot) => {
+			let images = snapshot.val();
+			//console.log("All images are: ");
+			//console.log(images);
+
+			let userImages = []; //for tracking which images belong to particular user
+
+			//for each image in images array, add the ones with uid == userUId to userImages array
+
+			//its not an array
+
+			for(var image in images){
+				if(images[image].userUid === uid){
+					userImages.push({ key: image, image: images[image] });
+				}
+			}
+
+			//console.log("User images are: ");
+			//console.log(userImages);
+
+			//for each image user has, delete corresponding image in storage bucket
+			for(var j = 0; j < userImages.length; j++){
+				deleteProfilePic(userImages[j]);
+			}
+		});
+}
+
+function deleteUploads(uid){
+	//console.log("deleting uploads for user with uid: ", uid);
+	//for each image we delete, delete corresponding image in storage bucket
+
+	//get photos belonging to user in uploads/userUid
+	admin.database().ref('uploads/').once('value')
+		.then((snapshot) => {
+			let uploads = snapshot.val();
+
+			//console.log("All uploads are: ");
+			//console.log(uploads);
+
+			let userUploads = []; //for tracking which uploads belong to particular user
+
+			//for each image in uploads array, add the ones with uid == userUId to userUploads array
+
+			//its not an array
+
+			for(var upload in uploads){
+				if(uploads[upload].userUid === uid){
+					userUploads.push({key: upload, image: uploads[upload]});
+				}
+			}
+
+			//console.log("User uploads are: ");
+			//console.log(userUploads);
+
+			//for each image user has, delete corresponding image in storage bucket
+			for(var j = 0; j < userUploads.length; j++){
+				deleteUpload(userUploads[j]);
+			}
+		});
+}
+
+function deleteUpload(image){
+	//console.log("deleting uploads for user with key: ", image.key);
+	//console.log("deleting uploads for user with image: ", image.image);
+	//console.log("deleting uploads for user with name: ", image.image.name);
+
+	//delete file in storage bucket
+	var filePath = 'uploads/' + image.image.name;
+	var file = bucket.file(filePath);
+
+	// Delete the file
+	file.delete().then(function() {
+	  console.log("File deleted successfully");
+	}).catch(function(error) {
+	  console.log("Uh-oh, an error occurred!");
+	  console.log(error);
+	});
+
+	//delete reference to file in firebase realtime db
+	admin.database().ref('uploads/' + image.key).remove();
+}
+
+function deleteProfilePic(image){
+	//console.log("Deleting image ", image.key);
+
+	var imagePath = 'profilePics/' + image.image.name;
+	var file = bucket.file(imagePath);
+
+	// Delete the file
+	file.delete().then(function() {
+	  console.log("File deleted successfully");
+	}).catch(function(error) {
+	  console.log("Uh-oh, an error occurred!");
+	  console.log(error);
+	});
+
+	//delete image reference in realtime db
+	admin.database().ref('profilePics/' + image.key).remove();
+}
+
+function deleteUserInfo(uid){
+	console.log("deleting info for user with uid");
+
+	admin.database().ref('Users/' + uid).remove();
+}

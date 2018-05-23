@@ -71,7 +71,9 @@ export class CreateVenueComponent implements OnInit, ComponentCanDeactivate {
         'imageUrl': [''],
         'createdBy': [ authSvc.getCurrentUser().uid ],
         'position': [''],
-        'venueType': ['', Validators.required]
+        'venueType': ['', Validators.required],
+        'baseCover': [''],
+        'description': ['']
       });
   }
 

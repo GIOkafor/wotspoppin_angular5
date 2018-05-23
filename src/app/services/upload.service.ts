@@ -127,10 +127,19 @@ export class UploadService {
     const promise = this.db.list(`${this.eventsPath}/`).push(upload);
   }
 
+  /*
   deleteUpload(upload: Upload) {
     this.deleteFileData(upload.$key)
     .then( () => {
       this.deleteFileStorage(upload.name)
+    })
+    .catch(error => console.log(error))
+  }
+  */
+  deleteUpload(upload) {
+    this.deleteFileData(upload.key)
+    .then( () => {
+      this.deleteFileStorage(upload.payload.val().name)
     })
     .catch(error => console.log(error))
   }

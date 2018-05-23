@@ -38,6 +38,8 @@
 	font-size: 15.5px;
     color: #cc855a;
 }
+.short_description{color: #ddd;}
+
 .events-loading{
 	display: flex;
 	widows: 100%;

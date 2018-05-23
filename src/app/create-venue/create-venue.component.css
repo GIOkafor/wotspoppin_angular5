@@ -5,11 +5,15 @@
     border-bottom: 1px solid #fff;
 }
 
-.createEvent{
+.createVenue{
 	padding: 10px;
-	height: 100vh;
+	height: 100%;
 	background: black;
     color: #fff;
+}
+
+.createVenueForm{
+	padding-bottom: 65px;
 }
 
 .cta_btns .btn{
@@ -53,4 +57,16 @@
 }
 .add-time-btn, .remove{
     color: #e18047;
+}
+
+.descriptionGroup{
+	display: flex;
+    flex-direction: column;
+}
+.descriptionGroup i{
+	color: #bbb;
+}
+
+.ticket_price_container mat-slider{
+    background-color: #fff;
 }

@@ -19,10 +19,30 @@
 					<a (click)="settingsPO.hide();logOut();"> <i class="fa fa-sign-out" aria-hidden="true"></i>Logout</a>
 					<a [routerLink]="['/user-profile', currentUser.uid]" (click)="settingsPO.hide();"> <i class="fa fa-pencil-square-o" aria-hidden="true"></i> Edit Profile </a>
 					<a [routerLink]="['/payment-information']" (click)="settingsPO.hide();"> <i class="fa fa-credit-card" aria-hidden="true"></i>Payment</a>
+					<a (click)="openAccountDeleteModal(template)"><i class="fa fa-trash"></i> Delete Account </a>
 				</div>
 		</pop-over>
 	</div>
 </nav>
+
+<ng-template #template let-c="close">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete Account</h4>
+    
+    <button type="button" class="close pull-right" aria-label="Close" (click)="c()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p>Are you sure? This cannot be undone</p>
+
+    <div class="buttons">
+    	<button class="btn btn-danger" (click)="deleteAccount();c()">Delete</button>
+    	<button class="btn" (click)="c()">Cancel</button>
+    </div>
+  </div>
+</ng-template>
 
 <div class="userProfile">
 	<div class="imageDiv">
