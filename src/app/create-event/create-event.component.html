@@ -18,14 +18,20 @@
 			<div *ngIf="eventForm.controls['name'].hasError('required') && eventForm.controls['name'].touched">Event name is required</div>
 		</div>
 
-		<div class="form-group">
+		<div class="form-group dateContainer">
 			<label for="date">Date</label>
-			<input name="date" type="date" id="date" class="form-control" [formControl]="eventForm.controls['date']" required>
+			<input name="date" type="date" id="date" class="form-control" [formControl]="eventForm.controls['date']" min="today" required> 
+			<!-- <ngb-datepicker #dp [formControl]="eventForm.controls['date']" (navigate)="date = $event.next"></ngb-datepicker>-->
 
 			<!-- error message display code -->
 			<div *ngIf="!eventForm.controls['date'].valid && eventForm.controls['date'].touched"
 				class="bg-danger error">Please enter valid date</div>
 			<div *ngIf="eventForm.controls['date'].hasError('required') && eventForm.controls['date'].touched">Event date is required</div>
+		</div>
+
+		<div class="form-group">
+			<label for="startTime">Start Time</label>
+			<input type="time" [formControl]="eventForm.controls['startTime']" />
 		</div>
 
 		<div class="form-group">

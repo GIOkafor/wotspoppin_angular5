@@ -239,13 +239,23 @@ April 25th Release Log
 
 28. make placeolder user image circle, just like profile photos for user with image ✅
 
-2. format images OLD
+2. format images OLD ✅
 5. update cloud functions to match latest updates 
-7. change picture in background of profile to black NEW
-21. center user location on map on initialize or add recenter button or update map //map has ben acting weird
-22. persist user location and calculate distance from key points
-27. update favicon - white text, black bg
+	- createCustomer ✅
+	- updateAvailableTickets ✅
+	- addLocation ✅
+	- messageSentTime ✅
+	- sendEventInvite ✅
+
+7. change picture in background of profile to black NEW ✅
+
+27. update favicon - white text, black bg✅
+
 29. fix issue where user search keeps breaking when update occurs to credit card info for venues
+	- Avoid these actions
+	-- if write occurs in user/uid/ db, add{userInfo: {}}
+	-- payment info updates for venue profiles
+	-- veniues shouldnt be able to invite friends to events
 
 
 
@@ -254,6 +264,7 @@ May 18th Release Log
 
 v2
 -----
+4. fix bug that redirects user to venues screen after they update profile pic
 5. send out notification to all friends when I click attending event NEW
 15. venues list view sorted by activity of venue, i.e #of people there NEW - 5HRS
 20. search venues 5hrs
@@ -264,14 +275,20 @@ v2
 		- delete all comments by user
 
 4. distance away NEW -5HRS
+21. center user location on map on initialize or add recenter button or update map //map has ben acting weird
+22. persist user location and calculate distance from key points
+
 16. 'you were at x venue' in user profile view
 8. notification count in notifications bar NEW - 5HRS
 
 11. calendar in venue side showing events coming up - NEW - 5 HRS
+28. fix issue where event date is wrong when creating new events
+		- consider seperating {day, month, year} on user select, during creation
 15. Delete venue method
 		- info to delete 
 			- list of reservattions
 			- ticket sales 
+
 
 Layout
 ------

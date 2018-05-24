@@ -59,7 +59,7 @@ export class InviteFriendsComponent implements OnInit {
 
   //select user to me messaged
   selectUser(user){
-    console.log("Selected user: ", user);
+    //console.log("Selected user: ", user);
 
     //close modal
     this.activeModal.close();

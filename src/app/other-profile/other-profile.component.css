@@ -35,7 +35,7 @@
 	padding-top: 25px;
     padding-bottom: 25px;
     /* For now use placeholder image, later switch to user defined cover image */
-    background-image: url(https://upload.wikimedia.org/wikipedia/commons/4/4f/Toronto.Night.PNG);
+    background-color: black;
     background-position: center;
     display: flex;
     flex-direction: column;

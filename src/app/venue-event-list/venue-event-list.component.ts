@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 export class VenueEventListComponent implements OnInit {
 
   @Input()events: any;
+  timezone = '-0400'; //for showing the right date based on a user's timezone
 
   constructor(
   	private router: Router) { }

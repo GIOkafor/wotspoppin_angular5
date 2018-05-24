@@ -43,18 +43,18 @@ exports.timeUploaded = functions.database.ref('/uploads/{key}')
 
 //change to db trigger
 exports.sendEventInvite = functions.database.ref('Users/{uid}/sentInvites/{eventKey}/{objKey}')
-	.onWrite(event => {
+	.onWrite((change, context) => {
 		// Only trigger when it is first created.
-		if (event.data.previous.exists()) {
+		if (change.before.val()) {
 			return null;
 		}
 
 		// Exit when the data is deleted.
-		if (!event.data.exists()) {
+		if (!change.after.val()) {
 			return null;
 		}
 
-		const inviteInfo = event.data.val();
+		const inviteInfo = change.after.val();
 		console.log("Data received in db is: ");
 		console.log(inviteInfo);
 
@@ -64,15 +64,15 @@ exports.sendEventInvite = functions.database.ref('Users/{uid}/sentInvites/{event
 
 //adds time_sent to sent message and add message to other users portion of db
 exports.messageSentTime = functions.database.ref('Users/{uid}/dms/{threadId}/{msgId}')
-	.onWrite(event => {
-		const msg = event.data.val();
+	.onWrite((change, context) => {
+		const msg = change.after.val();
 
 		//if message has a time assigned exit
 		if(msg.timeSent)
 			return;
 
 		//continue here if time does not exist
-		return event.data.ref.child('timeSent').set(admin.database.ServerValue.TIMESTAMP);
+		return change.after.ref.child('timeSent').set(admin.database.ServerValue.TIMESTAMP);
 		
 		/*
 			//then send message to other user in thread
@@ -83,8 +83,8 @@ exports.messageSentTime = functions.database.ref('Users/{uid}/dms/{threadId}/{ms
 
 //adds location in lat long when event adress is added upon event creation position{lat,lng}
 exports.addLocation = functions.database.ref('Events/{id}')
-	.onWrite(event => {
-		const evt = event.data.val();
+	.onWrite((change, context) => {
+		const evt = change.after.val();
 
 		//console.log("Event is: ", evt);
 
@@ -111,7 +111,7 @@ exports.addLocation = functions.database.ref('Events/{id}')
 			    //console.log("Position object is: ", position);
 
 			    //store new value in database
-			    return event.data.ref.child('position').set(position);
+			    return change.after.ref.child('position').set(position);
 			})
 			.catch(function(err) {
 				console.log(err);
@@ -121,9 +121,9 @@ exports.addLocation = functions.database.ref('Events/{id}')
 
 //create customer on stripe via token
 exports.createCustomer = functions.database.ref('Users/{uid}/paymentInfo/token')
-	.onWrite(event => {
-		let evt = event.data.val();
-		let userKey = event.params.uid;
+	.onWrite((change, context) => {
+		let evt = change.after.val();
+		let userKey = context.params.uid;
 		console.log("Data passed is: ",  evt);
 		console.log("User key in db is: ", userKey);
 
@@ -187,21 +187,21 @@ exports.chargeCustomer = functions.https.onRequest((req, res) => {
 
 //update available tickets count
 exports.updateAvailableTickets = functions.database.ref('ticket-purchases/{key}')
-	.onWrite(event => {
+	.onWrite((change, context) => {
 		// Only trigger when it is first created.
-		if (event.data.previous.exists()) {
+		if (change.before.val()) {
 			return null;
 		}
 
 		// Exit when the data is deleted.
-		if (!event.data.exists()) {
+		if (!change.after.val()) {
 			return null;
 		}
 
 
 		//if ticket purchased is event ticket
-		if(event.data.val().eventKey){
-			const eventKey = event.data.val().eventKey;
+		if(change.after.val().eventKey){
+			const eventKey = change.after.val().eventKey;
 			console.log("Event key passed is: ", eventKey);
 
 			//search for event with key
@@ -288,21 +288,7 @@ exports.resizeImage = functions.storage.object().onFinalize(event => {
 //delete user assets on account delete
 exports.deleteUser = functions.database.ref('Users/{uid}/delete')
 	.onCreate((snapshot, context) => {
-		// Only trigger when it is first created.
-		/*
-		if (event.data.previous.exists()) {
-			return null;
-		}
-
-		// Exit when the data is deleted.
-		if (!event.data.exists()) {
-			return null;
-		}
-*/
 		let uid = context.params.uid;
-		console.log(snapshot);
-		console.log(snapshot.val());
-		console.log("Uid is: ", uid);
 
 		//get photos belonging to user with info profilePics/userUid, then delete 
 		deleteProfilePics(uid);
@@ -311,7 +297,7 @@ exports.deleteUser = functions.database.ref('Users/{uid}/delete')
 		deleteUploads(uid); 
 
 		//get reference to user information from db in Users/uid, then delete
-		//deleteUserInfo();
+		deleteUserInfo(uid);
 	});
 
 function deleteProfilePics(uid){
@@ -381,9 +367,6 @@ function deleteUploads(uid){
 }
 
 function deleteUpload(image){
-	//console.log("deleting uploads for user with key: ", image.key);
-	//console.log("deleting uploads for user with image: ", image.image);
-	//console.log("deleting uploads for user with name: ", image.image.name);
 
 	//delete file in storage bucket
 	var filePath = 'uploads/' + image.image.name;

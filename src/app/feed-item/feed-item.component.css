@@ -53,9 +53,20 @@
     align-items: center;
 }
 
+.image_container{
+	display: flex;
+    width: 350px;
+    overflow: hidden;
+    justify-content: center;
+    height: 350px;
+    overflow: hidden;
+    background-size: cover;
+    background-position: center;
+}
+
 .media_image{
-	width: 350px;
 	height: 350px;
+    max-width: 350px;
 }
 
 .media_footer{

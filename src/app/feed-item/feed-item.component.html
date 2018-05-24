@@ -21,7 +21,9 @@
 		<!-- feed media start -->
 		<div class="media_container">
 			<!-- if media is image, show below -->
-			<img *ngIf="media.type !== 'video/mp4' && media.type !== 'video/quicktime'" class="media_image" [src]="media.url" (dblclick)="likeMedia()">
+			<div class="image_container"  *ngIf="media.type !== 'video/mp4' && media.type !== 'video/quicktime'" [style.background-image]="(media.url | imageSanitizer)" (dblclick)="likeMedia()">
+				<img *ngIf="media.type !== 'video/mp4' && media.type !== 'video/quicktime'" class="media_image" [src]="media.url" (dblclick)="likeMedia()">
+			</div>
 			<!-- if media is video, show below -->
 			<video *ngIf="media.type == 'video/mp4' || media.type == 'video/quicktime'" class="media_image" controls autoplay [src]="media.url" (dblclick)="likeMedia()"></video>
 

@@ -24,6 +24,7 @@ export class CreateEventComponent implements OnInit {
   //file upload vars
   currentUpload: Upload;
   selectedFiles: FileList;
+  today = new Date().getTime();
 
   constructor(
   	private router: Router,
@@ -46,6 +47,7 @@ export class CreateEventComponent implements OnInit {
   	this.eventForm = fb.group({
   		'name': ['', Validators.required],
   		'date': ['', Validators.required],
+  		'startTime': ['', Validators.required],
   		'description': ['', Validators.required],
       'promoImage': ['', Validators.required],
       'eventType': ['', Validators.required],
@@ -68,6 +70,7 @@ export class CreateEventComponent implements OnInit {
     event.createdBy = this.authSvc.getCurrentUser().uid;
     //convert date to EPOCH time
     event.date = new Date(event.date).getTime();
+    //event.date = this.parseDate(event.date);
 
     console.log("Creating event: ", event);
 
@@ -123,5 +126,13 @@ export class CreateEventComponent implements OnInit {
       }
     }
   }
-
+/* Not used atm
+  //strips extra info off date string leaving behind only key pieces of info
+  parseDate(datestring): string{
+  	console.log("Datestring is: ", datestring);
+  	var parts = datestring.match(/(\d{2})\/(\d{2})\/(\d{4}) (\d{2}):(\d{2})/);
+  	//console.log(Date.UTC(+parts[3], parts[2]-1, +parts[1], +parts[4], +parts[5]));
+  	return Date.UTC(+parts[3], parts[2]-1, +parts[1], +parts[4], +parts[5]);
+  }
+*/
 }

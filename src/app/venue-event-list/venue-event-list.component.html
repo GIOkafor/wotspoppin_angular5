@@ -12,10 +12,10 @@
 			<div class="header">
 				<!-- date goes here in fancy box -->
 				<div class="date">
-					<span>{{event.payload.val().date | date:'E'}}</span>
-					<span class="day_num">{{event.payload.val().date | date:'d'}}</span>
-					<span>{{event.payload.val().date | date:'MMM'}}</span>
-					<span>{{event.payload.val().date | date:'y'}}</span>
+					<span>{{event.payload.val().date | date:'E':'-0400'}}</span>
+					<span class="day_num">{{event.payload.val().date | date:'d':'-0400'}}</span>
+					<span>{{event.payload.val().date | date:'MMM':'-0400'}}</span>
+					<span>{{event.payload.val().date | date:'y':'-0400'}}</span>
 				</div>
 				<!-- date and box end -->
 
@@ -25,7 +25,8 @@
 
 					<!-- Extra info start -->
 					<div class="extra">
-						<span class="event_time">{{event.payload.val().date | date:'shortTime'}} </span>
+						<span class="event_time" *ngIf="!event.payload.val().startTime">{{event.payload.val().date | date:'shortTime'}} </span>
+						<span class="event_time" *ngIf="event.payload.val().startTime">{{event.payload.val().startTime }} </span>
 
 						<span class="venue_name" *ngFor="let creator of (event.payload.val().createdBy | venueInfo | async)">
 							{{creator.name}}

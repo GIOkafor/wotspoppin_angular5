@@ -6,6 +6,7 @@ import { UploadService } from '../services/upload.service';
 import { Observable } from 'rxjs/Observable';
 import { AuthService } from '../services/auth.service';
 import { MatSnackBar } from '@angular/material';
+import { DomSanitizer, SafeResourceUrl, SafeUrl } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-feed',
@@ -23,7 +24,8 @@ export class FeedComponent implements OnInit {
     private upSvc: UploadService,
     private db: AngularFireDatabase,
     private authSvc: AuthService,
-    private snackBar: MatSnackBar) { 
+    private snackBar: MatSnackBar,
+    private sanitizer: DomSanitizer) { 
   	
   }
 
@@ -155,4 +157,8 @@ export class FeedComponent implements OnInit {
       });
   }
 
+  sanitizeImage(url): any{
+    console.log("SAnitizing image: ", url);
+    return this.sanitizer.bypassSecurityTrustStyle(url);
+  }
 }

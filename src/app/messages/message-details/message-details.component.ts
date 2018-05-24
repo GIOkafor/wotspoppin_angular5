@@ -28,7 +28,7 @@ export class MessageDetailsComponent implements OnInit {
 
   ngOnInit() {
   	this.threadId = this.route.snapshot.paramMap.get('id');
-	console.log(this.threadId);
+	//console.log(this.threadId);
 
 	this.getMessages();
   }
@@ -40,14 +40,14 @@ export class MessageDetailsComponent implements OnInit {
 //gets messages in particular thread
 //refactor to get particular thread
   getMessages(){
-  	console.log("Getting msgs for user id: ", this.userUID);
+  	//console.log("Getting msgs for user id: ", this.userUID);
   	//gets user messages
   	this.messages = this.msgSvc.getThreadMessages(this.userUID, this.threadId);
   }
 
 //send message to user in thread 
   sendMessage(msg){
-  	console.log("Sending message: ", msg);
+  	//console.log("Sending message: ", msg);
 
   	let message = {
   		text: msg,

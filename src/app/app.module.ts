@@ -114,6 +114,7 @@ import { ModalHolderDirective } from './modal-holder/modal-holder.directive';
 
 //environment access
 import { environment } from './../environments/environment';
+import { ImageSanitizerPipe } from './pipes/image-sanitizer.pipe';
 
 const routes: Routes = [
   {
@@ -281,7 +282,8 @@ const routes: Routes = [
     UserNameFilterPipe,
     BuyTicketsComponent,
     EditVenueComponent,
-    BasicTopNavComponent
+    BasicTopNavComponent,
+    ImageSanitizerPipe
   ],
   imports: [
     BrowserModule,
