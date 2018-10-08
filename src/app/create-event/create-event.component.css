@@ -1,0 +1,79 @@
+.top-nav{
+	background-color: black;
+	color: #ea7a3b;
+	padding: 10px;
+	border-bottom: 1px solid #ccc;
+}
+.create-event-component{
+	padding: 20px;
+	margin-top: 30px;
+	padding-bottom: 120px;
+	background-color: black;
+    color: #fff;
+    height: 100%;
+}
+
+.dateContainer{
+	display:flex;
+	flex-direction: column;
+}
+
+.event_type_container, .event_visibility_container{
+	display: flex;
+    justify-content: stretch;
+}
+
+.event_type_container .form-check, .event_visibility_container .form-check{
+	background-color: #e18047;
+    padding: 8px 0px;
+    border-radius: 1px;
+    text-align: center;
+    border: .25px solid #6b3c21;
+}
+
+.event_type_container .form-check{
+	width: 33%;
+}
+
+.event_visibility_container .form-check{
+	width: 50%;
+}
+
+.event_type_container .form-check-input, .event_visibility_container .form-check-input{
+	margin-left: 0 !important;
+    visibility: hidden;
+}
+
+.event_type_container label, .event_visibility_container label{
+	padding-left: 0px !important;
+}
+
+.event_type_container .form-check.selected, .event_visibility_container .form-check.selected{
+	background-color: #6b3c21;
+}
+
+.promoImage_uploadType{
+	display: flex;
+	justify-content: stretch;
+    margin-bottom: 15px;
+}
+
+.promoImage_uploadType .btn{
+	background-color: #e18047;
+    width: 50%;
+    border-radius: 2px;
+}
+
+.promoImage_uploadType .btn-secondary:hover {
+    background-color: #673e26;
+}
+
+.btn_container{
+	text-align: center;
+}
+
+.btn_container .btn{
+	width: 200px;
+	background-color: #d98451;
+	border-color: #d98451;
+}

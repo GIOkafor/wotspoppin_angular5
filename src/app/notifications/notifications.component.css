@@ -1,0 +1,32 @@
+.notifications_container{
+	color: #fff;
+	padding-bottom: 60px;
+	text-align: center;
+}
+
+.invite_info{
+	padding: 10px;
+    border-bottom: 1px solid;
+    display: flex;
+    justify-content: space-around;
+}
+
+.request{
+	display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.sender_image{
+	height: 50px;
+    width: 50px;
+    border-radius: 50%;
+}
+
+.sender_name{
+	font-size: 20px;
+}
+
+.friend_requests{
+	margin-top: 20px;
+}

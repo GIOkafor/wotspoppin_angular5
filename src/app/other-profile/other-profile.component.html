@@ -1,0 +1,98 @@
+<!-- Reuse this component for user profile edits -->
+	
+
+<div class="top_nav">
+	<i class="fa fa-lg fa-chevron-left" (click)="goBack();"></i>
+
+	<!--		
+		<span class="save" (click)="save(f);">Done</span>
+	-->
+</div>
+
+<div class="other_profile_container" *ngIf="user">
+	<div class="imageDiv">
+		<img class="user-image" *ngIf="(user.key | userImageUrl | async) !== null" [src]="user.key | userImageUrl | async">
+		<img class="placeholder-image" *ngIf="(user.key | userImageUrl | async) == null" src="assets/profile-placeholder.jpg">
+
+		<div class="image-upload" *ngIf="checkUser(currentUser.uid)">
+		    <label for="file-input">
+		        <i class="btn change_profile" type="file">Change Photo</i>
+		    </label>
+
+		    <input id="file-input" type="file" (change)="detectFiles($event)"/>
+		</div>
+
+		<div class="userinfo_text_container">
+			<span class="username">{{user.payload.val().userInfo.displayName}}</span>
+
+			<div class="posts_and_friends">
+				<span class="posts_count">Posts: {{postsCount}}</span>
+				<span>Friends: {{friendCount}}</span>
+			</div>
+		</div>
+
+		<div class="sendRequest" *ngIf="!checkUser(currentUser.uid)">
+			<div *ngIf="!isFriend(user.key)" class="not_friend">
+				<button *ngIf="!isFriend(user.key) && !isRequested(user.key)" class="btn btn-success" (click)="addFriend(user.key)">Add Friend</button>
+				<button class="btn btn-outline-info requested" *ngIf="isRequested(user.key)">Requested</button>
+			</div>
+			
+			<button *ngIf="isFriend(user.key)" class="btn btn-danger" (click)="removeFriend(user.key)">Remove Friend</button>
+		</div>
+	</div>
+
+	<!-- User information section start -->
+	<div class="user_info">
+		<form #f="ngForm" (ngSubmit)="save(f)">
+			<div class="form-group username">
+				<i class="fa fa-lg fa-user"></i>
+				<!-- This is shown for other users -->
+				<input type="text" name="displayName" [(ngModel)]="user.payload.val().userInfo.displayName" *ngIf="!checkUser(currentUser.uid)" disabled>
+				
+				<!-- This is shown for your profile -->
+				<input type="text" name="displayName" [(ngModel)]="user.payload.val().userInfo.displayName" *ngIf="checkUser(currentUser.uid)" ngModel>
+			</div>
+
+			<div class="form-group">
+				<i class="fa fa-lg fa-envelope-o"></i>
+				<!-- This is shown for other users -->
+				<input type="text" name="email" [(ngModel)]="user.payload.val().userInfo.email" *ngIf="!checkUser(currentUser.uid)" disabled>
+
+				<!-- This is shown for your profile -->
+				<input type="text" name="email" [(ngModel)]="user.payload.val().userInfo.email" *ngIf="checkUser(currentUser.uid)" ngModel>
+			</div>
+
+			<div class="form-group">
+				<i class="fa fa-2x fa-mobile"></i>
+				<!-- This is shown for other users -->
+				<input type="text" name="phoneNumber" [(ngModel)]="user.payload.val().userInfo.phoneNumber" *ngIf="!checkUser(currentUser.uid)" disabled>
+
+				<!-- This is shown for your profile -->
+				<input type="text" name="phoneNumber" [(ngModel)]="user.payload.val().userInfo.phoneNumber" *ngIf="checkUser(currentUser.uid)" required ngModel>
+			</div>
+
+			<div class="form-group">
+				<i class="fa fa-lg fa-transgender"></i>
+				<!-- This is shown for other users -->
+				<input type="text" name="sex" [(ngModel)]="user.payload.val().userInfo.sex" *ngIf="!checkUser(currentUser.uid)" disabled>
+
+				<!-- This is shown for your profile -->
+				<input type="text" name="sex" [(ngModel)]="user.payload.val().userInfo.sex" *ngIf="checkUser(currentUser.uid)" required ngModel>
+			</div>
+
+			<div class="form-group">
+				<i class="fa fa-lg fa-globe"></i>
+				<!-- This is shown for other users -->
+				<input type="text" name="location" [(ngModel)]="user.payload.val().userInfo.location" *ngIf="!checkUser(currentUser.uid)" disabled>
+
+				<!-- This is shown for your profile -->
+				<input type="text" name="location" [(ngModel)]="user.payload.val().userInfo.location" *ngIf="checkUser(currentUser.uid)" required ngModel>
+			</div>
+
+			<button *ngIf="checkUser(currentUser.uid)" type="submit" class="btn submit_btn" [disabled]="!f.valid">Done</button>
+		</form>
+	</div>
+	<!-- User information section end -->
+</div>
+
+<app-footer></app-footer>

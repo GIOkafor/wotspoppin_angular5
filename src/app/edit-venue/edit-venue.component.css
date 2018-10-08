@@ -1,0 +1,67 @@
+.edit-venue-container{
+	background-color: black;
+	color: #fff;
+    padding-bottom: 15px;
+}
+
+.cover_image_container{
+	text-align: center;
+	margin-bottom: 15px;
+}
+.cover_image_container .btn{
+	background-color: #ea7a3b;
+	margin-top: 15px;
+}
+.cover_image_container img{
+    height: 250px;
+    max-width: 100%;
+}
+.image-upload > input
+{
+    display: none;
+}
+
+.form-group{
+	display: flex;
+    flex-direction: column;
+}
+
+.hours {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.hours input[type="text"] {
+    width: 100px;
+}
+.hours input[type="time"]{
+	width: 98px;
+}
+
+.hours-input{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.hours-input .dow{
+    background-color: #fff;
+    padding-top: 10px;
+}
+.hours-input input[type="time"]{
+	width: 98px;
+}
+.add-time-btn, .remove{
+	color: #e18047;
+}
+
+.ticket_price_container mat-slider{
+	background-color: #fff;
+}
+
+label.btn-secondary{
+	background-color: #e18047;
+}
+
+label.btn-secondary.active{
+	background-color: #844d2c !important;
+}

@@ -1,0 +1,69 @@
+.header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.fa{
+    font-size: 20px;
+}
+
+.header .fa-times{
+    font-size: 30px;
+}
+
+.bottle_count{
+	width: 50px;
+    border: 1px solid;
+    text-align: center;
+}
+
+.cartContents{
+	margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+.button_container{
+    text-align: center;
+}
+
+.headerTitle{
+	font-weight: bold;
+    font-size: 20px;
+}
+
+.totalCost{
+	color: #2d2d2dcc;
+    font-style: italic;
+    padding-top: 3px;
+}
+
+.cartItem{
+	padding: 5px 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.place_order_btn{
+    background-color: #ea7a3b;
+    color: #fff;
+    width: 200px;
+}
+.min_spend_error{
+  color: red;
+}
+
+@media only screen and (max-width: 320px){
+    .header{
+        align-items: start;
+    }
+
+    .header .title, .header .fa{
+        font-size: 20px;
+    }
+
+    .bottle_service_component{
+        font-size: .8em;
+    }
+}

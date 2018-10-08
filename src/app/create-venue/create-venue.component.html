@@ -1,0 +1,178 @@
+<div class="top_nav sticky-top">
+	<i class="fa fa-lg fa-chevron-left" (click)="goBack()"></i>
+</div>
+<div class="createVenue">
+	<h2>Create New Venue</h2>
+
+	<form
+		class="createVenueForm"
+		[formGroup]="venueForm"
+		(ngSubmit)="subTest(venueForm.value)">
+
+		<div class="form-group">
+			<label for="name">Venue Name</label>
+			<input type="text" name="name" placeholder="Hip Central" [formControl]="venueForm.controls['name']" />
+
+			<!-- error message display code -->
+			<div *ngIf="!venueForm.controls['name'].valid && venueForm.controls['name'].touched"
+				class="bg-danger error">Venue name is invalid</div>
+			<div class="bg-danger error" *ngIf="venueForm.controls['name'].hasError('required') && venueForm.controls['name'].touched">Venue name is required</div>
+		</div>
+
+		<div class="form-group">
+			<label>Address: </label>
+			<input type="text" name="address" placeholder="123 middle of nowhere" id="address" [formControl]="venueForm.controls['address']" #address autocomplete="false">
+
+			<!-- error message display code -->
+			<div *ngIf="!venueForm.controls['address'].valid && venueForm.controls['address'].touched"
+				class="bg-danger error">Venue address is invalid</div>
+			<div class="bg-danger error" *ngIf="venueForm.controls['address'].hasError('required') && venueForm.controls['address'].touched">Venue address is required</div>
+		</div>
+
+		<!-- province select form group -->
+		<div class="form-group">
+			<label for="province">Province: </label>
+
+			<mat-select class="province_select" placeholder="Province" [formControl]="venueForm.controls['province']">
+				<mat-option *ngFor="let province of provinces" [value]="province">
+					{{ province.short }}
+				</mat-option>
+			</mat-select>
+		</div>
+
+		<div class="form-group">
+			<label>Hours</label>
+
+			<!--
+				<input type="text" name="hours" placeholder="9pm - 4pm" id="hours" [formControl]="venueForm.controls['hours']">
+			-->
+
+			<div class="hours" *ngFor="let day of hoursWorked; let i = index;">
+				<input type="text" name="day-of-week" [(ngModel)]="day.day" [ngModelOptions]="{standalone: true}">
+				<input type="time" class="startTime" [(ngModel)]="day.startTime" [ngModelOptions]="{standalone: true}">
+				<input type="time" class="endTime" [(ngModel)]="day.endTime" [ngModelOptions]="{standalone: true}">
+				<i class="fa fa-times fa-lg btn remove" (click)="remove(i)"></i>
+			</div>
+
+			<div class="hours-input">
+				<!-- Day of the week selector start -->
+					<mat-select [(value)]="newDay" class="dow">
+						<mat-option value="Monday">Monday</mat-option>
+						<mat-option value="Tuesday">Tuesday</mat-option>
+						<mat-option value="Wednesday">Wednesday</mat-option>
+						<mat-option value="Thursday">Thursday</mat-option>
+						<mat-option value="Friday">Friday</mat-option>
+						<mat-option value="Saturday">Saturday</mat-option>
+						<mat-option value="Sunday">Sunday</mat-option>
+					</mat-select>
+				<!-- Day of the week selector end -->
+
+				<!-- select time start-->
+					<input type="time" [(ngModel)]="startTime" name="startTime" [ngModelOptions]="{standalone: true}">
+					<input type="time" [(ngModel)]="endTime" name="endTime" [ngModelOptions]="{standalone: true}">
+				<!-- select time end-->
+
+				<i class="fa fa-plus fa-lg btn add-time-btn" (click)="addHours(newDay, startTime, endTime);"></i>
+			</div>
+
+			<!-- error message display code
+				<div *ngIf="!venueForm.controls['hours'].valid && venueForm.controls['hours'].touched"
+					class="bg-danger error">Venue hours is invalid</div>
+				<div class="bg-danger error" *ngIf="venueForm.controls['hours'].hasError('required') && venueForm.controls['hours'].touched">Venue hours is required</div>
+			-->
+		</div>
+
+		<div class="form-group">
+			<label>Image</label>
+
+			<span class="btn btn-secondary" (click)="imageSrc('url')">From Url</span>
+
+			<span class="btn btn-secondary" (click)="imageSrc('file')">Upload File</span>
+
+			<!-- Show this if they want to upload via url -->
+			<input *ngIf="imageSource === 'url'" type="text" name="imageUrl" placeholder="www.image.com" id="imageUrl" [formControl]="venueForm.controls['imageUrl']">
+
+			<!-- Show this if they want to upload via file upload -->
+			<input *ngIf="imageSource === 'file'" id="imageUrl" name="imageUrl" type="file" (change)="detectFiles($event)"/>
+
+			<!-- error message display code -->
+			<div *ngIf="!venueForm.controls['imageUrl'].valid && venueForm.controls['imageUrl'].touched"
+				class="bg-danger error">Venue imageUrl is invalid</div>
+			<div class="bg-danger error" *ngIf="venueForm.controls['imageUrl'].hasError('required') && venueForm.controls['imageUrl'].touched">Venue imageUrl is required</div>
+		</div>
+
+		<div class="form-group">
+			<label>Venue Type</label>
+
+			<mat-radio-group class="venue-select" [formControl]="venueForm.controls['venueType']">
+			  <mat-radio-button value="bar">Bar</mat-radio-button>
+			  <mat-radio-button value="club">Club</mat-radio-button>
+			  <mat-radio-button value="event">Event</mat-radio-button>
+			</mat-radio-group>
+		</div>
+
+		<div class="form-group descriptionGroup">
+			<label>Short Description <i>max(140 characters)</i></label>
+			<textarea maxlength="140" [formControl]="venueForm.controls['description']"></textarea>
+		</div>
+
+		<!-- only show this slider for clubs -->
+		<div *ngIf="venueForm.controls['venueType'].value === 'club'" class="form-group slider_container">
+			<label>Base Cover ($)</label>
+
+			<mat-slider
+				min="0"
+				step="5"
+				thumbLabel="true"
+				[formControl]="venueForm.controls['baseCover']"></mat-slider>
+		</div>
+
+		<!-- only show this slider for clubs (and bars - for now) -->
+		<div *ngIf="venueForm.controls['venueType'].value === 'club' || venueForm.controls['venueType'].value === 'bar'" class="form-group slider_container">
+			<label
+				matTooltip="Minimum a user would have to be willing to spend on drinks to process their order online"
+				matTooltipPosition="right">Minimum Spend ($)</label>
+
+			<mat-slider
+				min="0"
+				step="5"
+				thumbLabel="true"
+				[formControl]="venueForm.controls['minimumSpendPerOrder']"></mat-slider>
+		</div>
+
+		<!-- tip percent -->
+		<div *ngIf="venueForm.controls['venueType'].value === 'club' || venueForm.controls['venueType'].value === 'bar'" class="form-group slider_container">
+			<label>Flat Gratuity (%)</label>
+
+			<mat-slider
+				min="0"
+				step="0.5"
+				max="18"
+				thumbLabel="true"
+				[formControl]="venueForm.controls['tips']"></mat-slider>
+		</div>
+
+		<!-- tables/event -->
+		<div *ngIf="venueForm.controls['venueType'].value === 'club' || venueForm.controls['venueType'].value === 'bar'" class="form-group slider_container">
+			<label
+				matTooltip="The default number of tables you'd like to make available for purchase per event"
+				matTooltipPosition="right">
+				Tables Per Event <i class="fa fa-question-circle"></i>
+			</label>
+
+			<mat-slider
+				min="0"
+				step="1"
+				max="30"
+				thumbLabel="true"
+				[formControl]="venueForm.controls['tablesPerEvent']"></mat-slider>
+		</div>
+
+		<div class="cta_btns">
+			<span class="btn btn-warning">Cancel</span>
+			<button [disabled]="!venueForm.valid" class="btn btn-success" type="submit">Create Venue</button>
+		</div>
+	</form>
+</div>
+
+<app-footer></app-footer>

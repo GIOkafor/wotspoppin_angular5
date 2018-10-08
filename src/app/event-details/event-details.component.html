@@ -1,0 +1,108 @@
+<div class="event_details_container">
+	
+	<div class="top-nav sticky-top">
+		<div class="icon_date">
+			<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
+
+			<span class="event_date" *ngIf="event">{{event.payload.val().date | date:'longDate'}}</span>
+		</div>
+
+		<!--<i class="fa fa-lg fa-bars" aria-hidden="true"></i>-->
+
+		<div *ngIf="event">
+			<i *ngIf="event.payload.val().createdBy === currentUserUid" class="fa fa-lg fa-trash" aria-hidden="true" (click)="showDeleteEventDialog();"></i>
+		</div>
+	</div>
+	
+	<div *ngIf="event">	
+
+		<div class="venue_details_container">
+
+			<img class="venue_image" [src]="event.payload.val().promoImage">
+
+			<div class="details">
+				<span class="name">{{event.payload.val().name}}</span>
+
+				<div class="distance_and_address">
+					<!-- Get venue name and display below -->
+					<span class="distance">10 km away</span>
+
+					<!-- If no event.address, show this i.e if it's user created show adress otherwise show venue address -->
+					<span  *ngIf="!event.payload.val().address">
+						- <span class="address" *ngFor="let venue of (event.payload.val().createdBy | venueInfo | async)">{{venue.address}}</span>
+					</span>
+
+					<!-- Show this section if event is created by user -->
+					<span *ngIf="event.payload.val().address" class="address">
+						- {{event.payload.val().address}}
+					</span>
+
+				</div>
+			</div>
+		</div>
+
+		<!-- Guest list section start -->
+		<div class="guest_list">
+			<div class="guest_list_header" (click)="showGuestList();">
+				Guest List
+			</div>
+
+			<div class="guest_list_info">
+				<div class="people_attending">People Attending</div>
+
+				<!--
+				<div class="demographics">
+					<div class="females">
+						<div class="icon_container">
+							<i class="fa fa-3x fa-female" aria-hidden="true"></i>
+						</div>
+
+						<span class="demo_count">5</span>
+					</div>
+
+					<div class="males">
+						<div class="icon_container">
+							<i class="fa fa-3x fa-male" aria-hidden="true"></i>
+						</div>
+
+						<span class="demo_count">5</span>
+					</div>
+				</div>
+				-->
+
+				<div class="people_going">
+					<i class="fa fa-users" aria-hidden="true"></i>
+					<span class="guestsCount">{{guestsCount}}</span>
+				</div>
+
+			</div>
+		</div>
+		<!-- Guest list section end -->
+
+		<!-- User cta section start-->
+		<div class="cta">
+			<div class="event_reservation" *ngIf="attending">
+				<span class="action" [ngClass]="{'active':attending}">Attending</span>
+				<span class="action" [ngClass]="{'active':maybe}">Maybe</span>
+			</div>
+
+			<!-- Show this instead if user is on the fence, this lets them click to attend -->
+			<div class="event_reservation" *ngIf="!attending">
+				<span class="action" (click)="attendEvent()">Attend</span>
+				<span class="action" [ngClass]="{'active':maybe}" (click)="mayBe()">Maybe</span>
+			</div>
+
+			<button class="btn invite_friends" (click)="inviteFriends();">Invite Friends</button>
+		</div>
+		<!-- User cta section end -->
+	</div>
+
+	<!-- section is shown when event doesn't exist in db -->
+	<div *ngIf="!event" class="not_found">
+		<h3>Event Not Found</h3>
+
+		<div>It could have been deleted by the creator</div>
+	</div>
+</div>
+
+<app-footer></app-footer>

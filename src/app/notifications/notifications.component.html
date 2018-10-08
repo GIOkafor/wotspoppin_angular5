@@ -1,0 +1,47 @@
+<div class="container notifications_container">
+
+	<h4 class="section_header">Notifications</h4>
+	
+	<div class="invites_container">
+
+		<h5>Events you were invited to: </h5>
+
+		<div *ngFor="let invite of invites | async">
+
+			<div class="invite_info">
+				
+				<div class="invite_text" [routerLink]="['/event-details', invite.payload.val().event]">
+					<span>{{invite.payload.val().event | eventInfoFilter:'name' | async}}</span>
+
+					<span>@ {{invite.payload.val().event | eventInfoFilter:'date' | async | date:'shortDate'}}</span>
+				</div>	
+
+				<div class="cta">
+					<i class="fa fa-times fa-2x" aria-hidden="true" (click)="dismissEventNotification(invite);"></i>
+				</div>
+			</div>
+		</div>
+
+		<!-- Not showing up for some reason
+			<div *ngIf="!invites">
+				<p>You have no new notifications</p>
+			</div>
+		-->
+
+		<div class="friend_requests">
+			<h5>Pending Friend Requests: </h5>
+
+			<!-- repeat for each friend request -->
+			<div class="request" *ngFor="let request of requests | async">
+				
+				<img class="sender_image" [src]="(request.payload.val().from | userImageUrl | async) ? (request.payload.val().from | userImageUrl | async) : 'assets/profile-placeholder.jpg'">
+
+				<span class="sender_name">{{request.payload.val().from | userDisplayName | async}}</span>
+
+				<i class="fa fa-check fa-2x" aria-hidden="true" (click)="accept(request);"></i>
+
+				<i class="fa fa-times fa-2x" aria-hidden="true" (click)="reject(request);"></i>
+			</div>
+		</div>
+	</div>
+</div>

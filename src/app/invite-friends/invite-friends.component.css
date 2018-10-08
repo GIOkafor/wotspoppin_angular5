@@ -1,0 +1,42 @@
+.top-nav{
+	background-color: black;
+	color: #ea7a3b;
+	display: flex;
+	justify-content: space-between;
+	align-items: baseline;
+}
+
+.top-nav .fa{
+	padding: 10px;
+}
+
+.invite_friends_container{
+	height: 100%;
+	background-color: black;
+	color: #fff;
+	box-shadow: 1px 1px 10px 0px;
+}
+
+.friends_list{
+	display: flex;
+    flex-direction: column;
+}
+.friend{
+	display: flex;
+    padding: 10px;
+    justify-content: space-between;
+    align-items: center;
+	border-bottom: 1px solid grey;
+}
+.friend_image{
+	width: 65px;
+    height: 65px;
+}
+.send_invite, .select_friend{
+	color: #fff;
+    background-color: #e18047;
+}
+.invite_sent{
+	background-color: #0000ff;
+	color: #fff;
+}

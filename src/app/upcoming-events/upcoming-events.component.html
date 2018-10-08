@@ -1,0 +1,21 @@
+<div class="upcoming-events">
+	<h4>Your Upcoming Events</h4>
+
+	<table class="table table-striped">
+		<tr>
+			<th>Event Name</th>
+			<th>Date</th>
+			<th><i class="fa fa-trash fa-lg"></i></th>
+		</tr>
+
+
+		<!-- Repeat this row below --> 
+	
+		<tr *ngFor="let event of userEvents | async">
+			<td (click)="getEventDetails(event.payload.key);">{{event.payload.val().name}}</td>
+			<td>{{event.payload.val().date | date:'mediumDate'}}</td>
+			<td (click)="openDeleteDialog(event.key);"><i class="fa fa-times fa-lg"></i></td>
+		</tr>
+
+	</table>
+</div>

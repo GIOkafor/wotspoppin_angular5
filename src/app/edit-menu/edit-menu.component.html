@@ -1,0 +1,133 @@
+<div class="menu_component">
+	<!-- Seen top nav a hundred times. either make it;s own com or copy paste -->
+	<div class="top_nav sticky-top">
+		<i class="fa fa-lg fa-chevron-left" (click)="goBack()"></i>
+		<h4>Menu & Reservations</h4>
+	</div>
+
+	<!-- Edit minimum spend section start -->
+	<div class="minimum_spend_container">
+
+		<form #minimumSpendForm="ngForm">
+			<div class="form-group">
+				<label>
+					Minimum spend
+					<i class="fa fa-question-circle" matTooltip="The least amount user would have to pay on a per-order basis before their order can be processed"></i>
+				</label>
+
+				<div class="input-group">
+					<mat-icon matPrefix>attach_money</mat-icon>
+					<input class="example-right-align min_spend_input" type="number" name="minimumSpendPerOrder" [(ngModel)]="minimumSpendPerOrder">
+					<!-- <mat-hint>The least amount user would have to pay on a per-order basis before their order can be processed</mat-hint> -->
+					<div class="input-group-append">
+						<button mat-icon-button (click)="updateMinSpend(minimumSpendPerOrder)">
+							<mat-icon>save</mat-icon>
+						</button>
+				  </div>
+				</div>
+			</div>
+
+			<!-- spinner for tracking operation status -->
+			<div class="spinner-div" *ngIf="spinner">
+				<mat-spinner color="warn"></mat-spinner>
+			</div>
+		</form>
+	</div>
+	<!-- Edit minimum spend section end -->
+
+	<!-- Edit tip percent section start -->
+	<div class="tip_edit_container">
+
+		<form #tipEditForm="ngForm">
+			<div class="form-group">
+				<label>
+					Flat Gratuity
+					<i class="fa fa-question-circle" matTooltip="The amount you would like users to tip your servers automatically included in their bill"></i>
+				</label>
+
+				<div class="input-group">
+					<i class="fa fa-percentage"></i>
+					<input class="example-right-align min_spend_input" type="number" name="tips" [(ngModel)]="tips">
+					<div class="input-group-append">
+						<button mat-icon-button (click)="updateTips(tips)">
+							<mat-icon>save</mat-icon>
+						</button>
+				  </div>
+				</div>
+			</div>
+
+		</form>
+	</div>
+	<!-- Edit tip percent section end -->
+
+	<!-- Edit # of tables section start -->
+	<div class="tables_edit_container">
+
+		<form #tablesEditForm="ngForm">
+			<div class="form-group">
+				<label>
+					Number of Tables/Booths
+					<i class="fa fa-question-circle" matTooltip="The number of booths you'd like to have available for purchase per event"></i>
+				</label>
+
+				<div class="input-group">
+					<input class="example-right-align min_spend_input" type="number" name="tablesPerEvent" [(ngModel)]="tablesPerEvent">
+					<!-- <mat-hint>The least amount user would have to pay on a per-order basis before their order can be processed</mat-hint> -->
+					<div class="input-group-append">
+						<button mat-icon-button (click)="updateTables(tablesPerEvent)">
+							<mat-icon>save</mat-icon>
+						</button>
+				  </div>
+				</div>
+			</div>
+		</form>
+	</div>
+	<!-- Edit # of tables section end -->
+
+	<!-- Edit menu form -->
+	<div class="menu_items_container">
+		<h5>Menu Items</h5>
+
+		<form #menuForm="ngForm"
+			(submit)="addNew(menuForm.value)">
+			<!-- repeat current menu items start -->
+			<table class="table table-responsive-sm table-sm menu_items">
+				<thead>
+					<tr>
+						<th scope="col">Name</th>
+						<th scope="col">Price</th>
+						<th scope="col">Delete</th>
+					</tr>
+				</thead>
+
+				<tbody>
+					<tr class="menu_item" *ngFor="let item of menu">
+						<td>{{item.payload.val().name}}</td>
+						<td>${{item.payload.val().price}}</td>
+						<td><i class="fa fa-trash" (click)="openDelete(item.key)"></i></td>
+					</tr>
+
+					<!-- make form, reset afterwards -->
+					<!-- input field for adding new item start-->
+					<tr class="new_item">
+						<td>
+							<input type="text" placeholder="Name" name="name" class="new_item_name" [(ngModel)]="name">
+						</td>
+
+						<td>
+							<input type="number" placeholder="$Price" name="price" class="new_item_price" [(ngModel)]="price">
+						</td>
+
+						<td>
+							<i class="fa fa-plus" (click)="addNew(menuForm.value);menuForm.reset();"></i>
+						</td>
+
+					</tr>
+					<!-- input field for adding new item end-->
+				</tbody>
+			</table>
+			<!-- repeat current menu items end -->
+		</form>
+
+	</div>
+</div>

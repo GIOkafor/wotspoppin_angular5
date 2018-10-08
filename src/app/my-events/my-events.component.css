@@ -1,0 +1,14 @@
+.my_events_container{
+	color: #fff;
+	padding: 10px;
+	height: 100vh;
+}
+
+.event{
+	display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 1px solid;
+    padding: 5px;
+}

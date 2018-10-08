@@ -1,0 +1,50 @@
+.events_list{
+    display: flex;
+    flex-direction: column;
+    text-align: start;
+    padding: 10px;
+}
+
+.event .header{
+	display: flex;
+	margin-bottom: 10px;
+}
+
+.event .date{
+	background-color: #e6e6e6;
+	color: #797979;
+	border-radius: 5px;
+    width: 5.3em;
+    text-align: center;
+    font-size: 0.8em;
+    text-transform: uppercase;
+    padding: 1px 5px;
+    display: flex;
+    flex-direction: column;
+}
+
+.day_num{
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.event .event_title{
+    margin-left: 20px;
+}
+
+.event_title .event_name{
+	font-size: 20px;
+}
+
+.event .event_title .extra{
+	font-size: 14px;
+	color: #afafaf;
+}
+
+.event .event_title .event_time{
+	font-weight: bold;
+}
+
+.flyer_image{
+    width: 100%;
+}

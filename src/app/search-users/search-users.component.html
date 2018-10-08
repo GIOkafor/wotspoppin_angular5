@@ -1,0 +1,28 @@
+<div class="top-nav sticky-top">
+	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
+	<span class="nav_text">Search</span>
+</div>
+
+<div class="user_search_container">
+	
+	<form #f="ngForm" class="search_input" (ngSubmit)="filterByName(f.value.input); f.reset();">
+		<input type="text" placeholder="Search" name="input" autocomplete="off" [(ngModel)]="userFilter.val.displayName">
+		
+		<button class="btn" type="submit">
+			<i class="fa fa-search"></i>
+		</button>
+	</form>
+	
+	<div class="results_list" *ngIf="results$ | async; let results">		
+		<div class="search_results" *ngFor="let result of results | filterBy:userFilter" [routerLink]="['/user-profile', result.key]">
+			<img class="user_img" [src]="(result.key | userImageUrl | async) ? (result.key | userImageUrl | async) : 'assets/profile-placeholder.jpg'" alt="sender image">
+
+			<span class="display_name">{{result.val.displayName}}</span>
+		</div>
+
+		<!-- in case you want to show empty message -->
+		<div *ngIf="(results | filterBy: userFilter).length === 0">No users matching that name</div>
+	</div>
+</div>
+
+<app-footer></app-footer>

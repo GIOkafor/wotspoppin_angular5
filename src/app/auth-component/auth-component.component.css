@@ -1,0 +1,132 @@
+.authContainer{
+	background-color: black;
+    background-position: center;
+	height: 100vh;
+	color: #e18047;
+}
+
+.logoContainer{
+	display: flex;
+    justify-content: center;
+}
+
+.logo{
+    height: 150px;
+}
+
+.btn{
+	color: #fff;
+	margin-bottom: 10px;
+	width: 225px;
+}
+
+.loginBtn{
+    width: 225px;
+    border-radius: 0px;
+    align-self: center;
+    background-color: #d6824f;
+}
+
+.signIn, .signUp{
+	display: flex;
+    flex-direction: column;
+    align-items: center;
+   /* background-color: #00000099;*/
+    background-color: #fff;
+    padding: 10px;
+}
+
+.signin_text{
+	font-size: 25px;
+	padding-top: 10px;
+    text-align: center;
+}
+
+.loginForm{
+    display: flex;
+    flex-direction: column;
+}
+.loginForm input{
+	padding: 3px;
+}
+.loginForm input[type="password"]{
+	margin-left: 10px;
+}
+
+.loading_spinner{
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    width: 250px;
+    opacity: .7;
+}
+
+.googleAuth{
+	background-color: #c5513a;
+}
+
+.fbAuth{
+	background-color: #396cbe;
+}
+
+.account_type{
+	color: black;
+    margin-bottom: 10px;
+}
+
+.account_type button{
+	background-color: #e18047;
+	color: #fff;
+    font-weight: bold;
+}
+
+.user_sign_up{
+    text-align: center;
+}
+
+.forgot_password{
+	text-decoration: underline;
+	text-align: center;
+    margin-bottom: 10px;
+}
+
+.forgot_password_container h3{text-align: center;}
+.forgot_password_container form{
+    display: flex;
+    flex-direction: column;
+}
+.forgot_password_container #resetEmail{
+    text-align: center;
+    border: 1px solid #da8551;
+    margin-bottom: 10px;
+}
+.forgot_password_container button{
+	background-color: #da8551;
+    margin-bottom: 10px;
+    width: auto;
+}
+
+.signIn .form-group{
+    justify-content: space-between;
+    display: flex;
+		align-items: baseline;
+}
+
+.hasAccount{
+    padding-bottom: 10px;
+}
+
+mat-vertical-stepper.signup_steps{
+	background-color: transparent !important;
+	color: black;
+}
+
+.sign_type{
+	margin-bottom: 10px;
+}
+
+@media only screen and (max-width: 340px){
+	.title{
+		font-size: 3em;
+	}
+}

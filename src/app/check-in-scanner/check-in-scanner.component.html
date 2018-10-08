@@ -1,0 +1,32 @@
+<div class="top-nav sticky-top">
+	<i class="fa fa-lg fa-chevron-left" aria-hidden="true" (click)="goBack();"></i>
+</div>
+
+<div class="container scanner">
+	
+	<zxing-scanner  *ngIf="!scanIsComplete"
+	    [scannerEnabled]="cameraEnabled"
+	    [autofocusEnabled]="autofocusEnabled"
+	    [device]="selectedDevice"
+	    [cssClass]="'small-video'"
+	    (camerasFound)="enableCamera($event)"
+	    (scanSuccess)="scanComplete($event)"
+	></zxing-scanner>
+
+	<div class="results" *ngIf="scanIsComplete">
+		<div class="username">Username: {{reservationInfo.user | userDisplayName | async}}</div>
+
+		<div class="purpose">Reservation Type: {{reservationInfo.type}}</div>
+
+		<div class="venue" *ngFor="let venue of (reservationInfo.venue | venueInfo | async)">Venue: {{ venue.name }}</div>
+
+		<div class="price">Price: ${{reservationInfo.order}}</div>
+
+		<div class="date">Reservation Date: {{reservationInfo.date}}</div>
+
+		<div class="cta">
+			<button class="btn" (click)="scanIsComplete = false;">Scan Another Code</button>
+		</div>
+	</div>
+
+</div>

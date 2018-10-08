@@ -1,0 +1,91 @@
+<nav class="navbar sticky-top user_profile_header">
+	<i class="fa fa-lg fa-envelope-o" aria-hidden="true" routerLink='/messages'></i>
+
+	<div class="dropdown">
+		<!--
+			<i class="fa fa-lg fa-ellipsis-v btn" type="button" id="dropDownMenuButton" aria-hidden="true" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" ngbDropdownToggle></i>
+		-->
+
+		<a placement="left" (click)='settingsPO.toggle($event)'>Settings</a>
+
+		<pop-over #settingsPO
+		    	[y-offset]="10"
+		    	[anchor-to]="true"
+		    	[my]="'top right'"
+		    	[at]="'bottom left'"
+		    	[keep-on-click-outside]="false">
+
+		    	<div class="settings_menu">
+					<a (click)="settingsPO.hide();logOut();"> <i class="fas fa-sign-out-alt" aria-hidden="true"></i>  Logout</a>
+					<a [routerLink]="['/user-profile', currentUser.uid]" (click)="settingsPO.hide();"> <i class="fas fa-user-edit"></i> Edit Profile </a>
+					<a [routerLink]="['/payment-information']" (click)="settingsPO.hide();"> <i class="fa fa-credit-card" aria-hidden="true"></i>Payment</a>
+					<a (click)="openAccountDeleteModal(template)"><i class="fa fa-trash"></i> Delete Account </a>
+				</div>
+		</pop-over>
+	</div>
+</nav>
+
+<ng-template #template let-c="close">
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">Delete Account</h4>
+
+    <button type="button" class="close pull-right" aria-label="Close" (click)="c()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+
+  <div class="modal-body">
+    <p>Are you sure? This cannot be undone</p>
+
+    <div class="buttons">
+    	<button class="btn btn-danger" (click)="deleteAccount();c()">Delete</button>
+    	<button class="btn" (click)="c()">Cancel</button>
+    </div>
+  </div>
+</ng-template>
+
+<div class="userProfile">
+	<div class="imageDiv">
+		<img class="user-image" *ngIf="(currentUser.uid | userImageUrl | async) !== null" [src]="currentUser.uid | userImageUrl | async">
+		<img class="placeholder-image" *ngIf="(currentUser.uid | userImageUrl | async) == null" src="assets/profile-placeholder.jpg">
+
+		<div class="userinfo_text_container">
+			<span class="username">{{currentUser.displayName}}</span>
+
+			<div class="posts_and_friends">
+				<span class="posts_count">Posts: {{postsCount}}</span>
+				<span (click)="viewFriends();">Friends: {{friendCount}}</span>
+			</div>
+		</div>
+	</div>
+
+	<!-- sub nav for transitioning between user profile views -->
+	<nav class="navbar user_profile_subnav">
+
+		<span class="nav-item" routerLink='/profile/my-photos' routerLinkActive="active">
+			<i class="fa fa-lg fa-camera" aria-hidden="true"></i>
+		</span>
+
+		<span class="nav-item" routerLink='/profile/notifications' routerLinkActive="active">
+			<i class="fa fa-lg fa-bell" aria-hidden="true"></i>
+		</span>
+
+		<span class="nav-item" routerLink='/profile/upcoming-events' routerLinkActive="active">
+			<i class="fa fa-lg fa-calendar" aria-hidden="true"></i>
+		</span>
+
+		<span class="nav-item" routerLink='/profile/my-reservations' routerLinkActive="active">
+			<img class="stamp_icon" src="assets/Stamp-icon.png"/>
+		</span>
+
+	</nav>
+
+</div>
+
+<!-- Dynamic section of user profile -->
+<div class="dynamic_section">
+	<router-outlet></router-outlet>
+</div>
+<!-- Dynamic section of user profile ends -->
+
+<app-footer></app-footer>

@@ -1,0 +1,52 @@
+.header{
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+}
+
+.header .btn{
+    background-color: transparent;
+}
+
+.purchaseMethod{
+	margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.select_by_event{
+	margin-bottom: 20px;
+}
+
+.select_by_event label{
+	font-size: 15px;
+    font-weight: bold;
+}
+
+.payment_breakdown{ margin-top: 20px; }
+.payment_breakdown .section_header{
+  font-size: 17px;
+  font-weight: 400;
+}
+.date,
+.payment_breakdown > div{
+  display: flex;
+  justify-content: space-between;
+}
+.payment_breakdown .total{ align-items: center; }
+.payment_breakdown > div > .label{
+    color: grey;
+}
+.payment_breakdown .totalCost{
+  font-size: 28px;
+  font-weight: bold;
+}
+
+mat-dialog-actions{
+    justify-content: space-around;
+}
+
+.sub_btn{
+	background-color: #ea7a3b;
+	color: #fff;
+}

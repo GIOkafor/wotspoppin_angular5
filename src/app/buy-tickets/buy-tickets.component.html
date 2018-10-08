@@ -1,0 +1,82 @@
+<div class="header">
+	<h2 mat-dialog-title>Buy Ticket</h2>
+
+	<!-- The mat-dialog-close directive optionally accepts a value as a result for the dialog. -->
+	<button class="btn" [mat-dialog-close]="true">
+		<i class="fa fa-times"></i>
+	</button>
+</div>
+
+<mat-dialog-content class="content">
+	<!--
+		select ticket by event
+
+		select by date
+
+		clubs/bars always have tickets, one off events not so much
+	-->
+
+	<div class="purchaseMethod">
+		<button mat-button mat-button-raised (click)="date = false">By Event</button>
+		<button mat-button mat-button-raised (click)="date = true">By Date</button>
+	</div>
+
+	<div class="select_by_event" *ngIf="events && !date">
+
+		<label>Choose Event</label>
+		<mat-select placeholder="Pick event" [(value)]="selected">
+			<mat-option *ngFor="let event of events" [value]="event">{{event.payload.val().name}}</mat-option>
+		</mat-select>
+
+		<div *ngIf="events.length === 0" class="no_upcoming_events">
+
+			<span>Venue currently has no upcoming events</span>
+
+			<button class="btn" (click)="date = true;">Buy By Date Instead</button>
+		</div>
+	</div>
+
+	<div class="form-group" *ngIf="date">
+		<label>Event Date</label>
+		<input type="date" name="date" [(ngModel)]="eventDate">
+	</div>
+
+	<div class="card cart">
+		<div class="card-header">Order Summary</div>
+
+		<!-- for showing pre purchase summary, when user is buying ticket by event -->
+		<div class="card-body" *ngIf="selected && !date">
+			<div class="price" *ngIf="selected && !date"><i>Ticket Price: </i> ${{selected.payload.val().ticketPrice}}</div>
+			<div class="date" *ngIf="selected && !date"><i>Date: </i> {{selected.payload.val().date | date:mediumDate}}</div>
+			<div class="date" *ngIf="selected && !date"><i>Available tickets: </i> {{selected.payload.val().availableTickets}}</div>
+		</div>
+
+		<!-- for showing pre purchase summary, when user is buying ticket by date -->
+		<div class="card-body" *ngIf="!selected && date">
+			<div class="date"><span>Date: </span> {{eventDate | date:mediumDate}}</div>
+
+			<!-- payment breakdown section -->
+			<div class="payment_breakdown">
+				<h6 class="section_header">Payment Details</h6>
+				<div class="price"><span class="label">Ticket Price: </span> ${{ baseCover }}</div>
+				<div class="taxes"><span class="label">Tax: </span> ${{ taxes }}</div>
+
+				<div class="total">
+					<span class="label">Total Amount</span>
+					<span class="totalCost">${{ baseCover + taxes }}</span>
+				</div>
+			</div>
+
+			<!-- <div class="date"><i>Available tickets: </i> {{selected.payload.val().availableTickets}}</div> -->
+		</div>
+	</div>
+</mat-dialog-content>
+
+<mat-spinner *ngIf="loading"></mat-spinner>
+
+<mat-dialog-actions>
+  <button class="btn btn-danger" *ngIf="date || selected" mat-dialog-close>Cancel</button>
+
+  <button class="btn sub_btn" *ngIf="!date && selected" [disabled]="selected.payload.val().availableTickets < 0" (click)="buyTicket(selected.payload.val().ticketPrice, selected.payload.val().date, {value:'event', eventId: selected.key})">Submit</button>
+  <button class="btn sub_btn" *ngIf="date" [disabled]="!eventDate" (click)="buyTicket(baseCover, eventDate, {value:'regular'})">Submit</button>
+</mat-dialog-actions>

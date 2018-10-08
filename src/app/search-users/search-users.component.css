@@ -1,0 +1,49 @@
+.top-nav{
+	padding: 10px;
+	background-color: black;
+    color: #e18047;
+    display: flex;
+    align-items: center;
+}
+
+.nav_text{
+	flex-grow: 2;
+    text-align: center;
+}
+
+.search_input{
+	display: flex;
+}
+.search_input input{
+	flex-grow: 2;
+}
+
+.search_input .btn{
+	background: #e18047;
+    color: black;
+    border: 1px solid;
+}
+
+.user_search_container{
+	padding: 10px;
+	height: 100vh;
+    background-color: black;
+    color: #fff;
+}
+
+.results_list{
+    margin-bottom: 70px;
+}
+
+.search_results{
+	padding: 10px;
+}
+
+.user_img{
+	height: 70px;
+	width: 70px;
+}
+
+.display_name{
+	padding: 10px;
+}

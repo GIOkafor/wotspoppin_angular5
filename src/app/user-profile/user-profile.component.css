@@ -1,0 +1,95 @@
+.user_profile_header{
+	color: #e18047;
+    background-color: black;
+    border-bottom: 1px solid #8e8e8e;
+}
+.settings_menu{
+    display: flex;
+    flex-direction: column;
+    padding: 10px;
+    width: 160px;
+}
+.settings_menu a{
+    color: black !important;
+		cursor: pointer;
+}
+
+.settings_menu .fa{
+    margin-right: 5px;
+}
+
+.userProfile{
+	text-align: center;
+	background-color: black;
+}
+
+.user-image{
+	width: 150px;
+	max-height: 150px;
+	border-radius: 50%;
+}
+
+.placeholder-image{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.imageDiv{
+	padding-top: 80px;
+    padding-bottom: 25px;
+    background-color: black;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+}
+
+.userinfo_text_container{
+	background-color: rgba(0, 0, 0, .8);
+    padding: 10px;
+    margin-top: 20px;
+}
+
+span.username{
+	font-size: 20px;
+}
+
+.posts_and_friends{
+	font-size: 14px;
+}
+
+.posts_and_friends .posts_count{
+	margin-right: 40px;
+}
+
+.user_profile_subnav{
+	background-color: #e18047;
+    color: #fff;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+    padding: 0px;
+}
+
+.user_profile_subnav .nav-item{
+	width: 25%;
+    padding: 10px 0px;
+}
+
+.user_profile_subnav .active{
+	background-color: #c65c20;
+}
+
+.dynamic_section{
+	background-color: black;
+	height: 100%;
+    padding-bottom: 64px;
+}
+
+.stamp_icon{
+    height: 23px;
+    width: 23px;
+}

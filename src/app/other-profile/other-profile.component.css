@@ -1,0 +1,101 @@
+.top_nav{
+	color: #e18047;
+    background-color: black;
+    border-bottom: 1px solid #8e8e8e;
+    padding: 5px;
+}
+
+.save{
+    float: right;
+}
+
+.fa{
+    color: #e18047;
+}
+
+.other_profile_container{	
+	text-align: center;
+	background-color: black;
+    padding-bottom: 55px;
+}
+
+.user-image{
+    max-width: 50%;
+	max-height: 200px;
+	border-radius: 50%;
+}
+
+.placeholder-image{
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+}
+
+.imageDiv{
+	padding-top: 25px;
+    padding-bottom: 25px;
+    /* For now use placeholder image, later switch to user defined cover image */
+    background-color: black;
+    background-position: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #fff;
+}
+
+.image-upload > input
+{
+    display: none;
+}
+
+.change_profile{
+    margin-top: 20px;
+    background-color: #e18047;
+    color: black;
+    padding: 0px 10px;
+}
+
+.userinfo_text_container{
+	background-color: rgba(0, 0, 0, .8);
+    padding: 10px;
+    margin-top: 20px;
+}
+
+span.username{
+	font-size: 20px;
+}
+
+.posts_and_friends{
+	font-size: 14px;
+}
+
+.posts_and_friends .posts_count{
+	margin-right: 40px;
+}
+
+.sendRequest{
+    margin-top: 10px;
+}
+
+.user_info form{
+    margin: 30px 0px;
+}
+
+.user_info .form-group{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    padding: 0px 10%;
+}
+
+.user_info input{
+    background-color: black;
+    border: none;
+    border-bottom: 1px solid #e18047;
+    color: #fff;
+}
+
+.submit_btn{ 
+    background-color: #e18047;
+    color: black; 
+}

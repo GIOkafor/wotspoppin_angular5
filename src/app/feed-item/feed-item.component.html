@@ -1,0 +1,78 @@
+<div class="feed_item_container">
+	<button class="btn back_btn" (click)="goBack();">
+		<i class="fa fa-arrow-left" aria-hidden="true"></i>
+	</button>
+
+	<div class="feed_item" *ngIf="media">
+		<!-- feed item header section start -->
+		<div class="feed_item_header">
+			<div>	
+				<img class="uploader_image"  *ngIf="(media.userUid | userImageUrl | async) !== null" [src]="media.userUid | userImageUrl | async">
+				<img class="placeholder_image" *ngIf="(media.userUid | userImageUrl | async) == null" src="assets/profile-placeholder.jpg">
+
+				<a class="uploadedBy" [routerLink]="['/user-profile/', media.userUid]">{{media.displayName}}</a>
+			</div>
+
+			<!-- make this time set by cloud function -->
+			<span class="time">{{media.createdAt | timeAgoC | async}}</span>
+		</div>
+		<!-- feed item header section end -->
+
+		<!-- feed media start -->
+		<div class="media_container">
+			<!-- if media is image, show below -->
+			<div class="image_container"  *ngIf="media.type !== 'video/mp4' && media.type !== 'video/quicktime'" [style.background-image]="(media.url | imageSanitizer)" (dblclick)="likeMedia()">
+				<img *ngIf="media.type !== 'video/mp4' && media.type !== 'video/quicktime'" class="media_image" [src]="media.url" (dblclick)="likeMedia()">
+			</div>
+			<!-- if media is video, show below -->
+			<video *ngIf="media.type == 'video/mp4' || media.type == 'video/quicktime'" class="media_image" controls autoplay [src]="media.url" (dblclick)="likeMedia()"></video>
+
+			<!-- media footer - where all user actions stay - starts -->
+			<div class="media_footer">
+				<i class="fa fa-lg fa-heart-o" (click)="likeMedia();" *ngIf="!ifLiked(media);"></i>
+
+				<i class="fa fa-lg fa-heart" *ngIf="ifLiked(media);" (click)="unlike(media);"></i>
+
+				<!-- This hidden, no need because user can comment using textbox below
+					<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia(media.key);"></i>
+				-->
+			</div>
+			<!-- media footer end -->
+
+			<!-- media reactions - likes and comments -->
+			<div class="container reactions">
+				<div class="likes" *ngIf="media.likes">
+					<i class="fa fa-lg fa-heart" *ngIf="media.likes.count > 0"></i> {{media.likes.count}} likes
+				</div>
+
+				<div class="comments" *ngFor="let comment of media.comments | objToArray">
+					
+					<!-- Repeat section below for each comment -->
+
+					<div class="comment">
+						<span class="commenter_name">{{comment.displayName}}</span>
+						<span class="comment_text">{{comment.commentText}}</span>
+					</div>
+
+					<!-- end comment repeat -->
+				</div>
+			</div>
+			<!-- /media reactions - likes and comments -->
+
+		</div>
+		<!-- feed media end -->
+
+	</div>
+
+	<div class="input-group new_comment_container fixed-bottom">
+
+      <input type="text" class="form-control new_comment" placeholder="Enter new comment" aria-label="Enter new comment" #newComment>
+
+      <span class="input-group-btn">
+        <button class="btn btn-secondary new_comment_btn" type="button" (click)="postComment(newComment.value);">
+        	<i class="fa fa-paper-plane" aria-hidden="true"></i>
+        </button>
+      </span>
+
+    </div>
+</div>

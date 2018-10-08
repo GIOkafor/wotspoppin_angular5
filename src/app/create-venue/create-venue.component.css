@@ -1,0 +1,78 @@
+.top_nav{
+	background: black;
+    color: #e18047;
+    padding: 5px;
+    border-bottom: 1px solid #fff;
+}
+
+.createVenue{
+	padding: 10px;
+	height: 100%;
+	background: black;
+    color: #fff;
+}
+
+.createVenueForm{
+	padding-bottom: 65px;
+}
+
+.province_select{
+	background-color: #fff;
+	padding: 5px;
+	width: 33%;
+}
+
+.cta_btns .btn{
+	margin: 10px;
+}
+
+#imageUrl{
+	width: 100%;
+    text-align: center;
+    margin-top: 10px;
+}
+
+.venue-select{
+	display: inline-flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+.hours {
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-between;
+}
+.hours input[type="text"] {
+    width: 100px;
+}
+.hours input[type="time"]{
+    width: 98px;
+}
+.hours-input{
+    display: flex;
+    justify-content: space-between;
+    margin-top: 15px;
+}
+.hours-input .dow{
+    background-color: #fff;
+    padding-top: 10px;
+}
+.hours-input input[type="time"]{
+    width: 98px;
+}
+.add-time-btn, .remove{
+    color: #e18047;
+}
+
+.descriptionGroup{
+	display: flex;
+    flex-direction: column;
+}
+.descriptionGroup i{
+	color: #bbb;
+}
+
+.slider_container mat-slider{
+    background-color: #fff;
+}

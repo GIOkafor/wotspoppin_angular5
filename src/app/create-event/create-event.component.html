@@ -1,0 +1,137 @@
+<div class="top-nav fixed-top">
+	<i class="fa fa-chevron-left fa-lg" (click)="goBack()"></i>
+</div>
+
+<div class="create-event-component">
+	<h1>Create New Event</h1>
+
+	<form 
+		[formGroup]="eventForm" 
+		(ngSubmit)="newEvent(eventForm.value)">
+		<div class="form-group">
+			<label for="name">Name</label>
+			<input name="name" type="text" id="name" class="form-control" [formControl]="eventForm.controls['name']">
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['name'].valid && eventForm.controls['name'].touched"
+				class="bg-danger error">Event name is invalid</div>
+			<div *ngIf="eventForm.controls['name'].hasError('required') && eventForm.controls['name'].touched">Event name is required</div>
+		</div>
+
+		<div class="form-group dateContainer">
+			<label for="date">Date</label>
+			<input name="date" type="date" id="date" class="form-control" [formControl]="eventForm.controls['date']" min="today" required> 
+			<!-- <ngb-datepicker #dp [formControl]="eventForm.controls['date']" (navigate)="date = $event.next"></ngb-datepicker>-->
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['date'].valid && eventForm.controls['date'].touched"
+				class="bg-danger error">Please enter valid date</div>
+			<div *ngIf="eventForm.controls['date'].hasError('required') && eventForm.controls['date'].touched">Event date is required</div>
+		</div>
+
+		<div class="form-group">
+			<label for="startTime">Start Time</label>
+			<input type="time" [formControl]="eventForm.controls['startTime']" />
+		</div>
+
+		<div class="form-group">
+			<label for="description">Description</label>
+			<input name="description" type="text" id="description" class="form-control" [formControl]="eventForm.controls['description']" required>
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['description'].valid && eventForm.controls['description'].touched"
+				class="bg-danger error">Description is invalid</div>
+			<div *ngIf="eventForm.controls['description'].hasError('required') && eventForm.controls['description'].touched">Please enter short description of event</div>
+		</div>
+
+		<div class="form-group">
+			<label for="promoImage">Promo image</label>
+
+			<div class="promoImage_uploadType">
+				<span class="btn btn-secondary" (click)="imageSrc('url')">From Url</span>
+
+				<span class="btn btn-secondary" (click)="imageSrc('file')">Upload File</span>
+			</div>
+
+			<!-- Show this if they want to upload via image url -->
+			<input *ngIf="imageSource === 'url'" name="promoImage" type="text" id="promoImage" placeholder="www.imageurl.com" class="form-control" [formControl]="eventForm.controls['promoImage']" required>
+
+			<!-- Show this if they want to upload via file upload -->
+			<input *ngIf="imageSource === 'file'" id="imageUrl" name="imageUrl" type="file" (change)="detectFiles($event)"/>
+
+			<!-- error message display code -->
+			<div *ngIf="!eventForm.controls['promoImage'].valid && eventForm.controls['promoImage'].touched"
+				class="bg-danger error">PromoImage URL is invalid</div>
+			<div *ngIf="eventForm.controls['promoImage'].hasError('required') && eventForm.controls['promoImage'].touched">An image is required</div>
+		</div>
+
+		<div class="form-group">
+			<label>Event Location</label>
+
+			<input type="text" name="address" id="address" class="form-control" [formControl]="eventForm.controls['address']" required>
+		</div>
+
+		<div class="form-group">
+			<label>Event Type</label>
+
+			<div class="event_type_container">
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventType === 'preParty'}">
+				  <input class="form-check-input" type="radio" name="eventType" id="preParty" value="preParty" [formControl]="eventForm.controls['eventType']">
+				  <label class="form-check-label" for="preParty">
+				    Pre Party
+				  </label>
+				</div>
+
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventType === 'houseParty'}">
+				  <input class="form-check-input" type="radio" name="eventType" id="houseParty" value="houseParty" [formControl]="eventForm.controls['eventType']">
+				  <label class="form-check-label" for="houseParty">
+				    House Party
+				  </label>
+				</div>
+
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventType === 'afterParty'}">
+				  <input class="form-check-input" type="radio" name="eventType" id="afterParty" value="afterParty" [formControl]="eventForm.controls['eventType']">
+				  <label class="form-check-label" for="afterParty">
+				    After Party
+				  </label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label>Event Visibility</label>
+
+			<div class="event_visibility_container">
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventVisibility === 'public'}">
+				  <input class="form-check-input" type="radio" name="eventVisibility" id="publicEvent" value="public" [formControl]="eventForm.controls['eventVisibility']">
+				  <label class="form-check-label" for="publicEvent">
+				    Public
+				  </label>
+				</div>
+
+				<div class="form-check" [ngClass]="{'selected': eventForm.value.eventVisibility === 'private'}">
+				  <input class="form-check-input" type="radio" name="eventVisibility" id="privateEvent" value="private" [formControl]="eventForm.controls['eventVisibility']">
+				  <label class="form-check-label" for="privateEvent">
+				    Private
+				  </label>
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<label>Ticket Price</label>
+			<input class="form-control" type="number" name="ticketPrice" id="ticketPrice" [formControl]="eventForm.controls['ticketPrice']" required>
+		</div>
+
+		<!-- Form validation error message -->
+		<div *ngIf="!eventForm.valid && eventForm.touched" class="bg-danger">
+			<p>Form is invalid, please fill in all required fields</p>
+		</div>
+
+		<div class="btn_container">
+			<button [disabled]="!eventForm.valid" type="submit" class="btn btn-success">Submit</button>
+		</div>
+	</form>
+</div>
+
+<app-footer></app-footer>

@@ -1,0 +1,30 @@
+.reservations{
+	color: #fff;
+    padding-top: 15px;
+}
+
+h4{
+    text-align: center;
+    padding-top: 10px;
+}
+
+.card-header {
+    text-align: center;
+    font-size: 20px;
+}
+
+.btn-link{
+    width: 100%;
+    font-size: 20px;
+    text-decoration: none;
+    color: #be622f;
+    font-weight: bold;
+}
+
+.card-body{
+	background-color: #be622f;
+}
+
+.col{
+	text-align: center;
+}

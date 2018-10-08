@@ -1,0 +1,25 @@
+<div class="top_nav sticky-top">
+	<i class="fa fa-chevron-left" (click)="goBack()"></i>
+
+	<div class="title_text">
+		<h3>Payment Info</h3>
+	</div>
+</div>
+
+<div class="container payment_settings_component">
+	<form novalidate (ngSubmit)="buy($event)" [formGroup]="stripeTest">
+	  <label>Name On Card</label>
+	  <input type="text" formControlName="name" placeholder="Jane Doe">
+	  <ngx-stripe-card [options]="cardOptions" [elementsOptions]="elementsOptions"></ngx-stripe-card>
+
+	  <div class="submit_container">
+	  	<button class="btn" type="submit">
+		    UPDATE INFO
+		</button>
+	  </div>
+	</form>
+
+	<div class="spinner_cont">
+		<mat-spinner *ngIf="processing"></mat-spinner>
+	</div>
+</div>

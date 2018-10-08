@@ -1,0 +1,64 @@
+.menu_component{
+	background-color: black;
+	color: #e18047;
+}
+.top_nav{
+	background: black;
+  color: #e18047;
+  padding: 5px;
+  border-bottom: 1px solid #fff;
+	display: flex;
+	align-items: center;
+}
+.top_nav h4{
+	flex-grow: 2;
+	text-align: center;
+}
+
+.minimum_spend_container,
+.tip_edit_container,
+.tables_edit_container{
+	padding: 10px;
+}
+.minimum_spend_container h5,
+.tip_edit_container h5,
+.tables_edit_container h5{
+	text-align: justify;
+}
+.minimum_spend_container .input-group,
+.tip_edit_container .input-group,
+.tables_edit_container .input-group{
+	align-items: center !important;
+}
+/* Input field for updating value, may change to slider */
+.minimum_spend_container .min_spend_input,
+.tip_edit_container .min_spend_input,
+.tables_edit_container .min_spend_input{
+	background-color: transparent;
+	color: #e18047;
+	padding: 3px;
+	font-weight: 700;
+}
+.minimum_spend_container .spinner-div,
+.tip_edit_container .spinner-div,
+.tables_edit_container .spinner-div{
+	justify-content: center;
+  display: flex;
+	position: absolute;
+	width: 95%;
+	z-index: 1;
+}
+.tip_edit_container .fa{
+	margin-right: 10px;
+}
+
+.menu_items_container{
+	text-align: center;
+}
+
+.new_item input{
+	background-color: transparent;
+    color: #e18047;
+    text-align: center;
+    font-style: italic;
+}

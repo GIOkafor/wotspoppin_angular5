@@ -1,0 +1,16 @@
+<div class="attending_notif_container">
+	<div class="user_info" [routerLink]="['/user-profile/', notification.val.userUid]">
+		<img [src]="(notification.val.userUid | userImageUrl | async) ? (notification.val.userUid | userImageUrl | async) : 'assets/profile-placeholder.jpg'">
+		<span class="username">{{notification.val.userUid | userDisplayName | async}}</span>
+	</div>
+
+	<div class="going">
+		<span>Was at</span>
+		<span class="timeAgo">about {{notification.val.createdAt | timeAgoC | async}}</span>
+	</div>
+
+	<div class="place" [routerLink]="['/venue/', notification.val.goingTo]" *ngFor="let venue of (notification.val.goingTo | venueInfo | async)">
+		<img [src]="venue.imageUrl">
+		<span class="name">{{venue.name}}</span>
+	</div>
+</div>

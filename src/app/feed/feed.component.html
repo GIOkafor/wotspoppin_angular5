@@ -1,0 +1,103 @@
+<div class="feed_container">
+	<div class="feed_header navbar sticky-top" role="navigation">
+		
+		<div class="image-upload">
+		    <label for="file-input">
+		        <i class="fa fa-2x fa-camera" aria-hidden="true" type="file"></i>
+		    </label>
+
+		    <input id="file-input" type="file" (change)="detectFiles($event)"/>
+		</div>
+
+		<div class="image-upload">
+			<label for="video-input">
+				<i class="fa fa-2x fa-video-camera" aria-hidden="true" type="file"></i>
+			</label>
+
+			<input id="video-input" type="file" (change)="detectFiles($event)" accept="video/mp4,video/x-m4v,video/quicktime,video/mov,video/*"/>
+		</div>
+	</div>
+
+	<div class="feed_body">
+		
+		<!-- feed items container -->
+		<div class="feed_items">
+			
+			<!-- Individual feed item repeated -->
+			
+			<div class="feed_item" *ngFor="let item of feedItems | async">
+
+				<!-- Going out notification start  *ngIf="item.val.type === 'goingOut'"--> 
+					<div *ngIf="item.val.type == 'checkin'">
+						<app-attending-notification [notification]="item"></app-attending-notification>
+					</div>
+				<!-- Going out notification end -->
+
+				<!-- Show this section if its not going out notification --> 
+					<div *ngIf="item.val.type !== 'checkin'">
+						<!-- feed item header section start -->
+						<div class="feed_item_header">
+							<a [routerLink]="['/user-profile/', item.val.userUid]">	
+								<img class="uploader_image" *ngIf="(item.val.userUid | userImageUrl | async) !== null" [src]="item.val.userUid | userImageUrl | async">
+								<img class="placeholder_image" *ngIf="(item.val.userUid | userImageUrl | async) == null" src="assets/profile-placeholder.jpg">
+
+								<span class="uploadedBy">{{item.val.displayName}}</span>
+							</a>
+
+							<!-- make this time set by cloud function -->
+							<span class="time">{{item.val.createdAt | timeAgoC | async}}</span>
+						</div>
+						<!-- feed item header section end -->
+
+						<!-- feed media start -->
+						<div class="media_container">
+							<!-- if media is image, show below -->
+							<div class="image_container" *ngIf="item.val.type !== 'video/mp4' && item.val.type !== 'video/quicktime'" (dblclick)="likeMedia(item)" [style.background-image]="(item.val.url | imageSanitizer)">
+								<!-- <img *ngIf="item.val.type !== 'video/mp4' && item.val.type !== 'video/quicktime'" class="media_image" [src]="item.val.url" (dblclick)="likeMedia(item)"> -->
+							</div>
+							<!-- if media is video, show below -->
+							<video *ngIf="item.val.type == 'video/mp4' || item.val.type == 'video/quicktime'" class="media_image" controls [src]="item.val.url" (dblclick)="likeMedia(item)"></video>
+
+							<!-- media footer - where all user actions stay - starts -->
+							<div class="media_footer">
+								<i class="fa fa-lg fa-heart-o" (click)="likeMedia(item);" *ngIf="!ifLiked(item);"></i>
+
+								<i class="fa fa-lg fa-heart" *ngIf="ifLiked(item);" (click)="unlike(item);"></i>
+
+								<i class="fa fa-lg fa-comment-o" (click)="commentOnMedia(item.key);"></i>
+							</div>
+							<!-- media footer end -->
+
+							<!-- media reactions - likes and comments -->
+							<div class="container reactions">
+								<div class="likes" *ngIf="item.val.likes">
+									<i class="fa fa-lg fa-heart"></i> {{item.val.likes.count}} likes
+								</div>
+
+								<div class="comments" *ngFor="let comment of item.val.comments | objToArray; let last = last;">
+									
+									<!-- Show only first comment will, be changed to caption in the future -->
+									<div class="comment" *ngIf="last">
+										<span class="commenter_name">{{comment.displayName}}</span>
+										<span class="comment_text">{{comment.commentText}}</span>
+									</div>
+									<!-- end comment repeat -->
+							</div>
+							<!-- /media reactions - likes and comments -->
+						</div>
+					</div>
+				<!-- feed media end -->
+
+				
+			</div>
+			
+
+		</div>
+		<!-- Individual feed item ends -->
+
+	</div>
+	<!-- feed items container closes -->
+
+</div>
+
+<app-footer></app-footer>

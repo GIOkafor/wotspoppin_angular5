@@ -1,0 +1,92 @@
+.search_header{
+	background-color: black;
+    color: #ea7a3b;
+}
+
+.nav-item{
+	background-color: #4e2d0b;
+	border-radius: 0px;
+	color: #fff !important;
+}
+
+.nav-item.active{
+	background-color: #f47229;
+}
+
+.searchIcon{
+	float: right;
+}
+
+.list-group-item{
+	padding: 0px;
+	margin-bottom: 10px;
+	cursor: pointer;
+	box-shadow: 0px 5px 5px #888888;
+}
+
+.search-results-list{
+	background-color: #ecebec;
+	margin-bottom: 60px;
+}
+
+.list-group.search-results-list .empty_response{
+	background-color: black;
+	color: #fff;
+	padding: 10px;
+	text-align: center;
+}
+
+.map_results{
+	height: 100vh;
+}
+
+.map{
+	height: 425px;
+}
+
+.hidden_marker{
+	display: none;
+}
+
+.new_event_container .fa{
+	position: fixed;
+    right: 15px;
+    bottom: 70px;
+    color: #e18047;
+    cursor: pointer;
+}
+
+.custom_marker_icon{
+	height: 40px;
+}
+
+.display_window{
+    display: flex;
+    flex-direction: column;
+}
+
+.popover_container{
+    background-color: black;
+    color: #fff;
+}
+
+.legend_list{
+	list-style: none;
+	padding-left: 0px;
+	margin-bottom: 0px;
+}
+
+.legend{
+	border-bottom: 1px solid #e18047;
+	padding: 2.5px 10px;
+}
+
+.legend span{
+	margin-left: 10px;
+}
+
+@media and screen only (min-height: 650px) {
+	.map{
+		height: 525px;
+	}
+}
