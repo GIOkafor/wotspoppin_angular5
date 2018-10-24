@@ -8,10 +8,6 @@
     font-size: 20px;
 }
 
-.header .fa-times{
-    font-size: 30px;
-}
-
 .bottle_count{
 	width: 50px;
     border: 1px solid;
@@ -21,6 +17,9 @@
 .cartContents{
 	margin-top: 20px;
     margin-bottom: 20px;
+}
+.cartMsg{
+  padding: 5px;
 }
 
 .button_container{
@@ -32,6 +31,11 @@
     font-size: 20px;
 }
 
+.booths_available_container{
+  font-style: italic;
+  color: #ea7a3b;
+}
+
 .totalCost{
 	color: #2d2d2dcc;
     font-style: italic;
@@ -40,9 +44,34 @@
 
 .cartItem{
 	padding: 5px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+hr.cart_breakdown{
+  width: 85%;
+  align-self: center;
+}
+
+.breakdown_container{
+  padding: 0px 10px;
+}
+.breakdown_container div{
+  display: flex;
+  justify-content: space-between;
+}
+.breakdown_container div span.label{
+  color: #grey;
+}
+.breakdown_container .subtotal{
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.empty_cart{
+  text-align: center;
+  padding-bottom: 10px;
 }
 
 .place_order_btn{

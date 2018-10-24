@@ -1,0 +1,39 @@
+<basic-top-nav></basic-top-nav>
+
+<div class="venue-reservations-container">
+
+  <h3 class="component-title">Reservations</h3>
+
+  <div class="reservations-list" *ngIf="reservations">
+    <!-- {{reservations | json}} -->
+    <button type="button" name="button" (click)="getConfirmed()">Confirmed</button>
+    <button type="button" name="button" (click)="getPending()">Pending</button>
+    <button type="button" name="button" (click)="getRejected()">Rejected</button>
+    <button type="button" name="button" (click)="getAllReservations()">All</button>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Reservation Date</th>
+          <th>Value</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr class="reservation" *ngFor="let res of reservations" (click)="openDetailsDialog(res)">
+          <td>{{res.payload.val().date}}</td>
+          <td>${{(res.payload.val().order.totalValue).toFixed(2)}}</td>
+          <td [ngClass]="{
+            'text-danger': res.payload.val()?.status === 'rejected',
+            'text-success': res.payload.val()?.status === 'confirmed',
+            'text-warning': res.payload.val()?.status === 'pending'}">
+            {{(res.payload.val()?.status)?.toUpperCase()}}
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
+  </div>
+</div>
+
+<app-footer></app-footer>

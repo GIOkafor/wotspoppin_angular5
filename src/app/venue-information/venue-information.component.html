@@ -42,7 +42,13 @@
 			       			border-bottom: 1px solid #e18047;
 							padding: 2.5px 10px;
 			       		">
-			       			Menu & Reservations
+			       			Menu & Reservations Settings
+			       		</li>
+
+								<li class="legend" (click)="helpPO.hide();viewReservations();" style="
+									padding: 2.5px 10px;
+			       		">
+			       			View Reservations
 			       		</li>
 			       </ul>
 			   </div>
@@ -103,7 +109,7 @@
 
 		<!-- Venue CTA starts -->
 		<div class="cta">
-			<button class="btn make_rsrv" *ngIf="currentUser !== null && !isAdmin && venue.payload.val().venueType === 'club'" (click)="orderBottles()">Order Bottles</button>
+			<button class="btn make_rsrv" *ngIf="currentUser !== null && !isAdmin && venue.payload.val().venueType === 'club'" (click)="orderBottles()">Make Reservations</button>
 			<button class="btn buy_tickets" *ngIf="currentUser !== null && !isAdmin" (click)="buyTickets()">Buy Tickets</button>
 		</div>
 		<!-- Venue CTA end -->

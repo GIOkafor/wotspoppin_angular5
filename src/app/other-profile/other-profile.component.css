@@ -9,19 +9,19 @@
     float: right;
 }
 
-.fa{
+.fa, .fas{
     color: #e18047;
 }
 
-.other_profile_container{	
+.other_profile_container{
 	text-align: center;
 	background-color: black;
-    padding-bottom: 55px;
+  padding-bottom: 55px;
 }
 
 .user-image{
-    max-width: 50%;
-	max-height: 200px;
+  width: 150px;
+	max-height: 150px;
 	border-radius: 50%;
 }
 
@@ -95,7 +95,7 @@ span.username{
     color: #fff;
 }
 
-.submit_btn{ 
+.submit_btn{
     background-color: #e18047;
-    color: black; 
+    color: black;
 }

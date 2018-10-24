@@ -82,6 +82,8 @@ import { StripeTestComponent } from './stripe-test/stripe-test.component';
 import { BuyTicketsComponent } from './buy-tickets/buy-tickets.component';
 import { EditVenueComponent } from './edit-venue/edit-venue.component';
 import { BasicTopNavComponent } from './basic-top-nav/basic-top-nav.component';
+import { VenueReservationsComponent } from './venue-reservations/venue-reservations.component';
+import { VenueReservationDetailsComponent } from './venue-reservations/venue-reservation-details/venue-reservation-details.component';
 
 //services
 import { AuthService } from './services/auth.service';
@@ -107,6 +109,7 @@ import { UserDisplayNamePipe } from './pipes/user-display-name.pipe';
 import { InviteFilterPipe } from './pipes/invite-filter.pipe';
 import { EventInfoFilterPipe } from './pipes/event-info-filter.pipe';
 import { UserNameFilterPipe } from './pipes/user-name-filter.pipe';
+import { ImageSanitizerPipe } from './pipes/image-sanitizer.pipe';
 
 //guards
 import { PendingChangesGuard } from './guards/pending-changes.guard';
@@ -116,7 +119,6 @@ import { ModalHolderDirective } from './modal-holder/modal-holder.directive';
 
 //environment access
 import { environment } from './../environments/environment';
-import { ImageSanitizerPipe } from './pipes/image-sanitizer.pipe';
 
 const routes: Routes = [
   {
@@ -188,6 +190,10 @@ const routes: Routes = [
   {
     path: 'venue/:id/edit-menu',
     component: EditMenuComponent
+  },
+  {
+    path: 'venue/:id/venue-reservations',
+    component: VenueReservationsComponent
   },
   {
     path: 'venue/:id/check-in',
@@ -285,7 +291,9 @@ const routes: Routes = [
     BuyTicketsComponent,
     EditVenueComponent,
     BasicTopNavComponent,
-    ImageSanitizerPipe
+    ImageSanitizerPipe,
+    VenueReservationsComponent,
+    VenueReservationDetailsComponent
   ],
   imports: [
     BrowserModule,
@@ -332,7 +340,8 @@ const routes: Routes = [
     DeleteConfirmDialog,
     BottleServiceComponent,
     ReservationDetailsComponent,
-    BuyTicketsComponent
+    BuyTicketsComponent,
+    VenueReservationDetailsComponent
   ],
   providers: [
     AuthService,

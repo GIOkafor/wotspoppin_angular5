@@ -1,0 +1,49 @@
+<div class="venue-reservation-details-container">
+  <h2 mat-dialog-title>Reservation Details</h2>
+
+  <div class="reservation-details">
+    <div class="date">
+      <span class="label">Date: </span>
+      <span class="value">{{reservation.payload.val().date}}</span>
+    </div>
+
+    <div class="price">
+      <span class="label">Order Value: </span>
+      <span class="value">${{(reservation.payload.val().order.totalValue).toFixed(2)}}</span>
+    </div>
+
+    <div class="num-of-guest">
+      <span class="label">Guests: </span>
+      <span>{{reservation.payload.val().guests}}</span>
+    </div>
+
+    <div class="status">
+      <span class="label">Status: </span>
+      <span [ngClass]="{
+        'text-danger': reservation.payload.val()?.status === 'rejected',
+        'text-success': reservation.payload.val()?.status === 'confirmed',
+        'text-warning': reservation.payload.val()?.status === 'pending'}">{{(reservation.payload.val()?.status)?.toUpperCase()}}</span>
+    </div>
+  </div>
+
+  <div class="cta-btns-container">
+    <!-- this is shown if user has yet to respond to reservation -->
+    <div class="still-pending" *ngIf="reservation.payload.val()?.status === 'pending'">
+      <span>Confirm Reservation?</span>
+
+      <div class="cta-btns">
+        <button class="btn btn-danger reject-btn" (click)="rejectClose()">Reject</button>
+        <button class="btn btn-success accept-btn" (click)="acceptClose()">Confirm</button>
+      </div>
+
+      <span class="help-text">This confirms user reservation ..... once you confirm/reject it cannot be undone</span>
+    </div>
+
+    <!-- once they make a decision, hide action buttons -->
+    <div class="responded" *ngIf="reservation.payload.val()?.status !== 'pending'">
+      <button class="btn btn-danger" type="button" name="button" (click)="deleteReservation()">Delete Reservation</button>
+      <span class="help-text">This cannot be undone!</span>
+    </div>
+  </div>
+
+</div>

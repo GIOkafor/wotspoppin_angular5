@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, Inject, HostListener } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { Location } from '@angular/common';
-import { AngularFireDatabase } from 'angularfire2/database'; 
+import { AngularFireDatabase } from 'angularfire2/database';
 import {Observable} from 'rxjs/Rx';
 import 'rxjs/add/operator/switchMap';
 import { environment } from '../../environments/environment';
@@ -45,7 +45,7 @@ export class VenueInformationComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap
-      .switchMap((params: ParamMap) => 
+      .switchMap((params: ParamMap) =>
         this.db.object('Venues/'+params.get('id')).snapshotChanges())
         .subscribe(
           (venue: any) => {
@@ -89,7 +89,7 @@ export class VenueInformationComponent implements OnInit {
 
   attendEvent(){
     //prompt them first like are you sure? Your account is going to be charged
-    //process payment then redirect to their upcoming events view 
+    //process payment then redirect to their upcoming events view
     //this.dialog.open(UserPrompt, {data: this.spotlightEvent}); //pass event details to dialog
     this.hideDetails();
   }
@@ -106,7 +106,7 @@ export class VenueInformationComponent implements OnInit {
 
   //checks if current user is creator
   checkIfAdmin(){
-    
+
     //console.log("Value passed is: ", creator);
     if(this.currentUser.uid === this.venue.payload.val().createdBy)
       return true;
@@ -124,6 +124,11 @@ export class VenueInformationComponent implements OnInit {
   editMenu(){
     //console.log("Editing bottle service menu");
     this.router.navigate(['/venue', this.venue.key, 'edit-menu']);
+  }
+
+  //go to reservations
+  viewReservations(){
+    this.router.navigate(['/venue', this.venue.key, 'venue-reservations']);
   }
 
   //create event
@@ -158,7 +163,7 @@ export class VenueInformationComponent implements OnInit {
 //consider moving this into it's own file called eventConfirmComponent
 @Component({
   selector: 'prompt',
-  template: 
+  template:
   `
     <h2 md-dialog-title>Purchase ticket</h2>
     <md-dialog-content>Are you sure? Your card will be charged and you will be added to the guest list<md-dialog-content>
@@ -215,17 +220,17 @@ export class UserPrompt{
     }
 
   confirm(){
-    //charge user card 
+    //charge user card
     //add user to guest list
     //add to users list of upcoming events
     //then show this message
-    
+
     //check if user signed in
     if(this.user){
       console.log("User is authenticated, adding event: ", this.event.name);
 
       //charge user card
-      //function below returns a promise 
+      //function below returns a promise
       //either redirect to upcoming events page or stay on current page depending on the status of operation
       this.authSvc.chargeUser(this.user.uid)
         .then((res) => {
@@ -255,7 +260,7 @@ export class UserPrompt{
             //show pop-up here
             this.handlePayment();
           });
-          
+
         });
 
     }else{

@@ -23,6 +23,13 @@
 		<div class="price">Price: ${{reservation.payload.val().order.totalValue}}</div>
 
 		<div class="date">{{reservation.payload.val().date}}</div>
+
+		<div class="status" [ngClass]="{
+			'text-danger': reservation.payload.val()?.status === 'rejected',
+			'text-success': reservation.payload.val()?.status === 'confirmed',
+			'text-warning': reservation.payload.val()?.status === 'pending'}">
+			Status: {{(reservation.payload.val()?.status)?.toUpperCase()}}
+		</div>
 	</div>
 
 

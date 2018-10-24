@@ -55,14 +55,14 @@ export class TaxService {
 
   calculateTaxes(val, province): number{
     //takes a number and return the percentage tax based on input
-    console.log('Calculating taxes for order amounting to: ', val + 'belonging to user in: ' + province.value);
+    console.log('Calculating taxes for order amounting to: ', val + ' belonging to user in: ' + province.value);
 
     //first get rate
     var rate = this.getRate(province.short);
 
     //do calculation
     // taxes = r/100 * val
-    var taxes = ((rate * val) / 100);
+    var taxes = ((rate/ 100) * val);
 
     //display value to user
     console.log("Your taxes are: $", taxes);
